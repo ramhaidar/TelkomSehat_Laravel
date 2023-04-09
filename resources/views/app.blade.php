@@ -29,7 +29,9 @@
         }
 
         // if (window.innerWidth < 1464 || window.innerHeight < 949) {
-        if (window.innerWidth < 1280 || window.innerHeight < 648) {
+        // if (window.innerWidth < 1280 || window.innerHeight < 648) {
+        // if (window.innerWidth < 1360 || window.innerHeight < 610) {
+        if (window.innerWidth < 1270 || window.innerHeight < 610) {
             alert("Ukuran layar Anda terlalu kecil untuk mengakses situs web ini. Silakan perlebar ukuran web browser anda atau gunakan desktop mode. Tekan Ok untuk Reload");
             location.reload();
         }

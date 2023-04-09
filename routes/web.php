@@ -31,6 +31,12 @@ Route::get('/login', function () {
 Route::get('/dashboard-mahasiswa', [DashboardController::class, 'dashboard_mahasiswa'])
     ->name('dashboard-mahasiswa');
 
+Route::get('/dashboard-mahasiswa-reservasi', [DashboardController::class, 'dashboard_mahasiswa_reservasi'])
+    ->name('dashboard-mahasiswa-reservasi');
+
+Route::get('/dashboard-mahasiswa-konsultasi', [DashboardController::class, 'dashboard_mahasiswa_konsultasi'])
+    ->name('dashboard-mahasiswa-konsultasi');
+
 // Route::get('/dashboard-mahasiswa', function () {
 //     return view('dashboard.dashboard-mahasiswa');
 // })->name('dashboard-mahasiswa');

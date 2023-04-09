@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Dokter;
 use App\Models\Mahasiswa;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -91,6 +92,22 @@ class AwalanSeeder extends Seeder
             'email' => 'hiksal@student.telkomuniversity.ac.id',
             'password' => Hash::make("hiksal321"),
             'mahasiswaid' => $theID,
+        ]);
+
+        // —————————————————————————————————————————————————————————— //
+
+        $theID = Dokter::create([
+            'kodedokter' => 'FSV',
+            'username' => 'fanie',
+            'nomortelepon' => '628123456789',
+            'spesialis' => 'Dokter Gigi',
+        ])->id;
+
+        User::create([
+            'name' => 'Febriyanti Sthefanie',
+            'email' => 'sthefanie@telkomuniversity.ac.id',
+            'password' => Hash::make("fanie123"),
+            'dokterid' => $theID,
         ]);
     }
 }
