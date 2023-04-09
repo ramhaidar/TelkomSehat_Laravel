@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+@section('title', 'Beranda')
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+@extends('app')
 
-    <title>TelkomSehat | Beranda</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+@section('style')
+    <style>
+        #nodecoration {
+            text-decoration: none;
+        }
+    </style>
+@endsection
 
-    <!-- Favicons -->
-    <link href="{{ asset('favicon.ico') }}" rel="icon">
-    <link href="{{ asset('favicon.ico') }}" rel="apple-touch-icon">
-
-    {{-- <link rel="apple-touch-icon" sizes="180x180" href="assets_MDLB/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets_MDLB/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets_MDLB/img/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest"> --}}
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+@section('header')
     <!-- Vendor CSS Files -->
     <link href="assets_MDLB/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="assets_MDLB/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -33,12 +23,9 @@
 
     <!-- Template Main CSS File -->
     <link href="assets_MDLB/css/style.css" rel="stylesheet">
+@endsection
 
-    <!-- Bootstrap 5.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-</head>
-
-<body>
+@section('content')
 
     <!-- ======= Top Bar ======= -->
     <div id="topbar" class="d-flex align-items-center fixed-top">
@@ -60,7 +47,15 @@
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
 
-            <h1 class="logo me-auto"><a href="index.html">TelkomSehat</a></h1>
+            <h1 class="logo me-auto">
+                {{-- <a href="index.html">TelkomSehat</a> --}}
+
+                <a href="{{ route('beranda') }}" class="logo d-flex align-items-center w-auto" id="nodecoration">
+                    <img src="{{ asset('favicon.ico') }}" alt="">
+                    <span class="d-none ms-3 d-lg-block">TelkomSehat</span>
+                </a>
+            </h1>
+
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo me-auto"><img src="assets_MDLB/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -94,7 +89,15 @@
             </nav><!-- .navbar -->
 
             {{-- <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a> --}}
-            <a href="{{ route('login') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a>
+            {{-- <a href="{{ route('login') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a> --}}
+            @auth
+                @if ($users->mahasiswaid)
+                    <a class="btn btn-primary appointment-btn scrollto" href="{{ route('dashboard-mahasiswa') }}" role="button">Dashboard</a>
+                @endif
+            @endauth
+            @guest
+                <a class="btn btn-primary appointment-btn scrollto" href="{{ route('login') }}" role="button">Login</a>
+            @endguest
         </div>
     </header><!-- End Header -->
 
@@ -940,6 +943,4 @@
     <!-- Template Main JS File -->
     <script src="assets_MDLB/js/main.js"></script>
 
-</body>
-
-</html>
+@endsection
