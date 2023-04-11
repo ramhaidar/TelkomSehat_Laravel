@@ -1,4 +1,4 @@
-@section('title', 'Dashboard Mahasiswa')
+@section('title', 'Dashboard Dokter')
 
 @extends('app')
 
@@ -39,11 +39,11 @@
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
+                {{-- <li class="nav-item d-block d-lg-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
                         <i class="bi bi-search"></i>
                     </a>
-                </li><!-- End Search Icon-->
+                </li><!-- End Search Icon--> --}}
 
                 {{-- <li class="nav-item dropdown">
 
@@ -190,13 +190,15 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="assets_NADM/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $mahasiswa->username }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $dokter->username }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->name }}</h6>
-                            <span>{{ $mahasiswa->nim }}</span>
+                            <span>{{ $dokter->kodedokter }}</span>
+                            <br>
+                            <span>{{ $dokter->spesialis }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -253,10 +255,10 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                @if ($title == 'Dashboard Mahasiswa')
-                    <a class="nav-link " href="{{ route('dashboard-mahasiswa') }}">
+                @if ($title == 'Dashboard Dokter')
+                    <a class="nav-link " href="{{ route('dashboard-dokter') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter') }}">
                 @endif
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -265,9 +267,9 @@
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Reservasi')
-                    <a class="nav-link" href="{{ route('dashboard-mahasiswa-reservasi') }}">
+                    <a class="nav-link" href="{{ route('dashboard-dokter-reservasi') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa-reservasi') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter-reservasi') }}">
                 @endif
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Reservasi</span>
@@ -276,9 +278,9 @@
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Konsultasi')
-                    <a class="nav-link" href="{{ route('dashboard-mahasiswa-konsultasi') }}">
+                    <a class="nav-link" href="{{ route('dashboard-dokter-konsultasi') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa-konsultasi') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter-konsultasi') }}">
                 @endif
 
                 <i class="bi bi-chat-square-text"></i>
@@ -296,11 +298,11 @@
                             <i class="bi bi-circle"></i><span>Accordion</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="components-badges.html">
-                            <i class="bi bi-circle"></i><span>Badges</span>
-                        </a>
-                    </li>
+                    <li>{{  }}
+                        <a href="components-{{ badg }}es.html">
+                            <i class="bi bi-circle"></i><span>Badges</span>{{  }}
+                        </a>{{  }}
+                    </li>{{  }}
                     <li>
                         <a href="components-breadcrumbs.html">
                             <i class="bi bi-circle"></i><span>Breadcrumbs</span>

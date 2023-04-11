@@ -14,6 +14,7 @@
     <link href="{{ asset('favicon.ico') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Bootstrap 5.3 -->
@@ -21,6 +22,8 @@
 
     <!-- Icon Bootstrap v1.10.4 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+    @yield('header')
 
     <script>
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -37,8 +40,8 @@
         }
     </script>
 
-    @yield('header')
     @yield('script')
+
     @yield('style')
 </head>
 

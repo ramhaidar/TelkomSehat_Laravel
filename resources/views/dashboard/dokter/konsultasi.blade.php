@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Konsultasi')
 
-@extends('dashboard.mahasiswa.dashboard-mahasiswa-template')
+@extends('dashboard.dokter.dashboard-dokter-template')
 
 @if (isset($buatKonsultasi))
     @section('contentx')
@@ -21,12 +21,11 @@
                         <h5 class="card-title">Form Konsultasi</h5>
 
                         <!-- Horizontal Form -->
-                        <form method="POST" action="{{ route('dashboard.mahasiswa.konsultasi.action') }}">
-                            @csrf
+                        <form>
                             <div class="row mb-3">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Keluhan</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" style="height: 100px" name="keluhan"></textarea>
+                                    <textarea class="form-control" style="height: 100px"></textarea>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -59,88 +58,64 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
-                                <h5 class="card-title">Konsultasi Mahasiswa</h5>
+                                <h5 class="card-title">Konsultasi Dokter</h5>
                             </div>
                             <div class="col-6">
                                 <form method="POST" action="{{ route('dashboard.mahasiswa.konsultasi.action') }}">
                                     <input type="text" name="buatKonsultasi" hidden class="form-control" required value="{{ $user->id }}">
                                     {{-- <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded"><i class="bi bi-plus me-1"></i>Buat Reservasi</button> --}}
-                                    <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded" href="{{ route('dashboard-mahasiswa-konsultasi') }}"><i class="bi bi-chat-square-text"></i> Konsultasi</button>
+                                    {{-- <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded" href="{{ route('dashboard-mahasiswa-konsultasi') }}"><i class="bi bi-chat-square-text"></i> Konsultasi</button> --}}
                                     @csrf
                                 </form>
                             </div>
                         </div>
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        @if (isset($succes))
-                            <div class="alert alert-success">
-                                <ul>
-                                    {{-- @foreach ($errors->all() as $error) --}}
-                                    <li>{{ $succes }}</li>
-                                    {{-- @endforeach --}}
-                                </ul>
-                            </div>
-                        @endif
-
-                        <style>
-                            #teks-panjang {
-                                max-width: 500px;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                            }
-                        </style>
-
                         {{-- <h5 class="card-title">Reservasi Mahasiswa</h5>
                         <button type="button" class="btn btn-primary mb-3 mt-0 float-end"><i class="bi bi-plus me-1"></i> Buat Reservasi</button> --}}
                         <table class="table table-borderless datatable">
                             <thead>
                                 <tr>
-                                    <th scope="col">Konsultasi</th>
-                                    <th scope="col">Jawaban</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Keluhan</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($dataKonsultasi as $data)
                                     <tr>
+                                        <td>{{ $data->mahasiswa->user->name }}</td>
                                         <td>{{ $data->keluhan }}</td>
                                         <td>
-                                            @if (isset($data->jawaban))
-                                                <button style="width: 100px" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
-                                                    Jawaban
-                                                </button>
+                                            <form method="POST" action="{{ route('dashboard.dokter.konsultasi.action') }}">
+                                                @csrf
+                                                <input type="text" name="konsultasiID" hidden class="form-control" required value="{{ $data->id }}">
 
-                                                <div class="modal fade" id="ModalJawaban{{ $loop->iteration }}" tabindex="-1" aria-labelledby="ModalJawabanLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                <button type="button" class="btn btn-primary mb-0 mt-0 float-end shadow rounded" data-bs-toggle="modal" data-bs-target="#KonsulatsiModal{{ $loop->iteration }}"><i class="bi bi-chat-square-text"></i></button>
+
+                                                <div class="modal fade" id="KonsulatsiModal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="KonsulatsiModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="ModalJawabanLabel">Jawaban</h1>
+                                                                <h1 class="modal-title fs-5" id="KonsulatsiModalLabel">Balas Keluhan</h1>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                {{ $data->jawaban }}
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                                    <input type="text" class="form-control" id="recipient-name" disabled value="{{ $data->mahasiswa->user->name }}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="message-text" class="col-form-label">Message:</label>
+                                                                    <textarea style="height: 200px" class="form-control" id="message-text" name="jawaban"></textarea>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Send message</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- <p class="text-primary" id="teks-panjang" data-bs-toggle="modal" data-bs-target="#ModalJawaban">{{ $data->jawaban }}</p> --}}
-                                            @else
-                                                <button style="width: 100px" disabled type="button" class="btn btn-secondary">
-                                                    <i class="bi bi-dash-lg"></i>
-                                                </button>
-                                            @endif
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

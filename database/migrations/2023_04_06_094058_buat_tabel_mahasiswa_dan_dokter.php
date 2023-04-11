@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->string('nim')->unique();
             $table->string('username')->unique();
             $table->string('nomortelepon')->unique();
+            $table->unsignedBigInteger('userid')->nullable();
+            $table->foreign('userid')->references('id')->on('users');
             $table->timestamps();
         });
 
@@ -24,6 +26,8 @@ return new class extends Migration {
             $table->string('username')->unique();
             $table->string('nomortelepon')->unique();
             $table->string('spesialis');
+            $table->unsignedBigInteger('userid')->nullable();
+            $table->foreign('userid')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -33,6 +37,16 @@ return new class extends Migration {
      */
     public function down(): void
     {
+        Schema::table('mahasiswa', function (Blueprint $table) {
+            $table->dropForeign(['userid']);
+            $table->dropColumn('userid');
+        });
+
+        Schema::table('dokter', function (Blueprint $table) {
+            $table->dropForeign(['userid']);
+            $table->dropColumn('userid');
+        });
+
         Schema::dropIfExists('mahasiswa');
         Schema::dropIfExists('dokter');
     }

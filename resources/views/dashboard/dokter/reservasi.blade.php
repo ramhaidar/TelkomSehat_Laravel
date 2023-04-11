@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Reservasi')
 
-@extends('dashboard.mahasiswa.dashboard-mahasiswa-template')
+@extends('dashboard.dokter.dashboard-dokter-template')
 
 @if (isset($buatReservasi))
     @section('contentx')
@@ -34,8 +34,8 @@
 
                             <!-- General Form Elements -->
                             <form method="POST" action="{{ route('dashboard.mahasiswa.reservasi.action') }}">
-                                <input type="text" name="buatReservasi" hidden class="form-control" required value="{{ $user->id }}">
                                 @csrf
+                                <input type="text" name="buatReservasi" hidden class="form-control" required value="{{ $user->id }}">
                                 {{-- <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Nama Lengkap</label>
                                     <div class="col-sm-10">
@@ -78,11 +78,11 @@
                                     <div class="col-sm-10">
                                         <select class="form-select" name="dokter">
                                             <option selected="">Pilih Dokter</option>
-                                            <option value="Dokter Gigi">Dokter Gigi</option>
-                                            <option value="Dokter Umum">Dokter Umum</option>
-                                            <option value="Dokter Kulit">Dokter Kulit</option>
-                                            <option value="Dokter Psikiater">Psikiater</option>
-                                            <option value="Dokter THT">Dokter THT</option>
+                                            <option value="Gigi">Dokter Gigi</option>
+                                            <option value="Umum">Dokter Umum</option>
+                                            <option value="Kulit">Dokter Kulit</option>
+                                            <option value="Psikiater">Psikiater</option>
+                                            <option value="THT">Dokter THT</option>
                                         </select>
                                     </div>
                                 </div>
@@ -250,16 +250,16 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
-                                <h5 class="card-title">Reservasi Mahasiswa</h5>
+                                <h5 class="card-title">Reservasi Dokter</h5>
                             </div>
 
-                            <div class="col-6">
+                            {{-- <div class="col-6">
                                 <form method="POST" action="{{ route('dashboard.mahasiswa.reservasi.action') }}">
                                     <input type="text" name="buatReservasi" hidden class="form-control" required value="{{ $user->id }}">
-                                    <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded" href="{{ route('dashboard-mahasiswa-reservasi') }}"><i style="padding-right: 10px" class="bi bi-calendar2-plus"></i>Buat Reservasi</button>
+                                    <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded" href="{{ route('dashboard-mahasiswa-reservasi') }}"><i class="bi bi-plus me-1"></i>Buat Reservasi</button>
                                     @csrf
                                 </form>
-                            </div>
+                            </div> --}}
                         </div>
 
                         @if ($errors->any())
@@ -290,16 +290,15 @@
                                     <th scope="col">Keluhan</th>
                                     <th scope="col">Tanggal</th>
                                     <th scope="col">Jam</th>
-                                    <th scope="col">Dokter</th>
-                                    <th scope="col">Spesialis</th>
-                                    <th scope="col">Status</th>
+                                    {{-- <th scope="col">Status</th> --}}
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($dataReservasi as $data)
                                     <tr>
-                                        <th scope="row"><a class="text-primary">{{ $user->mahasiswa->nim }}</a></th>
-                                        <td>{{ $user->name }}</td>
+                                        <th scope="row"><a class="text-primary">{{ $data->mahasiswa->nim }}</a></th>
+                                        <td>{{ $data->mahasiswa->user->name }}</td>
                                         <td><a class="text-primary">{{ $data->keluhan }}</a></td>
                                         <td>{{ $data->tanggal }}</td>
                                         @if ($data->waktu == '8')
@@ -320,23 +319,47 @@
                                             <td>15:00 - 16:00</td>
                                         @endif
 
-                                        @if (isset($data->dokterid))
-                                            <td><a class="text-primary">{{ $data->dokter->user->name }}</a></td>
-                                        @else
-                                            <td><i class="bi bi-dash-lg"></i><i class="bi bi-dash-lg"></i><i class="bi bi-dash-lg"></i></td>
-                                        @endif
-
-                                        <td>{{ $data->spesialis }}</td>
-
-                                        @if (strtotime($data->tanggal) < strtotime(now()))
+                                        {{-- @if (strtotime($data->tanggal) < strtotime(now()))
                                             <td><span class="badge bg-danger">Rejected</span></td>
                                         @elseif (isset($data->dokterid))
                                             <td><span class="badge bg-success">Approved</span></td>
                                         @elseif (!isset($data->dokterid))
                                             <td><span class="badge bg-warning">Pending</span></td>
-                                        @endif
+                                        @endif --}}
+
+                                        <td>
+                                            <form method="POST" action="{{ route('dashboard.dokter.reservasi.action') }}">
+                                                @csrf
+                                                <input type="text" name="reservasiID" hidden class="form-control" required value="{{ $data->id }}">
+
+                                                <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#ApproveConfirmation{{ $loop->iteration }}" href="{{ route('dashboard-mahasiswa-konsultasi') }}">
+                                                    <i class="bi bi-check-circle"></i>
+                                                    <span style="padding-left: 10px">Approve</span>
+                                                </button>
+                                                {{-- <button class="btn btn-primary mb-0 mt-0 float-end shadow rounded" href="{{ route('dashboard-mahasiswa-konsultasi') }}"><i class="bi bi-chat-square-text"></i><span>Approve</span></button> --}}
+
+                                                <div class="modal fade" id="ApproveConfirmation{{ $loop->iteration }}" tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="LabelModal">Konfirmasi</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Apakah Anda yakin ingin menyetujui reservasi {{ $data->mahasiswa->user->name }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button class="btn btn-primary">Approve</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
+
                                 {{-- <tr>
                                     <th scope="row"><a href="#">#2457</a></th>
                                     <td>Brandon Jacob</td>

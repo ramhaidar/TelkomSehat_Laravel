@@ -110,13 +110,13 @@ h6 {
 /*--------------------------------------------------------------
 # Top Bar
 --------------------------------------------------------------*/
-#topbar {
+/* #topbar {
   background: #fff;
   height: 40px;
   font-size: 14px;
   transition: all 0.5s;
   z-index: 996;
-}
+} */
 
 #topbar.topbar-scrolled {
   top: -40px;
@@ -167,7 +167,7 @@ h6 {
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
-  top: 40px;
+
   box-shadow: 0px 2px 15px rgba(25, 119, 204, 0.1);
 }
 
@@ -199,6 +199,18 @@ h6 {
 .appointment-btn {
   margin-left: 25px;
   background: #1977cc;
+  color: #fff;
+  border-radius: 50px;
+  padding: 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.appointment-btn-red {
+  margin-left: 25px;
+  background: #ff0000;
   color: #fff;
   border-radius: 50px;
   padding: 8px 25px;
@@ -462,7 +474,7 @@ h6 {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  height: 90vh;
+  height: 85vh;
   background: url("../img/hero-bg.jpg") top center;
   background-size: cover;
   margin-bottom: -200px;
@@ -474,7 +486,7 @@ h6 {
 
 #hero h1 {
   margin: 0;
-  font-size: 48px;
+  font-size: 55px;
   font-weight: 700;
   line-height: 56px;
   text-transform: uppercase;
@@ -484,7 +496,7 @@ h6 {
 #hero h2 {
   color: #2c4964;
   margin: 10px 0 0 0;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 #hero .btn-get-started {
@@ -1723,7 +1735,7 @@ section {
 
 #footer .credits {
   padding-top: 5px;
-  font-size: 13px;
+  font-size: 12px;
   color: #444444;
 }
 

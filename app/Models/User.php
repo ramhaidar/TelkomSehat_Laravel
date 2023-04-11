@@ -53,6 +53,6 @@ class User extends Authenticatable
 
     public function dokter(): HasOne
     {
-        return $this->hasOne(Dokter::class);
+        return $this->hasOne(Dokter::class, 'id', 'dokterid');
     }
 }

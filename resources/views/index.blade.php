@@ -27,22 +27,6 @@
 
 @section('content')
 
-    <!-- ======= Top Bar ======= -->
-    <div id="topbar" class="d-flex align-items-center fixed-top">
-        <div class="container d-flex justify-content-between">
-            {{-- <div class="contact-info d-flex align-items-center">
-                <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-                <i class="bi bi-phone"></i> +1 5589 55488 55
-            </div>
-            <div class="d-none d-lg-flex social-links align-items-center">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-            </div> --}}
-        </div>
-    </div>
-
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
@@ -71,8 +55,11 @@
             {{-- <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a> --}}
             {{-- <a href="{{ route('login') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a> --}}
             @auth
+                <a class="btn btn-danger appointment-btn-red" href="{{ route('logout.action') }}" role="button">Sign-Out</a>
                 @if ($users->mahasiswaid)
-                    <a class="btn btn-primary appointment-btn scrollto" href="{{ route('dashboard-mahasiswa') }}" role="button">Dashboard</a>
+                    <a class="btn btn-primary appointment-btn" href="{{ route('dashboard-mahasiswa') }}" role="button">Dashboard</a>
+                @elseif ($users->dokterid)
+                    <a class="btn btn-primary appointment-btn" href="{{ route('dashboard-dokter') }}" role="button">Dashboard</a>
                 @endif
             @endauth
             @guest
@@ -84,7 +71,7 @@
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex align-items-center">
         <div class="container">
-            <h1><b>Welcome to TelkomSehat</b></h1>
+            <h1>Welcome to TelkomSehat</h1>
             <h2>Sehatkan Hidupmu dengan TelkomSehat, Solusi Kesehatan Digitalmu!</h2>
             {{-- <a href="#about" class="btn-get-started scrollto">Get Started</a> --}}
         </div>
@@ -233,33 +220,33 @@
                     <div class="col-lg col-md-6 footer-links">
                         <iframe style="border:0; width: 100%; height: 350px;" src="https://maps.google.com/maps?q=klinik telkomedika telkom unviersity&t=&z=16&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"" frameborder="0" allowfullscreen></iframe>
                         <!-- <h4>Useful Links</h4>
-                                                                                                                                                                                                                                                                        <ul>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                                                                                                                                                                                                                                                                        </ul> -->
+                                                                                                                                                                                                                                                                                                                    <ul>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                                                                                                                                                                                                                                                                                                                    </ul> -->
                     </div>
 
                     <!-- <div class="col-lg-3 col-md-6 footer-links">
-                                                                                                                                                                                                                                                                        <h4>Our Services</h4>
-                                                                                                                                                                                                                                                                        <ul>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                                                                                                                                                                                                                                                                        </ul>
-                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                    <h4>Our Services</h4>
+                                                                                                                                                                                                                                                                                                                    <ul>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                </div>
 
-                                                                                                                                                                                                                                                                    <div class="col-lg-4 col-md-6 footer-newsletter">
-                                                                                                                                                                                                                                                                        <h4>Join Our Newsletter</h4>
-                                                                                                                                                                                                                                                                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                                                                                                                                                                                                                                                                        <form action="" method="post">
-                                                                                                                                                                                                                                                                            <input type="email" name="email"><input type="submit" value="Subscribe">
-                                                                                                                                                                                                                                                                        </form>
-                                                                                                                                                                                                                                                                    </div>  -->
+                                                                                                                                                                                                                                                                                                                <div class="col-lg-4 col-md-6 footer-newsletter">
+                                                                                                                                                                                                                                                                                                                    <h4>Join Our Newsletter</h4>
+                                                                                                                                                                                                                                                                                                                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                                                                                                                                                                                                                                                                                                                    <form action="" method="post">
+                                                                                                                                                                                                                                                                                                                        <input type="email" name="email"><input type="submit" value="Subscribe">
+                                                                                                                                                                                                                                                                                                                    </form>
+                                                                                                                                                                                                                                                                                                                </div>  -->
 
                 </div>
             </div>
