@@ -12,7 +12,7 @@
     <link href="assets_NADM/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets_NADM/vendor/simple-datatables/style.css" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
+    <!-- Main CSS File -->
     <link href="assets_NADM/css/style.css" rel="stylesheet">
 @endsection
 
@@ -549,7 +549,7 @@
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Vendor JS Files -->
+    <!-- Vendor JS -->
     <script src="assets_NADM/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="assets_NADM/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets_NADM/vendor/chart.js/chart.umd.js"></script>
@@ -559,7 +559,7 @@
     <script src="assets_NADM/vendor/tinymce/tinymce.min.js"></script>
     <script src="assets_NADM/vendor/php-email-form/validate.js"></script>
 
-    <!-- Template Main JS File -->
+    <!-- Main JS -->
     <script src="assets_NADM/js/main.js"></script>
 
 @endsection

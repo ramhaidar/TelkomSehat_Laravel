@@ -2,8 +2,25 @@
 
 @extends('dashboard.mahasiswa.dashboard-mahasiswa-template')
 
+@section('style')
+    <style>
+        #teksPanjang {
+            max-width: 500px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #jorokKanan {
+            text-align: right;
+            height: 1px;
+        }
+    </style>
+@endsection
+
 @if (isset($buatKonsultasi))
     @section('contentx')
+        <!-- ======= Breadcrumb Konsultasi Mahasiswa ======= -->
         <div class="pagetitle">
             <h1>Konsultasi</h1>
             <nav>
@@ -12,15 +29,15 @@
                     <li class="breadcrumb-item active">Konsultasi</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
+        <!-- ======= Breadcrumb Konsultasi Mahasiswa ======= -->
 
+        <!-- ======= Form Konsultasi Mahasiswa ======= -->
         <section class="section konsultasi">
             <div class="col-12">
                 <div class="card recent-sales shadow rounded overflow-auto">
                     <div class="card-body">
                         <h5 class="card-title">Form Konsultasi Mahasiswa</h5>
-
-                        <!-- Horizontal Form -->
                         <form method="POST" action="{{ route('dashboard.mahasiswa.konsultasi.action') }}">
                             @csrf
                             <div class="row mb-3">
@@ -36,14 +53,15 @@
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary shadow rounded">Submit</button>
                             </div>
-                        </form><!-- End Horizontal Form -->
-
+                        </form>
                     </div>
                 </div>
             </div>
         </section>
     @endsection
+    <!-- ======= End Form Konsultasi Mahasiswa ======= -->
 @else
+    <!-- ======= Breadcrumb Konsultasi Mahasiswa ======= -->
     @section('contentx')
         <div class="pagetitle">
             <h1>Konsultasi</h1>
@@ -53,13 +71,13 @@
                     <li class="breadcrumb-item active">Konsultasi</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
+        <!-- ======= End Breadcrumb Konsultasi Mahasiswa ======= -->
 
+        <!-- ======= Konsultasi Mahasiswa ======= -->
         <section class="section profile">
-            <!-- Recent Sales -->
             <div class="col-12">
                 <div class="card recent-sales overflow-auto">
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
@@ -68,7 +86,6 @@
                             <div class="col-6">
                                 <form method="POST" action="{{ route('dashboard.mahasiswa.konsultasi.action') }}">
                                     <input type="text" name="buatKonsultasi" hidden class="form-control" required value="{{ $user->id }}">
-                                    {{-- <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded"><i class="bi bi-plus me-1"></i>Buat Reservasi</button> --}}
                                     <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded" href="{{ route('dashboard-mahasiswa-konsultasi') }}"><i class="bi bi-chat-square-text"></i> Konsultasi</button>
                                     @csrf
                                 </form>
@@ -85,32 +102,12 @@
                             </div>
                         @endif
 
-                        @if (isset($success))
+                        @if (session('success'))
                             <div class="alert alert-success">
-                                <ul>
-                                    {{-- @foreach ($errors->all() as $error) --}}
-                                    <li>{{ $success }}</li>
-                                    {{-- @endforeach --}}
-                                </ul>
+                                {{ session('success') }}
                             </div>
                         @endif
 
-                        <style>
-                            #teksPanjang {
-                                max-width: 500px;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                            }
-
-                            #jorokKanan {
-                                text-align: right;
-                                height: 1px;
-                            }
-                        </style>
-
-                        {{-- <h5 class="card-title">Reservasi Mahasiswa</h5>
-                        <button type="button" class="btn btn-primary mb-3 mt-0 float-end"><i class="bi bi-plus me-1"></i> Buat Reservasi</button> --}}
                         <table class="table table-borderless datatable">
                             <thead>
                                 <tr>
@@ -166,11 +163,10 @@
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
-
                 </div>
-            </div><!-- End Recent Sales -->
+            </div>
         </section>
+        <!-- ======= End Konsultasi Mahasiswa ======= -->
     @endsection
 @endif

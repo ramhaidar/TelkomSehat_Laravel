@@ -143,5 +143,8 @@ Route::get('/data-penjemputan', function () {
 
 Route::get('/data/{id}', function ($id) {
     $data = Penjemputan::where('id', $id)->get();
+    if (!isset($data)) {
+        return md5("Kosong");
+    }
     return md5($data);
 });
