@@ -1,4 +1,4 @@
-@section('title', 'Dashboard Mahasiswa')
+@section('title', 'Dashboard Paramedis')
 
 @extends('app')
 
@@ -190,13 +190,13 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="assets_NADM/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $mahasiswa->username }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $paramedis->username }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->name }}</h6>
-                            <span>{{ $mahasiswa->nim }}</span>
+                            <span>{{ $paramedis->kodeParamedis }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -253,17 +253,17 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                @if ($title == 'Dashboard Mahasiswa')
-                    <a class="nav-link " href="{{ route('dashboard-mahasiswa') }}">
+                @if ($title == 'Dashboard Paramedis')
+                    <a class="nav-link " href="{{ route('dashboard-paramedis') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-paramedis') }}">
                 @endif
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 @if ($title == 'Dashboard Reservasi')
                     <a class="nav-link" href="{{ route('dashboard-mahasiswa-reservasi') }}">
                     @else
@@ -284,17 +284,13 @@
                 <i class="bi bi-chat-square-text"></i>
                 <span>Konsultasi</span>
                 </a>
-            </li>
-
-            <li class="nav-heading">
-                <div class="border-top border-secondary border-1 my-3"></div>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Penjemputan')
-                    <a class="nav-link" href="{{ route('dashboard-mahasiswa-penjemputan') }}">
+                    <a class="nav-link" href="{{ route('dashboard-paramedis-penjemputan') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa-penjemputan') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-paramedis-penjemputan') }}">
                 @endif
 
                 <i class="bi bi-truck-front"></i>

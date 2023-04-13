@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Penjemputan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -44,6 +45,16 @@ Route::post(
 )->name('dashboard.mahasiswa.konsultasi.action');
 
 Route::get(
+    '/dashboard-mahasiswa-penjemputan',
+    [DashboardController::class, 'dashboard_mahasiswa_penjemputan']
+)->name('dashboard-mahasiswa-penjemputan');
+
+Route::post(
+    '/dashboard-mahasiswa-penjemputan',
+    [DashboardController::class, 'dashboard_mahasiswa_penjemputan_action']
+)->name('dashboard.mahasiswa.penjemputan.action');
+
+Route::get(
     '/dashboard-mahasiswa-test',
     [DashboardController::class, 'dashboard_mahasiswa_test']
 )->name('dashboard-mahasiswa-test');
@@ -80,11 +91,29 @@ Route::get(
     [DashboardController::class, 'dashboard_dokter_test']
 )->name('dashboard-dokter-test');
 
+// -- Paramedis -- //
+
+Route::get(
+    '/dashboard-paramedis',
+    [DashboardController::class, 'dashboard_paramedis']
+)->name('dashboard-paramedis');
+
+Route::get(
+    '/dashboard-paramedis-penjemputan',
+    [DashboardController::class, 'dashboard_paramedis_penjemputan']
+)->name('dashboard-paramedis-penjemputan');
+
+Route::post(
+    '/dashboard-paramedis-penjemputan',
+    [DashboardController::class, 'dashboard_paramedis_penjemputan_action']
+)->name('dashboard.paramedis.penjemputan.action');
+
 // --- Login -- //
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get(
+    '/login',
+    [UserController::class, 'login']
+)->name('login');
 
 Route::post(
     '/login',
@@ -104,3 +133,15 @@ Route::get(
     '/logout',
     [UserController::class, 'logout_action']
 )->name('logout.action');
+
+// -- Ajax Test -- //
+Route::get('/data-penjemputan', function () {
+    // $data = Penjemputan::where('id', $id)->first();
+    $data = Penjemputan::get()->all();
+    return response()->json($data);
+});
+
+Route::get('/data/{id}', function ($id) {
+    $data = Penjemputan::where('id', $id)->get();
+    return md5($data);
+});

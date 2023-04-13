@@ -43,7 +43,7 @@
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo me-auto"><img src="assets_MDLB/img/logo.png" alt="" class="img-fluid"></a>-->
 
-            <nav id="navbar" class="navbar order-last order-lg-0">
+            <nav id="navbar" class="navbar order-last order-lg-0" style="padding-right: 25px">
                 <ul>
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
@@ -55,15 +55,17 @@
             {{-- <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a> --}}
             {{-- <a href="{{ route('login') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a> --}}
             @auth
-                <a class="btn btn-danger appointment-btn-red" href="{{ route('logout.action') }}" role="button">Sign-Out</a>
+                <a class="btn btn-danger appointment-btn-red shadow float-end" href="{{ route('logout.action') }}" role="button">Sign-Out</a>
                 @if ($users->mahasiswaid)
-                    <a class="btn btn-primary appointment-btn" href="{{ route('dashboard-mahasiswa') }}" role="button">Dashboard</a>
+                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-mahasiswa') }}" role="button">Dashboard</a>
                 @elseif ($users->dokterid)
-                    <a class="btn btn-primary appointment-btn" href="{{ route('dashboard-dokter') }}" role="button">Dashboard</a>
+                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-dokter') }}" role="button">Dashboard</a>
+                @elseif ($users->paramedisid)
+                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-paramedis') }}" role="button">Dashboard</a>
                 @endif
             @endauth
             @guest
-                <a class="btn btn-primary appointment-btn scrollto" href="{{ route('login') }}" role="button">Login</a>
+                <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('login') }}" role="button">Login</a>
             @endguest
         </div>
     </header><!-- End Header -->
@@ -140,7 +142,7 @@
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                         <div class="icon-box">
                             <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                            <h4><a href="">Cek Kesehatan</a></h4>
+                            <h4><a>Cek Kesehatan</a></h4>
                             <p>Melakukan cek kondisi kesehatan melalui pengisian data atau tes kesehatan untuk mengetahui tanda-tanda penyakit atau kelainan.</p>
                         </div>
                     </div>
@@ -148,7 +150,7 @@
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
                         <div class="icon-box">
                             <div class="icon"><i class="fas fa-pills"></i></div>
-                            <h4><a href="">Pesan Obat</a></h4>
+                            <h4><a>Pesan Obat</a></h4>
                             <p>Mengajukan permintaan atau memesan obat secara online kepada apoteker atau dokter, sesuai dengan resep atau kebutuhan pribadi.</p>
                         </div>
                     </div>
@@ -156,7 +158,7 @@
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
                         <div class="icon-box">
                             <div class="icon"><i class="fas fa-hospital-user"></i></div>
-                            <h4><a href="">Konsultasi Dokter</a></h4>
+                            <h4><a>Konsultasi Dokter</a></h4>
                             <p>Konsultasi dengan dokter atau tenaga medis profesional untuk mendapatkan konsultasi medis, diagnosis, atau rekomendasi pengobatan.</p>
                         </div>
                     </div>
@@ -164,7 +166,7 @@
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box">
                             <div class="icon"><i class="fas fa-dna"></i></div>
-                            <h4><a href="">Donor Darah</a></h4>
+                            <h4><a>Donor Darah</a></h4>
                             <p>Relawan donor darah dan memberikan sumbangan darah kepada mereka yang membutuhkan.</p>
                         </div>
                     </div>
@@ -172,7 +174,7 @@
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box">
                             <div class="icon"><i class="fas fa-wheelchair"></i></div>
-                            <h4><a href="">Antar-Jemput</a></h4>
+                            <h4><a>Antar-Jemput</a></h4>
                             <p>Layanan antar-jemput pasien atau pengantar obat dari Telkom Medika, untuk memastikan kebutuhan medis terpenuhi dengan nyaman dan efisien.</p>
                         </div>
                     </div>
@@ -180,7 +182,7 @@
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box">
                             <div class="icon"><i class="fas fa-notes-medical"></i></div>
-                            <h4><a href="">Laboratorium</a></h4>
+                            <h4><a>Laboratorium</a></h4>
                             <p>Pemeriksaan tes medis, seperti tes darah, urin, atau radiologi, untuk membantu dalam diagnosis atau pengelolaan kondisi kesehatan pasien.</p>
                         </div>
                     </div>
@@ -195,9 +197,9 @@
     <!-- ======= Footer ======= -->
 
     <section id="contact" class="contact">
-        <div class="footer-top" id="contact">
-            <div class="container">
-                <div class="section-title">
+        <div class="footer-top mb-5">
+            <div class="container mb-5">
+                <div class="section-title mb-5">
                     <h2>Contact</h2>
                     <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
                 </div>
@@ -210,7 +212,7 @@
                             Jl. Telekomunikasi <br>
                             Sukapura, Dayeuhkolot<br>
                             Bandung Regency, West Java 40257<br>
-                            Indonesia <br><br><br><br>
+                            Indonesia <br><br>
                             <strong>Phone:</strong> 022 - 287310575<br>
                             <strong>Email:</strong> cs@telkomedika.co.id<br>
                         </p>
@@ -218,35 +220,35 @@
                     </div>
 
                     <div class="col-lg col-md-6 footer-links">
-                        <iframe style="border:0; width: 100%; height: 350px;" src="https://maps.google.com/maps?q=klinik telkomedika telkom unviersity&t=&z=16&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"" frameborder="0" allowfullscreen></iframe>
+                        <iframe style="border:0; width: 100%; height: 350px;" src="https://maps.google.com/maps?q=klinik telkomedika telkom unviersity&t=&z=16&ie=UTF 8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"" frameborder="0" allowfullscreen></iframe>
                         <!-- <h4>Useful Links</h4>
-                                                                                                                                                                                                                                                                                                                    <ul>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                                                                                                                                                                                                                                                                                                                    </ul> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul> -->
                     </div>
 
                     <!-- <div class="col-lg-3 col-md-6 footer-links">
-                                                                                                                                                                                                                                                                                                                    <h4>Our Services</h4>
-                                                                                                                                                                                                                                                                                                                    <ul>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                                                                                                                                                                                                                                                                                                                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                                                                                                                                                                                                                                                                                                                    </ul>
-                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h4>Our Services</h4>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
 
-                                                                                                                                                                                                                                                                                                                <div class="col-lg-4 col-md-6 footer-newsletter">
-                                                                                                                                                                                                                                                                                                                    <h4>Join Our Newsletter</h4>
-                                                                                                                                                                                                                                                                                                                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                                                                                                                                                                                                                                                                                                                    <form action="" method="post">
-                                                                                                                                                                                                                                                                                                                        <input type="email" name="email"><input type="submit" value="Subscribe">
-                                                                                                                                                                                                                                                                                                                    </form>
-                                                                                                                                                                                                                                                                                                                </div>  -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h4>Join Our Newsletter</h4>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <form action="" method="post">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        </form>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>  -->
 
                 </div>
             </div>
@@ -261,13 +263,13 @@
                     &copy; Copyright <strong><span>TelkomSehat</span></strong>. All Rights Reserved
                 </div>
                 <div class="credits">
-                    Designed by <a href="https://telkomsehat.com/">YoNdakTauKokTanyaSaya</a>
+                    Designed by <a href="{{ url()->current() }}">YoNdakTauKokTanyaSaya</a>
                 </div>
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
                 <a target="_blank" href="https://twitter.com/TelkoMedika" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a target="_blank" href="https://www.facebook.com/TelkoMedika/about/" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a target="_blank" href="https://www.instagram.com/telkomedika/?hl=id" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a target="_blank" href="https://www.facebook.com/TelkoMedika/" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a target="_blank" href="https://www.instagram.com/telkomedika/" class="instagram"><i class="bx bxl-instagram"></i></a>
             </div>
         </div>
     </footer><!-- End Footer -->

@@ -2,23 +2,24 @@
 
 namespace App\Models;
 
+use App\Models\Mahasiswa;
+use App\Models\Paramedis;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Konsultasi extends Model
+class Penjemputan extends Model
 {
     use HasFactory;
 
     protected $primaryKey = 'id';
-    protected $table = 'konsultasi';
+    protected $table = 'penjemputan';
 
     protected $fillable = [
         'mahasiswaid',
-        'dokterid',
-        'keluhan',
-        'keterangan',
-        'jawaban',
+        'paramedisid',
+        'lintang',
+        'bujur',
     ];
 
     public function mahasiswa(): HasOne
@@ -26,8 +27,8 @@ class Konsultasi extends Model
         return $this->hasOne(Mahasiswa::class, 'id', 'mahasiswaid');
     }
 
-    public function dokter(): HasOne
+    public function paramedis(): HasOne
     {
-        return $this->hasOne(Dokter::class, 'id', 'dokterid');
+        return $this->hasOne(Paramedis::class, 'id', 'paramedisid');
     }
 }

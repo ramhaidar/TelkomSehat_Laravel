@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Paramedis;
 use App\Models\Reservasi;
 use App\Models\Konsultasi;
+use App\Models\Penjemputan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -28,7 +30,7 @@ class DashboardController extends Controller
                 ],
             );
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_mahasiswa_reservasi(Request $request)
@@ -47,14 +49,17 @@ class DashboardController extends Controller
                 ],
             );
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_mahasiswa_reservasi_action(Request $request)
     {
         $user = Auth::user();
         if ($user) {
-            if (isset($request->buatReservasi) and !isset($request->dokter)) {
+            if (isset($request->hapusID)) {
+                Reservasi::destroy($request->hapusID);
+                return redirect()->route('dashboard-mahasiswa-reservasi');
+            } elseif (isset($request->buatReservasi) and !isset($request->dokter)) {
                 $mahasiswa = User::find($user->id)->mahasiswa()->first();
                 return view(
                     'dashboard.mahasiswa.reservasi',
@@ -68,7 +73,7 @@ class DashboardController extends Controller
             } else {
                 $mahasiswa = User::find($user->id)->mahasiswa()->first();
                 $validator = Validator::make($request->all(), [
-                    'dokter' => ['required', 'in:Dokter Gigi,Dokter Umum,Dokter Kulit,Dokter Psikiater,Dokter THT'],
+                    'dokter' => ['required', 'in:Dokter Gigi,Dokter Umum,Dokter Kulit,Psikiater,Dokter THT'],
                     'tanggal' => ['required', 'date_format:d-m-Y'],
                     'waktu' => ['required', 'in:8,9,10,11,12,13,14,15'],
                     'keluhan' => ['required'],
@@ -105,8 +110,6 @@ class DashboardController extends Controller
                     'tanggal' => $formattedDate,
                     'waktu' => $request->waktu,
                     'keluhan' => $request->keluhan,
-                    'berobat' => $berobat,
-                    'konsultasi' => $konsultasi,
                 ]);
 
                 $dataReservasi = Reservasi::where('mahasiswaid', $mahasiswa->id)->get();
@@ -121,7 +124,7 @@ class DashboardController extends Controller
                 )->with("succes", "Sukses Membuat Reservasi");
             }
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_mahasiswa_konsultasi(Request $request)
@@ -140,7 +143,7 @@ class DashboardController extends Controller
                 ],
             );
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_mahasiswa_konsultasi_action(Request $request)
@@ -162,12 +165,14 @@ class DashboardController extends Controller
             } else {
                 $mahasiswa = User::find($user->id)->mahasiswa()->first();
                 $request->validate([
-                    'keluhan' => 'required',
+                    'keluhan' => ['required', 'max:84'],
+                    'keterangan' => 'required',
                 ]);
 
                 Konsultasi::create([
                     'mahasiswaid' => strval($user->mahasiswaid),
                     'keluhan' => $request->keluhan,
+                    'keterangan' => $request->keterangan,
                 ]);
 
                 $dataKonsultasi = Konsultasi::where('mahasiswaid', $mahasiswa->id)->get();
@@ -176,13 +181,13 @@ class DashboardController extends Controller
                     [
                         'user' => $user,
                         'mahasiswa' => $mahasiswa,
-                        'title' => 'Dashboard Reservasi',
+                        'title' => 'Dashboard Konsultasi',
                         'dataKonsultasi' => $dataKonsultasi,
                     ],
-                )->with("succes", "Sukses Mengirimkan Konsultasi");
+                )->with("success", "Sukses Mengirimkan Konsultasi");
             }
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_mahasiswa_test(Request $request)
@@ -198,7 +203,58 @@ class DashboardController extends Controller
                 ],
             );
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
+    }
+
+    public function dashboard_mahasiswa_penjemputan(Request $request)
+    {
+        $user = Auth::user();
+        if ($user) {
+            $mahasiswa = User::find($user->id)->mahasiswa()->first();
+            $dataPenjemputan = Penjemputan::where('mahasiswaid', $mahasiswa->id)->where('selesai', false)->orderByDesc('id')->get()->first();
+
+            if (isset($dataPenjemputan)) {
+                $paramedis = Paramedis::where('id', $dataPenjemputan->paramedisid)->orderByDesc('id')->get()->first();
+            } else {
+                $paramedis = null;
+            }
+
+            // if ($dataPenjemputan->isEmpty()) {
+            //     $dataPenjemputan = null;
+            // }
+
+            // dd($dataPenjemputan);
+
+            return view(
+                'dashboard.mahasiswa.penjemputan',
+                [
+                    'user' => $user,
+                    'mahasiswa' => $mahasiswa,
+                    'title' => 'Dashboard Penjemputan',
+                    'dataPenjemputan' => $dataPenjemputan,
+                    'paramedis' => $paramedis,
+                ],
+            );
+        }
+        return redirect()->route('login');
+    }
+
+    public function dashboard_mahasiswa_penjemputan_action(Request $request)
+    {
+        $user = Auth::user();
+        if ($user) {
+            $mahasiswa = User::find($user->id)->mahasiswa()->first();
+
+            Penjemputan::create([
+                'mahasiswaid' => $mahasiswa->id,
+                'paramedisid' => null,
+                'lintang' => $request->lintang,
+                'bujur' => $request->bujur,
+            ]);
+
+            return redirect()->route('dashboard-mahasiswa-penjemputan');
+        }
+        return redirect()->route('login');
     }
 
     public function dashboard_dokter(Request $request)
@@ -206,7 +262,8 @@ class DashboardController extends Controller
         $user = Auth::user();
         if ($user) {
             $dokter = User::find($user->id)->dokter()->first();
-            $dataReservasi = Reservasi::where('dokterid', $user->dokter->id)->get();
+            $dataReservasi = Reservasi::where('dokterid', $user->dokter->id)->orderBy('id')->get();
+            $dataKonsultasi = Konsultasi::where('dokterid', $user->dokter->id)->orderBy('id')->get();
             $Reservasi = Reservasi::all();
             return view(
                 'dashboard.dokter.dashboard',
@@ -215,25 +272,94 @@ class DashboardController extends Controller
                     'dokter' => $dokter,
                     'title' => 'Dashboard Dokter',
                     'dataReservasi' => $dataReservasi,
+                    'dataKonsultasi' => $dataKonsultasi,
                     'myReservasi' => $Reservasi->where('dokterid', $dokter->id)->count(),
                     'countReservasi' => $Reservasi->count(),
                 ],
             );
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_dokter_reservasi(Request $request)
     {
+
+        // foreach ($kodeWaktu as $key => $value) {
+        //     if ($value->waktu == "8") {
+        //         $waktu = "09:00";
+        //     } elseif ($value->waktu == "9") {
+        //         $waktu = "10:00";
+        //     } elseif ($value->waktu == "10") {
+        //         $waktu = "11:00";
+        //     } elseif ($value->waktu == "11") {
+        //         $waktu = "12:00";
+        //     } elseif ($value->waktu == "12") {
+        //         $waktu = "13:00";
+        //     } elseif ($value->waktu == "13") {
+        //         $waktu = "14:00";
+        //     } elseif ($value->waktu == "14") {
+        //         $waktu = "15:00";
+        //     } elseif ($value->waktu == "15") {
+        //         $waktu = "16:00";
+        //     }
+        // }
+
         $user = Auth::user();
         if ($user) {
             $dokter = User::find($user->id)->dokter()->first();
+            $jam_sekarang = intval(date('H'));
+            $JamTidakKosong = Reservasi::where('dokterid', $dokter->id)->pluck('waktu')->all();
+
+            $dataReservasi1 = Reservasi::where(
+                'tanggal',
+                ">", now()->toDateString()
+            )
+                ->where(
+                    [
+                        'dokterid' => null,
+                        'spesialis' => $dokter->spesialis
+                    ]
+                )
+                ->whereNotIn(
+                    'waktu',
+                    $JamTidakKosong
+                );
+
             $dataReservasi = Reservasi::where(
-                [
-                    'dokterid' => null,
-                    'spesialis' => $dokter->spesialis
-                ]
-            )->get();
+                'tanggal',
+                "=",
+                now()->toDateString()
+            )
+                ->where(
+                    'waktu',
+                    '>',
+                    $jam_sekarang - 1
+                )
+                ->where(
+                    [
+                        'dokterid' => null,
+                        'spesialis' => $dokter->spesialis
+                    ]
+                )
+                ->whereNotIn(
+                    'waktu',
+                    $JamTidakKosong
+                )
+                ->orderBy('tanggal')
+                ->union($dataReservasi1)
+                ->orderBy('tanggal')
+                ->get()
+                ->all();
+
+            // dd($dataReservasi);
+
+
+            // $dataReservasi = Reservasi::where(
+            // [
+            //     'dokterid' => null,
+            //     'spesialis' => $dokter->spesialis
+            // ]
+            // )->get();
 
             return view(
                 'dashboard.dokter.reservasi',
@@ -245,7 +371,7 @@ class DashboardController extends Controller
                 ],
             );
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_dokter_reservasi_action(Request $request)
@@ -254,18 +380,19 @@ class DashboardController extends Controller
         if ($user) {
             $dokter = User::find($user->id)->dokter()->first();
             Reservasi::where('id', $request->reservasiID)->update(['dokterid' => $dokter->id]);
-            $dataReservasi = Reservasi::where('dokterid', null)->get();
-            return view(
-                'dashboard.dokter.reservasi',
-                [
-                    'user' => $user,
-                    'dokter' => $dokter,
-                    'title' => 'Dashboard Reservasi',
-                    'dataReservasi' => $dataReservasi,
-                ],
-            );
+            // $dataReservasi = Reservasi::where('dokterid', null)->get();
+            // return view(
+            //     'dashboard.dokter.reservasi',
+            //     [
+            //         'user' => $user,
+            //         'dokter' => $dokter,
+            //         'title' => 'Dashboard Reservasi',
+            //         'dataReservasi' => $dataReservasi,
+            //     ],
+            // );
+            return redirect(route('dashboard-dokter-reservasi'));
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_dokter_konsultasi(Request $request)
@@ -284,7 +411,7 @@ class DashboardController extends Controller
                 ],
             );
         }
-        return redirect()->route('beranda');
+        return redirect()->route('login');
     }
 
     public function dashboard_dokter_konsultasi_action(Request $request)
@@ -292,8 +419,92 @@ class DashboardController extends Controller
         $user = Auth::user();
         if ($user) {
             $dokter = User::find($user->id)->dokter()->first();
-            Konsultasi::find($request->konsultasiID)->update(['jawaban' => $request->jawaban]);
+            $check = Konsultasi::where('id', $request->konsultasiID)->get()->first();
+
+            if ($check->jawaban == null and $check->dokterid == null) {
+                Konsultasi::find($request->konsultasiID)->update(['jawaban' => $request->jawaban, 'dokterid' => $dokter->id]);
+            }
         }
         return redirect()->route('dashboard-dokter-konsultasi');
+    }
+
+    public function dashboard_paramedis(Request $request)
+    {
+        $user = Auth::user();
+        if ($user) {
+            $paramedis = User::find($user->id)->paramedis()->first();
+            return view(
+                'dashboard.paramedis.dashboard',
+                [
+                    'user' => $user,
+                    'paramedis' => $paramedis,
+                    'title' => 'Dashboard Paramedis',
+                ],
+            );
+        }
+        return redirect()->route('login');
+    }
+
+    public function dashboard_paramedis_penjemputan(Request $request)
+    {
+        $user = Auth::user();
+        if ($user) {
+            $paramedis = User::find($user->id)->paramedis()->first();
+            $dataPenjemputan = Penjemputan::where(['selesai' => false])->get();
+
+            $berlangsungPenjemputan = Penjemputan::where(['paramedisid' => $paramedis->id, 'selesai' => false])->get();
+
+            if ($berlangsungPenjemputan->isEmpty()) {
+                $berlangsungPenjemputan = null;
+            } else {
+                $berlangsungPenjemputan = Penjemputan::where('paramedisid', $paramedis->id)->get()->last();
+            }
+
+            return view(
+                'dashboard.paramedis.penjemputan',
+                [
+                    'user' => $user,
+                    'paramedis' => $paramedis,
+                    'title' => 'Dashboard Penjemputan',
+                    'dataPenjemputan' => $dataPenjemputan,
+                    'berlangsungPenjemputan' => $berlangsungPenjemputan,
+                ],
+            );
+        }
+        return redirect()->route('login');
+    }
+
+    public function dashboard_paramedis_penjemputan_action(Request $request)
+    {
+        $user = Auth::user();
+        if ($user) {
+            // $paramedis = User::find($user->id)->paramedis()->first();
+            // $dataPenjemputan = Penjemputan::where('selesai', false)->get();
+
+            $check = Penjemputan::where('id', $request->jemputID)->get()->first();
+            if (!$check->paramedisid) {
+                Penjemputan::where('id', $request->jemputID)->update(['paramedisid' => $user->paramedis->id]);
+            }
+
+            // $lintang = Penjemputan::where('id', $request->jemputID)->pluck('lintang')->first();
+            // $bujur = Penjemputan::where('id', $request->jemputID)->pluck('bujur')->first();
+
+            if ($request->selesai == "done") {
+                Penjemputan::where('id', $request->jemputID)->update(['selesai' => true]);
+            }
+
+            return redirect()->route('dashboard-paramedis-penjemputan');
+
+            // return view(
+            //     'dashboard.paramedis.penjemputan',
+            //     [
+            //         'user' => $user,
+            //         'paramedis' => $paramedis,
+            //         'title' => 'Dashboard Penjemputan',
+            //         'dataPenjemputan' => $dataPenjemputan,
+            //     ],
+            // );
+        }
+        return redirect()->route('login');
     }
 }

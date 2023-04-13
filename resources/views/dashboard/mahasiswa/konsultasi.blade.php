@@ -16,21 +16,25 @@
 
         <section class="section konsultasi">
             <div class="col-12">
-                <div class="card recent-sales overflow-auto">
+                <div class="card recent-sales shadow rounded overflow-auto">
                     <div class="card-body">
-                        <h5 class="card-title">Form Konsultasi</h5>
+                        <h5 class="card-title">Form Konsultasi Mahasiswa</h5>
 
                         <!-- Horizontal Form -->
                         <form method="POST" action="{{ route('dashboard.mahasiswa.konsultasi.action') }}">
                             @csrf
                             <div class="row mb-3">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Keluhan</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" style="height: 100px" name="keluhan"></textarea>
+                                <label for="keluhan" class="col-sm-2 col-form-label py-3">Keluhan</label>
+                                <div class="col-sm-10 py-3">
+                                    <input type="text" name="keluhan" class="form-control" required maxlength="84">
+                                </div>
+                                <label for="keterangan" class="col-sm-2 col-form-label py-3">Keterangan</label>
+                                <div class="col-sm-10 py-3">
+                                    <textarea class="form-control" style="height: 100px" name="keterangan" required></textarea>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary shadow rounded">Submit</button>
                             </div>
                         </form><!-- End Horizontal Form -->
 
@@ -81,22 +85,27 @@
                             </div>
                         @endif
 
-                        @if (isset($succes))
+                        @if (isset($success))
                             <div class="alert alert-success">
                                 <ul>
                                     {{-- @foreach ($errors->all() as $error) --}}
-                                    <li>{{ $succes }}</li>
+                                    <li>{{ $success }}</li>
                                     {{-- @endforeach --}}
                                 </ul>
                             </div>
                         @endif
 
                         <style>
-                            #teks-panjang {
+                            #teksPanjang {
                                 max-width: 500px;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                                 white-space: nowrap;
+                            }
+
+                            #jorokKanan {
+                                text-align: right;
+                                height: 1px;
                             }
                         </style>
 
@@ -105,8 +114,8 @@
                         <table class="table table-borderless datatable">
                             <thead>
                                 <tr>
-                                    <th scope="col">Konsultasi</th>
-                                    <th scope="col">Jawaban</th>
+                                    <th scope="col">Keluhan</th>
+                                    <th scope="col" id="jorokKanan">Hasil</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -115,32 +124,43 @@
                                         <td>{{ $data->keluhan }}</td>
                                         <td>
                                             @if (isset($data->jawaban))
-                                                <button style="width: 100px" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
-                                                    Jawaban
-                                                </button>
+                                                <button style="width: 120px" type="button" class="btn btn-success shadow rounded float-end" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
+                                                @else
+                                                    <button style="width: 120px" type="button" class="btn btn-secondary shadow rounded float-end" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
+                                            @endif
+                                            <i class="bi bi-file-earmark-check" style="padding-right: 10px"></i>Lihat
+                                            </button>
 
-                                                <div class="modal fade" id="ModalJawaban{{ $loop->iteration }}" tabindex="-1" aria-labelledby="ModalJawabanLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="ModalJawabanLabel">Jawaban</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                {{ $data->jawaban }}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            </div>
+                                            <div class="modal fade" id="ModalJawaban{{ $loop->iteration }}">
+                                                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="ModalJawabanLabel">{{ $data->keluhan }}</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            @if (isset($data->dokter))
+                                                                <h6><b>Dokter: </b>{{ $data->dokter->user->name }} <strong>[{{ $data->dokter->kodedokter }}]</strong></h6>
+                                                            @else
+                                                                <h6><b>Dokter: </b> -</h6>
+                                                            @endif
+                                                            <div class="border-top border-secondary border-2 my-3"></div>
+                                                            <h6><b>Keterangan:</b></h6>
+                                                            <p>{{ $data->keterangan }}</p>
+                                                            <div class="border-top border-secondary border-2 my-3"></div>
+                                                            <h6><b>Jawaban:</b></h6>
+                                                            @if (isset($data->jawaban))
+                                                                <p>{{ $data->jawaban }}</p>
+                                                            @else
+                                                                <p class="text text-secondary">// Belum ada Jawaban dari Dokter //</p>
+                                                            @endif
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- <p class="text-primary" id="teks-panjang" data-bs-toggle="modal" data-bs-target="#ModalJawaban">{{ $data->jawaban }}</p> --}}
-                                            @else
-                                                <button style="width: 100px" disabled type="button" class="btn btn-secondary">
-                                                    <i class="bi bi-dash-lg"></i>
-                                                </button>
-                                            @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

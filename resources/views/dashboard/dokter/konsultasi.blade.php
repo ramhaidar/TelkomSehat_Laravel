@@ -89,10 +89,10 @@
                                                 @csrf
                                                 <input type="text" name="konsultasiID" hidden class="form-control" required value="{{ $data->id }}">
 
-                                                <button type="button" class="btn btn-primary mb-0 mt-0 float-end shadow rounded" data-bs-toggle="modal" data-bs-target="#KonsulatsiModal{{ $loop->iteration }}"><i class="bi bi-chat-square-text"></i></button>
+                                                <button type="button" class="btn btn-primary mb-0 mt-0 shadow rounded" data-bs-toggle="modal" data-bs-target="#KonsulatsiModal{{ $loop->iteration }}"><i class="bi bi-chat-square-text" style="padding-right: 10px"></i>Balas</button>
 
                                                 <div class="modal fade" id="KonsulatsiModal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="KonsulatsiModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
+                                                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="KonsulatsiModalLabel">Balas Keluhan</h1>
@@ -100,17 +100,60 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="mb-3">
-                                                                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                                    <label for="recipient-name" class="col-form-label">Kepada:</label>
                                                                     <input type="text" class="form-control" id="recipient-name" disabled value="{{ $data->mahasiswa->user->name }}">
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label for="message-text" class="col-form-label">Message:</label>
+                                                                    <label for="recipient-name" class="col-form-label">Keterangan:</label>
+                                                                    {{-- <input type="text" class="form-control" id="recipient-name" disabled value="{{ $data->keterangan }}"> --}}
+                                                                    {{-- <textarea class="form-control" id="exampleFormControlTextarea{{ $loop->iteration }}" rows="3">This is the default text</textarea> --}}
+
+                                                                    <style>
+                                                                        #A01 {
+                                                                            position: relative;
+                                                                            width: 100%;
+                                                                            height: 100px;
+                                                                            /* Ubah sesuai kebutuhan */
+                                                                            border: 1px solid #ced4da;
+                                                                            border-radius: 0.5rem;
+                                                                            padding: 0.375rem 0.75rem;
+                                                                            background: #e9ecef;
+                                                                        }
+
+                                                                        #A02 {
+                                                                            position: absolute;
+                                                                            top: 0.375rem;
+                                                                            left: 0.75rem;
+                                                                            font-size: 0.875rem;
+                                                                            color: #6c757d;
+                                                                        }
+
+                                                                        #A03 {
+                                                                            height: 100%;
+                                                                            overflow: auto;
+                                                                            font-size: 1rem;
+                                                                        }
+
+                                                                        #A04 {
+                                                                            color: #6c757d;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+                                                                    <div class="form-control" id="A01">
+                                                                        <div class="input-content" id="A03">
+                                                                            <p>{{ $data->keterangan }}</p>
+                                                                            {{-- <span class="placeholder" id="A04">Ketik sesuatu di sini...</span> --}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="message-text" class="col-form-label">Jawaban:</label>
                                                                     <textarea style="height: 200px" class="form-control" id="message-text" name="jawaban"></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Send message</button>
+                                                                <button type="button" class="btn btn-secondary shadow rounded" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-success shadow rounded">Kirim Jawaban</button>
                                                             </div>
                                                         </div>
                                                     </div>

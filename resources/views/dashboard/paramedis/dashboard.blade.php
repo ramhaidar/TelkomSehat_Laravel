@@ -1,6 +1,6 @@
-@section('title', 'Dashboard Mahasiswa')
+@section('title', 'Dashboard Paramedis')
 
-@extends('dashboard.mahasiswa.dashboard-mahasiswa-template')
+@extends('dashboard.paramedis.dashboard-paramedis-template')
 
 @section('contentx')
 
@@ -92,7 +92,7 @@
                         </script>
                     </div><!-- End Customers Card -->
 
-                    <!-- Customers Card -->
+                    {{-- <!-- Customers Card -->
                     <div class="col-xxl-4 col-xl-12">
 
                         <div class="card info-card shadow rounded customers-card">
@@ -112,7 +112,7 @@
                             </div>
                         </div>
 
-                    </div><!-- End Customers Card -->
+                    </div><!-- End Customers Card --> --}}
 
                 </div>
             </div><!-- End Left side columns -->

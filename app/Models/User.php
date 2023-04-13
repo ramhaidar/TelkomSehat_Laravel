@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Mahasiswa;
+use App\Models\Paramedis;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function dokter(): HasOne
     {
         return $this->hasOne(Dokter::class, 'id', 'dokterid');
+    }
+
+    public function paramedis(): HasOne
+    {
+        return $this->hasOne(Paramedis::class, 'id', 'paramedisid');
     }
 }

@@ -10,16 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('reservasi', function (Blueprint $table) {
+        Schema::create('penjemputan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('mahasiswaid')->nullable();
-            $table->unsignedBigInteger('dokterid')->nullable();
+            $table->unsignedBigInteger('paramedisid')->nullable();
             $table->foreign('mahasiswaid')->references('id')->on('mahasiswa');
-            $table->foreign('dokterid')->references('id')->on('dokter');
-            $table->string('spesialis');
-            $table->date('tanggal');
-            $table->integer('waktu');
-            $table->text('keluhan');
+            $table->foreign('paramedisid')->references('id')->on('paramedis');
+            $table->string('lintang');
+            $table->string('bujur');
+            $table->boolean('selesai')->default(false);
             $table->timestamps();
         });
     }
@@ -29,13 +28,14 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('reservasi', function (Blueprint $table) {
+        Schema::table('penjemputan', function (Blueprint $table) {
             $table->dropForeign(['mahasiswaid']);
             $table->dropColumn('mahasiswaid');
 
-            $table->dropForeign(['dokterid']);
-            $table->dropColumn('dokterid');
+            $table->dropForeign(['paramedisid']);
+            $table->dropColumn('paramedisid');
         });
-        Schema::dropIfExists('reservasi');
+
+        Schema::dropIfExists('penjemputan');
     }
 };

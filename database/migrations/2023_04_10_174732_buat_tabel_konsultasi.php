@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('dokterid')->nullable();
             $table->foreign('mahasiswaid')->references('id')->on('mahasiswa');
             $table->foreign('dokterid')->references('id')->on('dokter');
-            $table->text('keluhan');
+            $table->text('keluhan')->nullable();
+            $table->text('keterangan')->nullable();
             $table->text('jawaban')->nullable();
             $table->timestamps();
         });

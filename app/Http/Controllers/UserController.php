@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Dokter;
 use App\Models\Mahasiswa;
+use App\Models\Paramedis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,9 +21,18 @@ class UserController extends Controller
         ]);
 
         $MahasiswaID = Mahasiswa::where('username', $request->username)->get('id')->pluck('id')->first();
-        $User = User::where('mahasiswaid', $MahasiswaID)->get()->first();
+        $DokterID = Dokter::where('username', $request->username)->get('id')->pluck('id')->first();
+        $ParamedisID = Paramedis::where('username', $request->username)->get('id')->pluck('id')->first();
 
-        if ($User != null) {
+        if (isset($MahasiswaID)) {
+            $User = User::where('mahasiswaid', $MahasiswaID)->get()->first();
+        } elseif (isset($DokterID)) {
+            $User = User::where('dokterid', $DokterID)->get()->first();
+        } elseif (isset($ParamedisID)) {
+            $User = User::where('paramedisid', $ParamedisID)->get()->first();
+        }
+
+        if (isset($User)) {
             if (Hash::check($request->password, $User->password)) {
                 // if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
                 $request->session()->regenerate();
@@ -35,13 +45,31 @@ class UserController extends Controller
                 } elseif ($User->dokterid) {
                     // dd("Login Sukses Sebagai Dokter");
                     return redirect(route('dashboard-dokter'));
+                } elseif ($User->paramedisid) {
+                    // dd("Login Sukses Sebagai Dokter");
+                    return redirect(route('dashboard-paramedis'));
                 }
 
                 return redirect(route('login'));
+            } else {
+                return view('login')->with("gagal", "Username dan/atau Password Salah.");
+                // return redirect()->route('users.index')->with('users', $users);
             }
-            return redirect(route('login'));
         }
         return redirect(route('login'));
+    }
+
+    public function login(Request $request)
+    {
+        if (Auth::user()) {
+            if (Auth::user()->mahasiswaid) {
+                return redirect()->route('dashboard-mahasiswa');
+            } elseif (Auth::user()->dokterid) {
+                return redirect()->route('dashboard-dokter');
+            }
+            return redirect()->route('beranda');
+        }
+        return view('login');
     }
 
     public function logout_action(Request $request)

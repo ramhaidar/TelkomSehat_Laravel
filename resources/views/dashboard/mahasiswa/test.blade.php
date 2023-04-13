@@ -493,6 +493,44 @@
 
     <main id="main" class="main">
 
+        {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3960.2766998534994!2d107.63132761525175!3d-6.976643970256049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNTgnMzUuOSJTIDEwN8KwMzgnMDAuNyJF!5e0!3m2!1sen!2sid!4v1681233348599!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
+
+        {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3960.276699853487!2d107.660492!3d-6.917840!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNTgnMzUuOSJTIDEwN8KwMzgnMDAuNyJF!5e0!3m2!1sid!2sid!4v1681233623240!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
+
+        {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3960.276699853487!2d107.66037674552679!3d-6.917882262485007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNTgnMzUuOSJTIDEwN8KwMzgnMDAuNyJF!5e0!3m2!1sid!2sid!4v1681233623240!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
+        <iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAwEHWPAMerBlBh1GNxJdSfQciMiOGOh98&center=-6.976648697976676,107.63351648974074&zoom=15" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+        <script>
+            var iframe = document.createElement('iframe');
+            iframe.src = 'https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&center=LATITUDE,LONGITUDE&zoom=15';
+            document.getElementById('map-container').appendChild(iframe);
+        </script>
+
+        <iframe id="map-container"></iframe> --}}
+        <div class="col-lg col-md-6 footer-links">
+            <iframe style="border:0; width: 100%; height: 350px;" src="https://maps.google.com/maps?q=-6.978866,107.631575&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"" frameborder="0" allowfullscreen></iframe> </ul> -->
+        </div>
+        <p>Current location: <span id="location"></span></p>
+
+        <script>
+            var locationElement = document.getElementById('location');
+
+            function showPosition(position) {
+                locationElement.innerHTML = position.coords.latitude + ', ' + position.coords.longitude;
+            }
+
+            function showError(error) {
+                locationElement.innerHTML = error.message;
+            }
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                locationElement.innerHTML = 'Geolocation is not supported by this browser.';
+            }
+        </script>
+
+        <body onload="getLocation()">
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->

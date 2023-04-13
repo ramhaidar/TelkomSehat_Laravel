@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Dokter;
 use App\Models\Mahasiswa;
+use App\Models\Paramedis;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -109,7 +110,7 @@ class AwalanSeeder extends Seeder
         $dokterID = Dokter::create([
             'kodedokter' => 'FSV',
             'username' => 'fanie',
-            'nomortelepon' => '628123456789',
+            'nomortelepon' => '627617891983',
             'spesialis' => 'Dokter Gigi',
         ])->id;
 
@@ -121,5 +122,128 @@ class AwalanSeeder extends Seeder
         ])->id;
 
         Dokter::find($dokterID)->update(['userid' => $userID]);
+
+        // —————————————————————————————————————————————————————————— //
+
+        $dokterID = Dokter::create([
+            'kodedokter' => 'SOL',
+            'username' => 'solikin',
+            'nomortelepon' => '622156959333',
+            'spesialis' => 'Dokter Umum',
+        ])->id;
+
+        $userID = User::create([
+            'name' => 'Solikin',
+            'email' => 'solikin@telkomuniversity.ac.id',
+            'password' => Hash::make("solikin123"),
+            'dokterid' => $dokterID,
+        ])->id;
+
+        Dokter::find($dokterID)->update(['userid' => $userID]);
+
+        // —————————————————————————————————————————————————————————— //
+
+        $dokterID = Dokter::create([
+            'kodedokter' => 'GAW',
+            'username' => 'gedeagung',
+            'nomortelepon' => '6284845123075',
+            'spesialis' => 'Dokter Kulit',
+        ])->id;
+
+        $userID = User::create([
+            'name' => 'Gede Agung Ary Wisudiawan',
+            'email' => 'gedeagung@telkomuniversity.ac.id',
+            'password' => Hash::make("gedeagung123"),
+            'dokterid' => $dokterID,
+        ])->id;
+
+        Dokter::find($dokterID)->update(['userid' => $userID]);
+
+        // —————————————————————————————————————————————————————————— //
+
+        $dokterID = Dokter::create([
+            'kodedokter' => 'COK',
+            'username' => 'tjokor',
+            'nomortelepon' => '6292760268633',
+            'spesialis' => 'Psikiater',
+        ])->id;
+
+        $userID = User::create([
+            'name' => 'Tjokorda Agung Budi Wirayuda',
+            'email' => 'tjokor@telkomuniversity.ac.id',
+            'password' => Hash::make("tjokor123"),
+            'dokterid' => $dokterID,
+        ])->id;
+
+        Dokter::find($dokterID)->update(['userid' => $userID]);
+
+        // —————————————————————————————————————————————————————————— //
+
+        $dokterID = Dokter::create([
+            'kodedokter' => 'ADR',
+            'username' => 'drian',
+            'nomortelepon' => '6210615006816',
+            'spesialis' => 'Dokter THT',
+        ])->id;
+
+        $userID = User::create([
+            'name' => 'Andrian Rakhmatsyah',
+            'email' => 'drian@telkomuniversity.ac.id',
+            'password' => Hash::make("drian123"),
+            'dokterid' => $dokterID,
+        ])->id;
+
+        Dokter::find($dokterID)->update(['userid' => $userID]);
+
+        // —————————————————————————————————————————————————————————— //
+
+        $paramedisID = Paramedis::create([
+            'kodeParamedis' => 'TPR',
+            'username' => 'tapir',
+            'nomortelepon' => '6281593942394',
+        ])->id;
+
+        $userID = User::create([
+            'name' => 'Tim Tapir',
+            'email' => 'tapir@telkomuniversity.ac.id',
+            'password' => Hash::make("tapir123"),
+            'paramedisid' => $paramedisID,
+        ])->id;
+
+        Paramedis::find($paramedisID)->update(['userid' => $userID]);
+
+        // —————————————————————————————————————————————————————————— //
+
+        $paramedisID = Paramedis::create([
+            'kodeParamedis' => 'KSR',
+            'username' => 'kasuari',
+            'nomortelepon' => '6264372066006',
+        ])->id;
+
+        $userID = User::create([
+            'name' => 'Tim Kasuari',
+            'email' => 'kasuari@telkomuniversity.ac.id',
+            'password' => Hash::make("kasuari123"),
+            'paramedisid' => $paramedisID,
+        ])->id;
+
+        Paramedis::find($paramedisID)->update(['userid' => $userID]);
+
+        // —————————————————————————————————————————————————————————— //
+
+        $paramedisID = Paramedis::create([
+            'kodeParamedis' => 'KMD',
+            'username' => 'komodo',
+            'nomortelepon' => '6278357391896',
+        ])->id;
+
+        $userID = User::create([
+            'name' => 'Tim Komodo',
+            'email' => 'komodo@telkomuniversity.ac.id',
+            'password' => Hash::make("komodo123"),
+            'paramedisid' => $paramedisID,
+        ])->id;
+
+        Paramedis::find($paramedisID)->update(['userid' => $userID]);
     }
 }

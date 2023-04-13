@@ -181,7 +181,7 @@
                                     </div>
                                 </fieldset> --}}
 
-                                <div class="row mb-3">
+                                {{-- <div class="row mb-3">
                                     <legend class="col-form-label col-sm-2 pt-0">Keterangan</legend>
                                     <div class="col-sm-10">
 
@@ -200,7 +200,7 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 {{-- <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Multi Select</label>
@@ -217,7 +217,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label"></label>
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-success float-end">Submit Form</button>
+                                        <button type="submit" class="btn btn-success">Submit Form</button>
                                     </div>
                                 </div>
 
@@ -332,7 +332,7 @@
                                                 @csrf
                                                 <input type="text" name="reservasiID" hidden class="form-control" required value="{{ $data->id }}">
 
-                                                <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#ApproveConfirmation{{ $loop->iteration }}" href="{{ route('dashboard-mahasiswa-konsultasi') }}">
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ApproveConfirmation{{ $loop->iteration }}" href="{{ route('dashboard-mahasiswa-konsultasi') }}">
                                                     <i class="bi bi-check-circle"></i>
                                                     <span style="padding-left: 10px">Approve</span>
                                                 </button>
