@@ -138,7 +138,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
         ```
     -   ```
         NIM: 1301204416
-        Nama: Muhammad Hiksal
+        Nama: Muhammad Hiksal Daeng Jusuf Bauw
         Username: hiksal
         Password: hiksal123
         ```
