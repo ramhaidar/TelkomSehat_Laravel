@@ -219,11 +219,9 @@
                             </div>
                         @endif
 
-                        @if (isset($succes))
+                        @if (session('success'))
                             <div class="alert alert-success">
-                                <ul>
-                                    <li>{{ $succes }}</li>
-                                </ul>
+                                {{ session('success') }}
                             </div>
                         @endif
 
@@ -274,23 +272,7 @@
 
                                         <td>{{ $data->spesialis }}</td>
 
-                                        @if ($data->waktu == '8' or $data->waktu == '9')
-                                            @if (strtotime($data->tanggal . ' 0' . $data->waktu . ':00') < strtotime(now()) and !isset($data->dokterid))
-                                                <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
-                                                <td>
-                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
-                                                </td>
-                                            @endif
-                                        @else
-                                            @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()) and !isset($data->dokterid))
-                                                <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
-                                                <td>
-                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
-                                                </td>
-                                            @endif
-                                        @endif
-
-                                        @if ($data->waktu == '8' or $data->waktu == '9')
+                                        @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokterid))
                                             @if (strtotime($data->tanggal . ' 0' . $data->waktu . ':00') < strtotime(now()) and isset($data->dokterid))
                                                 <td><span class="badge bg-secondary shadow rounded">Completed</span></td>
                                                 <td>
@@ -298,6 +280,11 @@
                                                 </td>
                                             @elseif (isset($data->dokterid))
                                                 <td><span class="badge bg-success shadow rounded">Approved</span></td>
+                                                <td>
+                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
+                                                </td>
+                                            @elseif (strtotime($data->tanggal . ' 0' . $data->waktu . ':00') < strtotime(now()) and !isset($data->dokterid))
+                                                <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
                                                 <td>
                                                     <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
                                                 </td>
@@ -319,6 +306,11 @@
                                                 </td>
                                             @elseif (isset($data->dokterid))
                                                 <td><span class="badge bg-success shadow rounded">Approved</span></td>
+                                                <td>
+                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
+                                                </td>
+                                            @elseif (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()) and !isset($data->dokterid))
+                                                <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
                                                 <td>
                                                     <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
                                                 </td>

@@ -121,9 +121,9 @@
                                         <td>{{ $data->keluhan }}</td>
                                         <td>
                                             @if (isset($data->jawaban))
-                                                <button style="width: 120px" type="button" class="btn btn-success shadow rounded float-end" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
+                                                <button style="width: 120px" type="button" class="btn btn-success shadow rounded" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
                                                 @else
-                                                    <button style="width: 120px" type="button" class="btn btn-secondary shadow rounded float-end" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
+                                                    <button style="width: 120px" type="button" class="btn btn-secondary shadow rounded" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
                                             @endif
                                             <i class="bi bi-file-earmark-check" style="padding-right: 10px"></i>Lihat
                                             </button>

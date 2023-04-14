@@ -11,13 +11,13 @@
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   [Simple, fast routing engine](https://laravel.com/docs/routing).
+-   [Powerful dependency injection container](https://laravel.com/docs/container).
+-   Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+-   Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+-   Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+-   [Robust background job processing](https://laravel.com/docs/queues).
+-   [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
@@ -35,19 +35,19 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 
 ### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+-   **[Vehikl](https://vehikl.com/)**
+-   **[Tighten Co.](https://tighten.co)**
+-   **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+-   **[64 Robots](https://64robots.com)**
+-   **[Cubet Techno Labs](https://cubettech.com)**
+-   **[Cyber-Duck](https://cyber-duck.co.uk)**
+-   **[Many](https://www.many.co.uk)**
+-   **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+-   **[DevSquad](https://devsquad.com)**
+-   **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+-   **[OP.GG](https://op.gg)**
+-   **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+-   **[Lendio](https://lendio.com)**
 
 ## Contributing
 
@@ -64,3 +64,169 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Collaborators
+
+-   @ramhaidar
+-   @AhmadFasya
+-   @dimasrfq
+-   @hiksalmuhammad
+-   @robithnr
+
+## How to Run
+
+-   Install XAMPP and Run Apache and MySQL
+-   Copy file .env.example to .env
+-   Set your database configuration in .env file in the following lines as needed:
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=laravel
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+-   Create a Database with the same name as the value `DB_DATABASE` in MySQL (Can Use PHPMyAdmin)
+-   Open a Command Prompt in the Laravel Project Root Folder
+    -   Generate a new application key by running the following command in the terminal:
+        ```
+        php artisan key:generate
+        ```
+    -   Execute the following command to install the dependencies needed by Laravel:
+        ```
+        composer install
+        ```
+    -   Run the following command to create database tables:
+        ```
+        php artisan migrate
+        ```
+    -   Execute the following command for seeding database data:
+        ```
+        php artisan db:seed --class=AwalanSeeder
+        ```
+-   After the above steps have been performed run the following command to start the local server and open the app in the browser:
+    ```
+    php artisan serve
+    ```
+
+## Predefined Users
+
+-   Dokter:
+
+    -   ```
+        Kode Dokter: FSV
+        Spesialis: Dokter Gigi
+        Username: fanie
+        Password: fanie123
+        ```
+    -   ```
+        Kode Dokter: SOL
+        Spesialis: Dokter Umum
+        Username: solikin
+        Password: solikin123
+        ```
+    -   ```
+        Kode Dokter: GAW
+        Spesialis: Dokter Kulit
+        Username: gedeagung
+        Password: gedeagung123
+        ```
+    -   ```
+        Kode Dokter: COK
+        Spesialis: Psikiater
+        Username: tjokor
+        Password: tjokor123
+        ```
+    -   ```
+        Kode Dokter: ADR
+        Spesialis: Dokter THT
+        Username: drian
+        Password: drian123
+        ```
+
+-   Paramedis:
+
+    -   ```
+        Kode Paramedis: TPR
+        Spesialis: Tim Tapir
+        Username: tapir
+        Password: tapir123
+        ```
+    -   ```
+        Kode Paramedis: KSR
+        Spesialis: Tim Kasuari
+        Username: kasuari
+        Password: kasuari123
+        ```
+    -   ```
+        Kode Paramedis: KMD
+        Spesialis: Tim Komodo
+        Username: komodo
+        Password: komodo123
+        ```
+
+-   Mahasiswa:
+    -   ```
+        NIM: 1301204112
+        Nama: Muhammad Dimas Rifki Irianto
+        Username: dimasrfq
+        Password: dimas123
+        ```
+    -   ```
+        NIM: 1301204231
+        Nama: Ahmad Fasya Adila
+        Username: ahmadfasya
+        Password: fasya123
+        ```
+    -   ```
+        NIM: 1301204416
+        Nama: Muhammad Hiksal
+        Username: hiksal
+        Password: hiksal123
+        ```
+    -   ```
+        NIM: 1301204017
+        Nama: Robith Naufal Razzak
+        Username: robithnaufal
+        Password: robithnaufal123
+        ```
+    -   ```
+        NIM: 1301204459
+        Nama: Haidaruddin Muhammad Ramdhan
+        Username: haidarx
+        Password: haidarx123
+        ```
+
+## Screenshots
+
+-   **Halaman Beranda**:
+    ![](https://i.postimg.cc/hGg9CxM7/Telkom-Sehat-Beranda.png)
+    ![](https://i.postimg.cc/8zLRBwdS/Telkom-Sehat-Beranda2.png)
+    ![](https://i.postimg.cc/0jTf9N1g/Telkom-Sehat-Beranda3.png)
+
+-   **Halaman Login**:
+    ![](https://i.postimg.cc/sXy8YwMQ/Telkom-Sehat-Login.png)
+
+-   **Dashboard Dokter**:
+    ![](https://i.postimg.cc/cH6qdH4d/Telkom-Sehat-Dashboard-Dokter.png)
+    ![](https://i.postimg.cc/jSGvDSXs/Telkom-Sehat-Dashboard-Dokter2.png)
+    ![](https://i.postimg.cc/G2Xt9HCt/Telkom-Sehat-Dashboard-Reservasi3.png)
+    ![](https://i.postimg.cc/63WT9CFF/Telkom-Sehat-Dashboard-Reservasi4.png)
+    ![](https://i.postimg.cc/63MPSNdF/Telkom-Sehat-Dashboard-Konsultasi3.png)
+    ![](https://i.postimg.cc/brd5fFgr/Telkom-Sehat-Dashboard-Konsultasi4.png)
+
+-   **Dashboard Mahasiswa**:
+    ![](https://i.postimg.cc/d12v25wg/Telkom-Sehat-Dashboard-Mahasiswa.png)
+    ![](https://i.postimg.cc/zXpGDLqg/Telkom-Sehat-Dashboard-Reservasi2.png)
+    ![](https://i.postimg.cc/Y0CY05LN/Telkom-Sehat-Dashboard-Reservasi.png)
+    ![](https://i.postimg.cc/wMpDztgr/Telkom-Sehat-Dashboard-Konsultasi.png)
+    ![](https://i.postimg.cc/cH9Ny3Rx/Telkom-Sehat-Dashboard-Konsultasi2.png)
+    ![](https://i.postimg.cc/YqjDyVDm/Telkom-Sehat-Dashboard-Penjemputan.png)
+    ![](https://i.postimg.cc/52C7fzV4/Telkom-Sehat-Dashboard-Penjemputan2.png)
+    ![](https://i.postimg.cc/BQy7WgR7/Telkom-Sehat-Dashboard-Penjemputan3.png)
+
+-   **Dashboard Paramedis**:
+    ![](https://i.postimg.cc/26RrLsR4/Telkom-Sehat-Dashboard-Paramedis.png)
+    ![](https://i.postimg.cc/Kcttc5Ks/Telkom-Sehat-Dashboard-Penjemputan5.png)
+    ![](https://i.postimg.cc/qMLnyMxs/Telkom-Sehat-Dashboard-Penjemputan6.png)
+    ![](https://i.postimg.cc/DyFLSbLf/Telkom-Sehat-Dashboard-Penjemputan7.png)
