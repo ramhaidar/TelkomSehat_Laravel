@@ -97,7 +97,7 @@ class AwalanSeeder extends Seeder
         ])->id;
 
         $userID = User::create([
-            'name' => 'Muhammad Hiksal',
+            'name' => 'Muhammad Hiksal Daeng Jusuf Bauw',
             'email' => 'hiksal@student.telkomuniversity.ac.id',
             'password' => Hash::make("hiksal321"),
             'mahasiswaid' => $mahasiswaID,

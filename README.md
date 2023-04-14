@@ -75,7 +75,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Play&display=swap" rel="stylesheet">
 
-<p align="center" style="font-size: 500%; font-family: 'Play', sans-serif;"><img style="padding-right: 20px" src="https://github.com/ramhaidar/TelkomSehat_TuBes_ABP/raw/main/public/favicon.svg" width="4.3%" ><span class="d-none d-lg-block">TelkomSehat</span></p>
+<p align="center" style="font-size: 500%; font-family: 'Play', sans-serif;"><img style="padding-right: 20px" src="https://raw.githubusercontent.com/ramhaidar/TelkomSehat_TuBes_ABP/main/public/favicon.svg" width="75%" ><span class="d-none d-lg-block"></span></p>
 
 ## Collaborators
 
