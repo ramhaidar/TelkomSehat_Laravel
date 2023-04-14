@@ -50,6 +50,7 @@
     @yield('content')
 
     @yield('bottomScript')
+    @yield('bottomScriptx')
 
 </body>
 

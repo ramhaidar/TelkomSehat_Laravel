@@ -56,6 +56,8 @@ class UserController extends Controller
                 return redirect()->route('dashboard-mahasiswa');
             } elseif (Auth::user()->dokterid) {
                 return redirect()->route('dashboard-dokter');
+            } elseif (Auth::user()->paramedisid) {
+                return redirect()->route('dashboard-paramedis');
             }
             return redirect()->route('beranda');
         }

@@ -81,7 +81,7 @@
     <!-- ======= End Penjemputan Mahasiswa ======= -->
 @endsection
 
-@section('bottomScript')
+@section('bottomScriptx')
     <script>
         function getLocation() {
             if (navigator.geolocation) {

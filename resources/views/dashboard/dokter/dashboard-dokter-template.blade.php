@@ -135,6 +135,4 @@
 
     <!-- Main JS -->
     <script src="assets_NADM/js/main.js"></script>
-
-    @yield('bottomScriptx')
 @endsection

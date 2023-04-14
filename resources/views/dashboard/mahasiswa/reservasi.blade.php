@@ -10,8 +10,6 @@
     <script script src="{{ asset('jquery/jquery-3.6.4.min.js') }}"></script>
     <script src="{{ asset('jquery/jquery-ui-1.13.2.min.js') }}"></script>
     <script>
-        var myVar = "Nilai variabel JavaScript";
-
         $(function() {
             var now = new Date();
             var hour = now.getHours();
@@ -48,28 +46,28 @@
                     waktuOptions[i].hidden = false;
                 }
                 if (selected.toDateString() === today.toDateString()) {
-                    if (hour >= 7 || (hour == 7 && minute >= 55)) {
+                    if (hour >= 8 || (hour == 8 && minute >= 55)) {
                         document.querySelector('select[name="waktu"] option[value="8"]').hidden = true;
                     }
-                    if (hour >= 8 || (hour == 8 && minute >= 55)) {
+                    if (hour >= 9 || (hour == 9 && minute >= 55)) {
                         document.querySelector('select[name="waktu"] option[value="9"]').hidden = true;
                     }
-                    if (hour >= 9 || (hour == 9 && minute >= 55)) {
+                    if (hour >= 10 || (hour == 10 && minute >= 55)) {
                         document.querySelector('select[name="waktu"] option[value="10"]').hidden = true;
                     }
-                    if (hour >= 10 || (hour == 10 && minute >= 55)) {
+                    if (hour >= 11 || (hour == 11 && minute >= 55)) {
                         document.querySelector('select[name="waktu"] option[value="11"]').hidden = true;
                     }
-                    if (hour >= 11 || (hour == 11 && minute >= 55)) {
+                    if (hour >= 12 || (hour == 12 && minute >= 55)) {
                         document.querySelector('select[name="waktu"] option[value="12"]').hidden = true;
                     }
-                    if (hour >= 12 || (hour == 12 && minute >= 55)) {
+                    if (hour >= 13 || (hour == 13 && minute >= 55)) {
                         document.querySelector('select[name="waktu"] option[value="13"]').hidden = true;
                     }
-                    if (hour >= 13 || (hour == 13 && minute >= 55)) {
+                    if (hour >= 14 || (hour == 14 && minute >= 55)) {
                         document.querySelector('select[name="waktu"] option[value="14"]').hidden = true;
                     }
-                    if (hour >= 14 || (hour == 14 && minute >= 55)) {
+                    if (hour >= 15 || (hour == 15 && minute >= 55)) {
                         document.querySelector('select[name="waktu"] option[value="15"]').hidden = true;
                     }
                 }
@@ -347,7 +345,3 @@
 
     @endsection
 @endif
-
-@section('bottomScriptx')
-
-@endsection

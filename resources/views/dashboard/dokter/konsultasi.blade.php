@@ -15,22 +15,9 @@
         }
 
         #A02 {
-            position: absolute;
-            top: 0.375rem;
-            left: 0.75rem;
-            font-size: 0.875rem;
-            color: #6c757d;
-        }
-
-        #A03 {
             height: 100%;
             overflow: auto;
             font-size: 1rem;
-        }
-
-        #A04 {
-            color: #6c757d;
-            font-style: italic;
         }
     </style>
 @endsection
@@ -138,7 +125,7 @@
                                                                     <label for="recipient-name" class="col-form-label">Keterangan:</label>
 
                                                                     <div class="form-control" id="A01">
-                                                                        <div class="input-content" id="A03">
+                                                                        <div class="input-content" id="A02">
                                                                             <p>{{ $data->keterangan }}</p>
                                                                         </div>
                                                                     </div>
