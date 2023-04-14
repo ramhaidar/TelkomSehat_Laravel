@@ -70,4 +70,4 @@ Anggota Kelompok
 2. Ahmad Fasya Adila (1301204231)
 3. Haidaruddin Muhammad Ramdhan (1301204459)
 4. Robith Naufal Razzak 1301204017
-5. Muhammad Hiksal 1301204416
+5. Muhammad Hiksal Daeng Jusuf Bauw (1301204416)
