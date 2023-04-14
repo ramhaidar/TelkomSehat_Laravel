@@ -71,7 +71,11 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 <br>
 
-<p align="center" style="font-size: 400%"><img style="padding-right:10px" src="https://github.com/ramhaidar/TelkomSehat_TuBes_ABP/raw/main/public/favicon.ico" width="5%" ><span class="d-none d-lg-block">TelkomSehat</span></p>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Play&display=swap" rel="stylesheet">
+
+<p align="center" style="font-size: 500%; font-family: 'Play', sans-serif;"><img style="padding-right: 20px" src="https://github.com/ramhaidar/TelkomSehat_TuBes_ABP/raw/main/public/favicon.svg" width="4.3%" ><span class="d-none d-lg-block">TelkomSehat</span></p>
 
 ## Collaborators
 
@@ -207,15 +211,18 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Screenshots
 
--   **Halaman Beranda**:
+-   **Halaman Beranda:**
+
     ![](https://i.postimg.cc/hGg9CxM7/Telkom-Sehat-Beranda.png)
     ![](https://i.postimg.cc/8zLRBwdS/Telkom-Sehat-Beranda2.png)
     ![](https://i.postimg.cc/0jTf9N1g/Telkom-Sehat-Beranda3.png)
 
--   **Halaman Login**:
+-   **Halaman Login:**
+
     ![](https://i.postimg.cc/sXy8YwMQ/Telkom-Sehat-Login.png)
 
--   **Dashboard Dokter**:
+-   **Dashboard Dokter:**
+
     ![](https://i.postimg.cc/cH6qdH4d/Telkom-Sehat-Dashboard-Dokter.png)
     ![](https://i.postimg.cc/jSGvDSXs/Telkom-Sehat-Dashboard-Dokter2.png)
     ![](https://i.postimg.cc/G2Xt9HCt/Telkom-Sehat-Dashboard-Reservasi3.png)
@@ -223,7 +230,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     ![](https://i.postimg.cc/63MPSNdF/Telkom-Sehat-Dashboard-Konsultasi3.png)
     ![](https://i.postimg.cc/brd5fFgr/Telkom-Sehat-Dashboard-Konsultasi4.png)
 
--   **Dashboard Mahasiswa**:
+-   **Dashboard Mahasiswa:**
+
     ![](https://i.postimg.cc/d12v25wg/Telkom-Sehat-Dashboard-Mahasiswa.png)
     ![](https://i.postimg.cc/zXpGDLqg/Telkom-Sehat-Dashboard-Reservasi2.png)
     ![](https://i.postimg.cc/Y0CY05LN/Telkom-Sehat-Dashboard-Reservasi.png)
@@ -233,7 +241,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     ![](https://i.postimg.cc/52C7fzV4/Telkom-Sehat-Dashboard-Penjemputan2.png)
     ![](https://i.postimg.cc/BQy7WgR7/Telkom-Sehat-Dashboard-Penjemputan3.png)
 
--   **Dashboard Paramedis**:
+-   **Dashboard Paramedis:**
+
     ![](https://i.postimg.cc/26RrLsR4/Telkom-Sehat-Dashboard-Paramedis.png)
     ![](https://i.postimg.cc/Kcttc5Ks/Telkom-Sehat-Dashboard-Penjemputan5.png)
     ![](https://i.postimg.cc/qMLnyMxs/Telkom-Sehat-Dashboard-Penjemputan6.png)
