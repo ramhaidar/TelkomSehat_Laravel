@@ -213,37 +213,37 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 -   **Halaman Beranda:**
 
-    ![](https://i.imgur.com/4smGwfr.png)
-    ![](https://i.postimg.cc/8zLRBwdS/Telkom-Sehat-Beranda2.png)
-    ![](https://i.postimg.cc/0jTf9N1g/Telkom-Sehat-Beranda3.png)
+    ![](https://i.imgur.com/4smGwfr.png)    <!-- TelkomSehat-Beranda.png -->
+    ![](https://i.imgur.com/PsOhzyw.png)    <!-- TelkomSehat-Beranda2.png -->
+    ![](https://i.imgur.com/xcCAFuP.png)    <!-- TelkomSehat-Beranda3.png -->
 
 -   **Halaman Login:**
 
-    ![](https://i.postimg.cc/sXy8YwMQ/Telkom-Sehat-Login.png)
+    ![](https://i.imgur.com/0a2lwV8.png)    <!-- TelkomSehat-Login.png -->
 
 -   **Dashboard Dokter:**
 
-    ![](https://i.postimg.cc/cH6qdH4d/Telkom-Sehat-Dashboard-Dokter.png)
-    ![](https://i.postimg.cc/jSGvDSXs/Telkom-Sehat-Dashboard-Dokter2.png)
-    ![](https://i.postimg.cc/G2Xt9HCt/Telkom-Sehat-Dashboard-Reservasi3.png)
-    ![](https://i.postimg.cc/63WT9CFF/Telkom-Sehat-Dashboard-Reservasi4.png)
-    ![](https://i.postimg.cc/63MPSNdF/Telkom-Sehat-Dashboard-Konsultasi3.png)
-    ![](https://i.postimg.cc/brd5fFgr/Telkom-Sehat-Dashboard-Konsultasi4.png)
-
+    ![](https://i.imgur.com/e6A66Bg.png)    <!-- Telkom-Sehat-Dashboard-Dokter.png -->
+    ![](https://i.imgur.com/by0rUg2.png)  <!-- Telkom-Sehat-Dashboard-Dokter2.png -->
+    ![](https://i.imgur.com/VN03UzA.png)  <!-- Telkom-Sehat-Dashboard-Reservasi3.png -->
+    ![](https://i.imgur.com/w4nb5Vs.png)  <!-- Telkom-Sehat-Dashboard-Reservasi4.png -->
+    ![](https://i.imgur.com/OPpWYS5.png)  <!-- Telkom-Sehat-Dashboard-Konsultasi3.png -->
+    ![](https://i.imgur.com/9iQI85J.png)  <!-- Telkom-Sehat-Dashboard-Konsultasi4.png -->
+    
 -   **Dashboard Mahasiswa:**
 
-    ![](https://i.postimg.cc/d12v25wg/Telkom-Sehat-Dashboard-Mahasiswa.png)
-    ![](https://i.postimg.cc/zXpGDLqg/Telkom-Sehat-Dashboard-Reservasi2.png)
-    ![](https://i.postimg.cc/Y0CY05LN/Telkom-Sehat-Dashboard-Reservasi.png)
-    ![](https://i.postimg.cc/wMpDztgr/Telkom-Sehat-Dashboard-Konsultasi.png)
-    ![](https://i.postimg.cc/cH9Ny3Rx/Telkom-Sehat-Dashboard-Konsultasi2.png)
-    ![](https://i.postimg.cc/YqjDyVDm/Telkom-Sehat-Dashboard-Penjemputan.png)
-    ![](https://i.postimg.cc/52C7fzV4/Telkom-Sehat-Dashboard-Penjemputan2.png)
-    ![](https://i.postimg.cc/BQy7WgR7/Telkom-Sehat-Dashboard-Penjemputan3.png)
+    ![](https://i.imgur.com/DaMNBJy.png) <!-- Telkom-Sehat-Dashboard-Mahasiswa.png -->
+    ![](https://i.imgur.com/jIaKleD.png) <!-- Telkom-Sehat-Dashboard-Reservasi2.png -->
+    ![](https://i.imgur.com/YAsmgSm.png) <!-- Telkom-Sehat-Dashboard-Reservasi.png -->
+    ![](https://i.imgur.com/NCIX47B.png) <!-- Telkom-Sehat-Dashboard-Konsultasi.png -->
+    ![](https://i.imgur.com/3yBuwdg.png) <!-- Telkom-Sehat-Dashboard-Konsultasi2.png -->
+    ![](https://i.imgur.com/bfONhpO.png) <!-- Telkom-Sehat-Dashboard-Penjemputan.png -->
+    ![](https://i.imgur.com/aJ51tY5.png) <!-- Telkom-Sehat-Dashboard-Penjemputan2.png -->
+    ![](https://i.imgur.com/NAUuewa.png) <!-- Telkom-Sehat-Dashboard-Penjemputan3.png -->
 
 -   **Dashboard Paramedis:**
 
-    ![](https://i.postimg.cc/26RrLsR4/Telkom-Sehat-Dashboard-Paramedis.png)
-    ![](https://i.postimg.cc/Kcttc5Ks/Telkom-Sehat-Dashboard-Penjemputan5.png)
-    ![](https://i.postimg.cc/qMLnyMxs/Telkom-Sehat-Dashboard-Penjemputan6.png)
-    ![](https://i.postimg.cc/DyFLSbLf/Telkom-Sehat-Dashboard-Penjemputan7.png)
+    ![](https://i.imgur.com/vZ8ZiZd.png) <!-- Telkom-Sehat-Dashboard-Paramedis.png -->
+    ![](https://i.imgur.com/HO7xOPN.png) <!-- Telkom-Sehat-Dashboard-Penjemputan5.png -->
+    ![](https://i.imgur.com/TF2XfhM.png) <!-- Telkom-Sehat-Dashboard-Penjemputan6.png -->
+    ![](https://i.imgur.com/gOO8jEu.png) <!-- Telkom-Sehat-Dashboard-Penjemputan7.png -->
