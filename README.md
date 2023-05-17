@@ -77,6 +77,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 <p align="center" style="font-size: 500%; font-family: 'Play', sans-serif;"><img style="padding-right: 20px" src="https://raw.githubusercontent.com/ramhaidar/TelkomSehat_TuBes_ABP/main/public/favicon.svg" width="75%" ><span class="d-none d-lg-block"></span></p>
 
+## Framework
+- Laravel 10.6.2
+
 ## Collaborators
 
 -   Haidaruddin Muhammad Ramdhan (1301204459) — [@ramhaidar](https://github.com/ramhaidar)
