@@ -26,6 +26,7 @@ class User extends Authenticatable
         'password',
         'mahasiswaid',
         'dokterid',
+        'mobile_app_token',
     ];
 
     /**

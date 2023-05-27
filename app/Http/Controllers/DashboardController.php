@@ -21,6 +21,7 @@ class DashboardController extends Controller
                 ->mahasiswa()
                 ->first();
             $Reservasi = Reservasi::all();
+
             return view("dashboard.mahasiswa.dashboard", [
                 "user" => $user,
                 "mahasiswa" => $mahasiswa,
@@ -265,6 +266,19 @@ class DashboardController extends Controller
                 ->orderBy("id")
                 ->get();
             $Reservasi = Reservasi::all();
+
+            if ($dokter->spesialis == "Dokter Gigi") {
+                $namaDokter = $user->name . ", drg.";
+            } elseif ($dokter->spesialis == "Dokter Umum") {
+                $namaDokter = $user->name . ", dr.";
+            } elseif ($dokter->spesialis == "Dokter Kulit") {
+                $namaDokter = $user->name . ", SpKK.";
+            } elseif ($dokter->spesialis == "Psikiater") {
+                $namaDokter = $user->name . ", SpKJ.";
+            } elseif ($dokter->spesialis == "Dokter THT") {
+                $namaDokter = $user->name . ", SpTHT.";
+            }
+
             return view("dashboard.dokter.dashboard", [
                 "user" => $user,
                 "dokter" => $dokter,

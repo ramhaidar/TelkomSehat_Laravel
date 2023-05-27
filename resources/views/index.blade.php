@@ -46,17 +46,21 @@
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
+                <i class="fas fa-list mobile-nav-toggle"></i>
             </nav>
 
             @auth
-                <a class="btn btn-danger appointment-btn-red shadow float-end" href="{{ route('logout.action') }}" role="button">Sign-Out</a>
+                <a class="btn btn-danger appointment-btn-red shadow float-end" href="{{ route('logout.action') }}"
+                    role="button">Sign-Out</a>
                 @if ($users->mahasiswaid)
-                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-mahasiswa') }}" role="button">Dashboard</a>
+                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-mahasiswa') }}"
+                        role="button">Dashboard</a>
                 @elseif ($users->dokterid)
-                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-dokter') }}" role="button">Dashboard</a>
+                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-dokter') }}"
+                        role="button">Dashboard</a>
                 @elseif ($users->paramedisid)
-                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-paramedis') }}" role="button">Dashboard</a>
+                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-paramedis') }}"
+                        role="button">Dashboard</a>
                 @endif
             @endauth
 
@@ -86,7 +90,7 @@
                     <div class="col-lg-4 d-flex align-items-stretch">
                         <div class="content">
                             <h3>Kenapa Memilih TelkomSehat?</h3>
-                            <p>
+                            <p style="text-align: justify">
                                 Telkom Sehat adalah layanan kesehatan online yang disediakan oleh Telkom Indonesia.
                                 Layanan ini memudahkan masyarakat Indonesia untuk konsultasi kesehatan secara online,
                                 memesan obat yang diantar ke rumah, serta menyediakan informasi kesehatan terkini untuk
@@ -98,32 +102,43 @@
                     <div class="col-lg-8 d-flex align-items-stretch">
                         <div class="icon-boxes d-flex flex-column justify-content-center">
                             <div class="row">
-                                <div class="col-xl-4 d-flex align-items-stretch">
-                                    <div class="icon-box mt-4 mt-xl-0">
-                                        <i class="bx bx-receipt"></i>
-                                        <h4>Reservasi Jadwal</h4>
-                                        <p>Reservasi jadwal pertemuan membantu meminimalkan waktu tunggu dan antrian yang
-                                            panjang di klinik Telkom Medika</p>
+
+                                <div class="row">
+                                    <div class="col-xl-4 d-flex align-items-stretch">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <h4>Reservasi Jadwal</h4>
+                                            <p>TelkomSehat menyediakan layanan reservasi jadwal untuk konsultasi dengan
+                                                dokter
+                                                yang diinginkan. Pasien dapat memilih jadwal yang tersedia sesuai dengan
+                                                kebutuhan dan ketersediaan dokter.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-4 d-flex align-items-stretch">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <i class="fas fa-user-md"></i>
+                                            <h4>Konsultasi Dokter</h4>
+                                            <p>TelkomSehat menyediakan layanan konsultasi dokter secara online untuk
+                                                memudahkan
+                                                pasien dalam mendapatkan
+                                                penanganan medis. Pasien dapat berkonsultasi dengan dokter spesialis yang
+                                                tersedia di TelkomSehat.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-4 d-flex align-items-stretch">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <i class="fas fa-ambulance"></i>
+                                            <h4>Penjemputan Darurat</h4>
+                                            <p>TelkomSehat menyediakan layanan penjemputan darurat bagi pasien yang
+                                                membutuhkan
+                                                perawatan medis segera dan tidak dapat mencapai fasilitas kesehatan sendiri.
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-xl-4 d-flex align-items-stretch">
-                                    <div class="icon-box mt-4 mt-xl-0">
-                                        <i class="bx bx-check-square"></i>
-                                        <h4>Medical Check Up</h4>
-                                        <p>Medical checkup atau pemeriksaan kesehatan berkala bertujuan untuk memantau
-                                            kondisi kesehatan seseorang secara berkala</p>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-4 d-flex align-items-stretch">
-                                    <div class="icon-box mt-4 mt-xl-0">
-                                        <i class="bx bx-capsule"></i>
-                                        <h4>All Medications</h4>
-                                        <p>Obat-obatan yang disediakan oleh TelkomSehat sangat lengkap dengan kebutuhan
-                                            pasien dengan obat resep yang diberikan dokter. </p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -136,68 +151,79 @@
             <div class="container">
                 <div class="section-title">
                     <h2>Services</h2>
-                    <p>Telkom Sehat adalah layanan kesehatan online yang disediakan oleh Telkom Indonesia.
-                        Layanan ini bertujuan untuk memberikan akses mudah dan cepat bagi masyarakat Indonesia untuk
-                        konsultasi kesehatan secara online.
-                        Pengguna juga dapat memesan obat-obatan yang dibutuhkan dan akan diantar langsung ke rumah pengguna.
-                        Selain itu, Telkom Sehat juga menyediakan informasi kesehatan terkini, tips kesehatan, dan artikel
-                        kesehatan yang dapat membantu pengguna dalam menjaga kesehatannya.
+                    <p>TelkomSehat adalah layanan kesehatan online yang disediakan oleh Telkom Indonesia. Layanan ini
+                        bertujuan untuk memberikan akses mudah dan cepat bagi masyarakat Indonesia untuk melakukan reservasi
+                        dokter dan konsultasi kesehatan secara online. Berikut adalah layanan yang dapat Anda dapatkan dari
+                        TelkomSehat
                     </p>
                 </div>
 
                 <div class="row">
+
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                         <div class="icon-box">
-                            <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                            <h4><a>Cek Kesehatan</a></h4>
-                            <p>Melakukan cek kondisi kesehatan melalui pengisian data atau tes kesehatan untuk mengetahui
-                                tanda-tanda penyakit atau kelainan.</p>
+                            <div class="icon"><i class="fas fa-stethoscope"></i></div>
+                            <h4><a>Konsultasi dengan Dokter Spesialis</a></h4>
+                            <p>Dokter-dokter kami merupakan ahli di bidangnya dan senantiasa bersiap memberikan layanan
+                                terbaik bagi pasien.
+                                Anda dapat melakukan konsultasi dengan dokter spesialis yang paling tepat untuk kebutuhan
+                                Anda.
+                            </p>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
                         <div class="icon-box">
-                            <div class="icon"><i class="fas fa-pills"></i></div>
-                            <h4><a>Pesan Obat</a></h4>
-                            <p>Mengajukan permintaan atau memesan obat secara online kepada apoteker atau dokter, sesuai
-                                dengan resep atau kebutuhan pribadi.</p>
+                            <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                            <h4><a>Peralatan Medis Terbaru dan Modern</a></h4>
+                            <p>Klinik kami dilengkapi dengan peralatan medis terbaru dan modern, sehingga pasien dapat
+                                merasa nyaman dan aman selama berada di klinik.
+                            </p>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
                         <div class="icon-box">
-                            <div class="icon"><i class="fas fa-hospital-user"></i></div>
-                            <h4><a>Konsultasi Dokter</a></h4>
-                            <p>Konsultasi dengan dokter atau tenaga medis profesional untuk mendapatkan konsultasi medis,
-                                diagnosis, atau rekomendasi pengobatan.</p>
+                            <div class="icon"><i class="fas fa-calendar-check"></i></div>
+                            <h4><a>Sistem Reservasi Online</a></h4>
+                            <p>Kami memiliki sistem reservasi online yang memudahkan pasien untuk membuat janji dengan
+                                dokter tanpa harus datang ke klinik terlebih dahulu.
+                                Anda dapat memilih dokter spesialis yang sesuai dengan kebutuhan Anda dan membuat janji
+                                dengan mudah melalui sistem pendaftaran online kami.
+                            </p>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box">
-                            <div class="icon"><i class="fas fa-dna"></i></div>
-                            <h4><a>Donor Darah</a></h4>
-                            <p>Relawan donor darah dan memberikan sumbangan darah kepada mereka yang membutuhkan.</p>
+                            <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                            <h4><a>Pelayanan Ramah dan Profesional</a></h4>
+                            <p>Kami memberikan pelayanan yang ramah dan profesional kepada setiap pasien yang datang ke
+                                klinik kami.
+                            </p>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box">
-                            <div class="icon"><i class="fas fa-wheelchair"></i></div>
-                            <h4><a>Antar-Jemput</a></h4>
-                            <p>Layanan antar-jemput pasien atau pengantar obat dari Telkom Medika, untuk memastikan
-                                kebutuhan medis terpenuhi dengan nyaman dan efisien.</p>
+                            <div class="icon"><i class="fas fa-clock"></i></div>
+                            <h4><a>Jadwal Fleksibel</a></h4>
+                            <p>Klinik kami memiliki jadwal yang fleksibel, sehingga pasien dapat memilih waktu yang sesuai
+                                dengan jadwal mereka untuk berkunjung ke klinik kami.</p>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box">
-                            <div class="icon"><i class="fas fa-notes-medical"></i></div>
-                            <h4><a>Laboratorium</a></h4>
-                            <p>Pemeriksaan tes medis, seperti tes darah, urin, atau radiologi, untuk membantu dalam
-                                diagnosis atau pengelolaan kondisi kesehatan pasien.</p>
+                            <div class="icon"><i class="fas fa-hospital"></i></div>
+                            <h4><a>Komitmen Pelayanan Kesehatan Terbaik</a></h4>
+                            <p>Klinik TelkomSehat berkomitmen untuk memberikan pelayanan kesehatan terbaik bagi setiap
+                                pasien. Dokter-dokter yang ahli di bidangnya selalu siap memberikan pelayanan terbaik untuk
+                                pasien.
+                            </p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -228,7 +254,10 @@
                     </div>
 
                     <div class="col-lg col-md-6 footer-links">
-                        <iframe style="border:0; width: 100%; height: 350px;" src="https://maps.google.com/maps?q=klinik telkomedika telkom unviersity&t=&z=16&ie=UTF 8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"" frameborder="0" allowfullscreen></iframe>
+                        <iframe style="border:0; width: 100%; height: 350px;"
+                            src="https://maps.google.com/maps?q=klinik telkomedika telkom unviersity&t=&z=16&ie=UTF 8&iwloc=&output=embed"
+                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"" frameborder=" 0"
+                            allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -245,13 +274,20 @@
                     &copy; Copyright <strong><span>TelkomSehat</span></strong>. All Rights Reserved
                 </div>
                 <div class="credits">
-                    Designed by <a href="{{ url()->current() }}">YoNdakTauKokTanyaSaya</a>
+                    {{-- Designed by <a href="{{ url()->current() }}">SriPandita Team™</a> --}}
+                    Designed by
+                    <a href="https://github.com/ramhaidar/TelkomSehat_Laravel_10.6.2/graphs/contributors">
+                        SriPandita Team™
+                    </a>
                 </div>
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                <a target="_blank" href="https://twitter.com/TelkoMedika" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a target="_blank" href="https://www.facebook.com/TelkoMedika/" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a target="_blank" href="https://www.instagram.com/telkomedika/" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a target="_blank" href="https://twitter.com/TelkoMedika" class="twitter"><i
+                        class="bx bxl-twitter"></i></a>
+                <a target="_blank" href="https://www.facebook.com/TelkoMedika/" class="facebook"><i
+                        class="bx bxl-facebook"></i></a>
+                <a target="_blank" href="https://www.instagram.com/telkomedika/" class="instagram"><i
+                        class="bx bxl-instagram"></i></a>
             </div>
         </div>
     </footer>
@@ -259,7 +295,9 @@
 
     <!-- ======= Arrow Up Button ======= -->
     <div id="preloader"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="fas fa-arrow-up"></i>
+    </a>
     <!-- ======= End Arrow Up Button ======= -->
 @endsection
 

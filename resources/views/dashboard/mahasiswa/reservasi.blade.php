@@ -272,50 +272,34 @@
 
                                         <td>{{ $data->spesialis }}</td>
 
-                                        @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokterid))
-                                            @if (strtotime($data->tanggal . ' 0' . $data->waktu . ':00') < strtotime(now()) and isset($data->dokterid))
+                                        @if (isset($data->dokterid))
+                                            @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
                                                 <td><span class="badge bg-secondary shadow rounded">Completed</span></td>
                                                 <td>
                                                     <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
                                                 </td>
-                                            @elseif (isset($data->dokterid))
-                                                <td><span class="badge bg-success shadow rounded">Approved</span></td>
+                                            @else
+                                                @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokterid))
+                                                    <td><span class="badge bg-success shadow rounded">Approved</span></td>
+                                                @else
+                                                    <td><span class="badge bg-warning shadow rounded">Pending</span></td>
+                                                @endif
                                                 <td>
                                                     <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
-                                                </td>
-                                            @elseif (strtotime($data->tanggal . ' 0' . $data->waktu . ':00') < strtotime(now()) and !isset($data->dokterid))
-                                                <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
-                                                <td>
-                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
-                                                </td>
-                                            @elseif (!isset($data->dokterid))
-                                                <td><span class="badge bg-warning shadow rounded">Pending</span></td>
-                                                <td>
-                                                    <form method="POST" action="{{ route('dashboard.mahasiswa.reservasi.action') }}" id="formHapus{{ $loop->iteration }}">
-                                                        @csrf
-                                                        <input type="hidden" hidden name="hapusID" hidden class="form-control" required value="{{ $data->id }}">
-                                                        <a onclick="document.getElementById('formHapus{{ $loop->iteration }}').submit()" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</a>
-                                                    </form>
                                                 </td>
                                             @endif
                                         @else
-                                            @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()) and isset($data->dokterid))
-                                                <td><span class="badge bg-secondary shadow rounded">Completed</span></td>
-                                                <td>
-                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
-                                                </td>
-                                            @elseif (isset($data->dokterid))
-                                                <td><span class="badge bg-success shadow rounded">Approved</span></td>
-                                                <td>
-                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
-                                                </td>
-                                            @elseif (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()) and !isset($data->dokterid))
+                                            @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
                                                 <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
                                                 <td>
                                                     <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
                                                 </td>
-                                            @elseif (!isset($data->dokterid))
-                                                <td><span class="badge bg-warning shadow rounded">Pending</span></td>
+                                            @else
+                                                @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokterid))
+                                                    <td><span class="badge bg-success shadow rounded">Approved</span></td>
+                                                @else
+                                                    <td><span class="badge bg-warning shadow rounded">Pending</span></td>
+                                                @endif
                                                 <td>
                                                     <form method="POST" action="{{ route('dashboard.mahasiswa.reservasi.action') }}" id="formHapus{{ $loop->iteration }}">
                                                         @csrf
