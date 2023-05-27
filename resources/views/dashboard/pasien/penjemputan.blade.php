@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Penjemputan')
 
-@extends('dashboard.mahasiswa.dashboard-mahasiswa-template')
+@extends('dashboard.pasien.dashboard-pasien-template')
 
 @section('contentx')
     <!-- ======= Breadcrumb Penjemputan Mahasiswa ======= -->
@@ -28,15 +28,19 @@
 
                             @if (!isset($dataPenjemputan) or $dataPenjemputan->selesai == true)
                                 <li class="nav-item mx-1">
-                                    <span class="badge bg-secondary"><i style="padding-right: 5px" class="bi bi-collection me-1"></i>Tidak dalam Masa Emergency</span>
+                                    <span class="badge bg-secondary"><i style="padding-right: 5px"
+                                            class="bi bi-collection me-1"></i>Tidak dalam Masa Emergency</span>
                                 </li>
-                            @elseif (isset($dataPenjemputan) and $dataPenjemputan->paramedisid)
+                            @elseif (isset($dataPenjemputan) and $dataPenjemputan->paramedis_id)
                                 <li class="nav-item mx-1">
-                                    <span class="badge bg-success"><i style="padding-right: 5px" class="bi bi-check-circle me-1"></i>Proses Penjemputan</span>
+                                    <span class="badge bg-success"><i style="padding-right: 5px"
+                                            class="bi bi-check-circle me-1"></i>Proses Penjemputan</span>
                                 </li>
                             @else
                                 <li class="nav-item mx-1">
-                                    <span class="badge bg-warning text-dark"><i style="padding-right: 5px" class="bi bi-exclamation-triangle me-1"></i>Menunggu Konfirmasi Tenaga Medis</span>
+                                    <span class="badge bg-warning text-dark"><i style="padding-right: 5px"
+                                            class="bi bi-exclamation-triangle me-1"></i>Menunggu Konfirmasi Tenaga
+                                        Medis</span>
                                 </li>
                             @endif
                         </ul>
@@ -48,29 +52,34 @@
                                 </li>
 
                                 <li class="nav-item mx-1">
-                                    <span class="badge bg-warning text-dark"><i class="bi bi-telephone me-1"></i>{{ $paramedis->user->name }}</span>
+                                    <span class="badge bg-warning text-dark"><i
+                                            class="bi bi-telephone me-1"></i>{{ $paramedis->user->name }}</span>
                                 </li>
 
                                 <li class="nav-item mx-1">
-                                    <span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i>{{ $paramedis->nomortelepon }}</span>
+                                    <span class="badge bg-info text-dark"><i
+                                            class="bi bi-info-circle me-1"></i>{{ $paramedis->nomortelepon }}</span>
                                 </li>
                             </ul>
                         @endif
                     </div>
                     <div class="card-body">
-                        <img src="assets_NADM/img/undraw_Location_search_re_ttoj.png" class="img-fluid" alt="" style="width: 260px;">
+                        <img src="assets_NADM/img/undraw_Location_search_re_ttoj.png" class="img-fluid" alt=""
+                            style="width: 260px;">
                         <h1 class="card-title" style="font-size: 250%; font-family: Helvetica"><b>EMERGENCY!</b></h1>
                         <p class="card-text">Penjemputan hanya untuk Keadaan Darurat saja.</p>
 
-                        <form method="POST" action="{{ route('dashboard.mahasiswa.penjemputan.action') }}" id="Penjemputan">
+                        <form method="POST" action="{{ route('dashboard.pasien.penjemputan.action') }}" id="Penjemputan">
                             @csrf
                             <input type="hidden" name="lintang" class="form-control" required id="lintang">
                             <input type="hidden" name="bujur" class="form-control" required id="bujur">
 
                             @if (!isset($dataPenjemputan) or $dataPenjemputan->selesai == true)
-                                <button type="button" onclick="getLocation()" class="btn btn-danger mb-2 shadow rounded">Kirim Lokasi Anda</button>
+                                <button type="button" onclick="getLocation()"
+                                    class="btn btn-danger mb-2 shadow rounded">Kirim Lokasi Anda</button>
                             @else
-                                <button disabled type="button" onclick="getLocation()" class="btn btn-secondary mb-2 shadow rounded">Kirim Lokasi Anda</button>
+                                <button disabled type="button" onclick="getLocation()"
+                                    class="btn btn-secondary mb-2 shadow rounded">Kirim Lokasi Anda</button>
                             @endif
                         </form>
                     </div>

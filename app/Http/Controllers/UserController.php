@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Dokter;
-use App\Models\Mahasiswa;
+use App\Models\Pasien;
 use App\Models\Paramedis;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,29 +21,29 @@ class UserController extends Controller
                 'password' => 'required',
             ]);
 
-            $MahasiswaID = null;
-            $DokterID = null;
-            $ParamedisID = null;
+            $pasien_id = null;
+            $dokter_id = null;
+            $paramedis_id = null;
 
-            $MahasiswaID = Mahasiswa::where('username', $request->username)->get('id')->pluck('id')->first();
-            $DokterID = Dokter::where('username', $request->username)->get('id')->pluck('id')->first();
-            $ParamedisID = Paramedis::where('username', $request->username)->get('id')->pluck('id')->first();
+            $pasien_id = Pasien::where('username', $request->username)->get('id')->pluck('id')->first();
+            $dokter_id = Dokter::where('username', $request->username)->get('id')->pluck('id')->first();
+            $paramedis_id = Paramedis::where('username', $request->username)->get('id')->pluck('id')->first();
 
-            if (isset($MahasiswaID)) {
-                $User = User::where('mahasiswaid', $MahasiswaID)->get()->first();
-                $Role = "Mahasiswa";
-            } elseif (isset($DokterID)) {
-                $User = User::where('dokterid', $DokterID)->get()->first();
+            if (isset($pasien_id)) {
+                $User = User::where('pasien_id', $pasien_id)->get()->first();
+                $Role = "Pasien";
+            } elseif (isset($dokter_id)) {
+                $User = User::where('dokter_id', $dokter_id)->get()->first();
                 $Role = "Dokter";
-            } elseif (isset($ParamedisID)) {
-                $User = User::where('paramedisid', $ParamedisID)->get()->first();
+            } elseif (isset($paramedis_id)) {
+                $User = User::where('paramedis_id', $paramedis_id)->get()->first();
                 $Role = "Paramedis";
             }
 
             if (isset($User)) {
                 if (Hash::check($request->password, $User->password)) {
-                    if ($Role == "Mahasiswa") {
-                        $generatedToken = hash('sha512', $User->mahasiswa->username . " — " . $User->get("password")->pluck('password')->first() . " — " . Carbon::now()->format('d-m-Y'));
+                    if ($Role == "Pasien") {
+                        $generatedToken = hash('sha512', $User->pasien->username . " — " . $User->get("password")->pluck('password')->first() . " — " . Carbon::now()->format('d-m-Y'));
                     } elseif ($Role == "Dokter") {
                         $generatedToken = hash('sha512', $User->dokter->username . " — " . $User->get("password")->pluck('password')->first() . " — " . Carbon::now()->format('d-m-Y'));
                     } elseif ($Role == "Paramedis") {
@@ -63,27 +63,27 @@ class UserController extends Controller
                 'password' => 'required',
             ]);
 
-            $MahasiswaID = Mahasiswa::where('username', $request->username)->get('id')->pluck('id')->first();
-            $DokterID = Dokter::where('username', $request->username)->get('id')->pluck('id')->first();
-            $ParamedisID = Paramedis::where('username', $request->username)->get('id')->pluck('id')->first();
+            $pasien_id = Pasien::where('username', $request->username)->get('id')->pluck('id')->first();
+            $dokter_id = Dokter::where('username', $request->username)->get('id')->pluck('id')->first();
+            $paramedis_id = Paramedis::where('username', $request->username)->get('id')->pluck('id')->first();
 
-            if (isset($MahasiswaID)) {
-                $User = User::where('mahasiswaid', $MahasiswaID)->get()->first();
-            } elseif (isset($DokterID)) {
-                $User = User::where('dokterid', $DokterID)->get()->first();
-            } elseif (isset($ParamedisID)) {
-                $User = User::where('paramedisid', $ParamedisID)->get()->first();
+            if (isset($pasien_id)) {
+                $User = User::where('pasien_id', $pasien_id)->get()->first();
+            } elseif (isset($dokter_id)) {
+                $User = User::where('dokter_id', $dokter_id)->get()->first();
+            } elseif (isset($paramedis_id)) {
+                $User = User::where('paramedis_id', $paramedis_id)->get()->first();
             }
 
             if (isset($User)) {
                 if (Hash::check($request->password, $User->password)) {
                     $request->session()->regenerate();
                     Auth::attempt(['name' => $User->name, 'password' => $request->password]);
-                    if ($User->mahasiswaid) {
-                        return redirect()->route('dashboard-mahasiswa');
-                    } elseif ($User->dokterid) {
+                    if ($User->pasien_id) {
+                        return redirect()->route('dashboard-pasien');
+                    } elseif ($User->dokter_id) {
                         return redirect(route('dashboard-dokter'));
-                    } elseif ($User->paramedisid) {
+                    } elseif ($User->paramedis_id) {
                         return redirect(route('dashboard-paramedis'));
                     }
                     return redirect()->route('login')->with("gagal", "Username dan/atau Password Salah.");
@@ -97,16 +97,26 @@ class UserController extends Controller
     public function login(Request $request)
     {
         if (Auth::user()) {
-            if (Auth::user()->mahasiswaid) {
-                return redirect()->route('dashboard-mahasiswa');
-            } elseif (Auth::user()->dokterid) {
+            if (Auth::user()->pasien_id) {
+                return redirect()->route('dashboard-pasien');
+            } elseif (Auth::user()->dokter_id) {
                 return redirect()->route('dashboard-dokter');
-            } elseif (Auth::user()->paramedisid) {
+            } elseif (Auth::user()->paramedis_id) {
                 return redirect()->route('dashboard-paramedis');
             }
             return redirect()->route('beranda');
         }
         return view('login');
+    }
+
+    public function registrasi_pasien_action(Request $request)
+    {
+        return view('registrasi');
+    }
+
+    public function registrasi_pasien(Request $request)
+    {
+        return view('registrasi');
     }
 
     public function logout_action(Request $request)
@@ -119,13 +129,13 @@ class UserController extends Controller
 
     public function index()
     {
-        $Mahasiswa = Mahasiswa::get()->all();
+        $Pasien = Pasien::get()->all();
 
         if (request()->segment(1) == 'api') {
             return response()->json(
                 [
                     "error" => false,
-                    "mahasiswa" => $Mahasiswa,
+                    "pasien" => $Pasien,
                 ]
             );
         }
@@ -140,8 +150,8 @@ class UserController extends Controller
                 'role' => 'required',
             ]);
 
-            if ($request->role == "Mahasiswa") {
-                $ID = Mahasiswa::where('username', $request->username)->get('userid')->pluck('userid')->first();
+            if ($request->role == "Pasien") {
+                $ID = Pasien::where('username', $request->username)->get('userid')->pluck('userid')->first();
             } elseif ($request->role == "Dokter") {
                 $ID = Dokter::where('username', $request->username)->get('userid')->pluck('userid')->first();
             } elseif ($request->role == "Paramedis") {
@@ -152,8 +162,8 @@ class UserController extends Controller
 
             $databaseToken = $User->mobile_app_token;
             $checkToken = hash('sha512', $request->username . " — " . $User->get("password")->pluck('password')->first() . " — " . Carbon::now()->format('d-m-Y'));
-            if ($request->role == "Mahasiswa") {
-                $generatedToken = hash('sha512', $User->mahasiswa->username . " — " . $User->get("password")->pluck('password')->first() . " — " . Carbon::now()->format('d-m-Y'));
+            if ($request->role == "Pasien") {
+                $generatedToken = hash('sha512', $User->pasien->username . " — " . $User->get("password")->pluck('password')->first() . " — " . Carbon::now()->format('d-m-Y'));
             } elseif ($request->role == "Dokter") {
                 $generatedToken = hash('sha512', $User->dokter->username . " — " . $User->get("password")->pluck('password')->first() . " — " . Carbon::now()->format('d-m-Y'));
             } elseif ($request->role == "Paramedis") {

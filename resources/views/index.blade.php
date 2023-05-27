@@ -31,7 +31,7 @@
 @section('content')
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top">
+    <header id="header" class="fixed-top shadow">
         <div class="container d-flex align-items-center">
             <h1 class="logo me-auto">
                 <a href="{{ route('beranda') }}" class="logo d-flex align-items-center w-auto" id="nodecoration">
@@ -40,32 +40,42 @@
                 </a>
             </h1>
 
-            <nav id="navbar" class="navbar order-last order-lg-0" style="padding-right: 25px">
+            <nav id="navbar" class="navbar order-last order-lg-0" style="padding-right: 25px;">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    <li><a class="nav-link scrollto active" href="#hero">Beranda</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Layanan</a></li>
+                    <li><a class="nav-link scrollto" href="#contact">Kontak</a></li>
                 </ul>
                 <i class="fas fa-list mobile-nav-toggle"></i>
             </nav>
 
             @auth
-                <a class="btn btn-danger appointment-btn-red shadow float-end" href="{{ route('logout.action') }}"
+                <a class="btn btn-danger appointment-btn-red float-end" href="{{ route('logout.action') }}"
                     role="button">Sign-Out</a>
-                @if ($users->mahasiswaid)
-                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-mahasiswa') }}"
+                @if ($users->pasien_id)
+                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-pasien') }}"
                         role="button">Dashboard</a>
-                @elseif ($users->dokterid)
-                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-dokter') }}"
+                @elseif ($users->dokter_id)
+                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-dokter') }}"
                         role="button">Dashboard</a>
-                @elseif ($users->paramedisid)
-                    <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('dashboard-paramedis') }}"
+                @elseif ($users->paramedis_id)
+                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-paramedis') }}"
                         role="button">Dashboard</a>
                 @endif
             @endauth
 
             @guest
-                <a class="btn btn-primary appointment-btn shadow float-end" href="{{ route('login') }}" role="button">Login</a>
+                <div class="me-3" style="border-left: 1px solid black; height: 40px;"></div>
+                <a class="btn btn-secondary btn-sm float-end mx-2 px-4"
+                    style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;"
+                    href="{{ route('registrasi-pasien') }}" role="button">
+                    <h6 style="margin: 0;">Registrasi</h6>
+                </a>
+                <a class="btn btn-primary btn-sm float-end mx-2 px-4"
+                    style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;"
+                    href="{{ route('login') }}" role="button">
+                    <h6 style="margin: 0;">Login</h6>
+                </a>
             @endguest
         </div>
     </header>
@@ -146,11 +156,11 @@
             </div>
         </section><!-- End Why Us Section -->
 
-        <!-- ======= Services Section ======= -->
+        <!-- ======= Layanan Section ======= -->
         <section id="services" class="services">
             <div class="container">
                 <div class="section-title">
-                    <h2>Services</h2>
+                    <h2>Layanan</h2>
                     <p>TelkomSehat adalah layanan kesehatan online yang disediakan oleh Telkom Indonesia. Layanan ini
                         bertujuan untuk memberikan akses mudah dan cepat bagi masyarakat Indonesia untuk melakukan reservasi
                         dokter dan konsultasi kesehatan secara online. Berikut adalah layanan yang dapat Anda dapatkan dari
@@ -227,17 +237,17 @@
                 </div>
             </div>
         </section>
-        <!-- ======= End Services Section ======= -->
+        <!-- ======= End Layanan Section ======= -->
 
     </main>
     <!-- ======= End Main Section ======= -->
 
-    <!-- ======= Contact Section ======= -->
+    <!-- ======= Kontak Section ======= -->
     <section id="contact" class="contact">
         <div class="footer-top mb-5">
             <div class="container mb-5">
                 <div class="section-title mb-5">
-                    <h2>Contact</h2>
+                    <h2>Kontak</h2>
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-6 footer-contact">
@@ -263,7 +273,7 @@
             </div>
         </div>
     </section>
-    <!-- ======= End Contact Section ======= -->
+    <!-- ======= End Kontak Section ======= -->
 
     <!-- ======= Footer Section ======= -->
     <footer id="footer">
@@ -271,13 +281,13 @@
 
             <div class="me-md-auto text-center text-md-start">
                 <div class="copyright">
-                    &copy; Copyright <strong><span>TelkomSehat</span></strong>. All Rights Reserved
+                    Copyright &copy; 2023 <strong><span>TelkomSehat</span></strong> — All Rights Reserved
                 </div>
                 <div class="credits">
-                    {{-- Designed by <a href="{{ url()->current() }}">SriPandita Team™</a> --}}
+                    {{-- Designed by <a href="{{ url()->current() }}">SriPandita Team&trade;</a> --}}
                     Designed by
                     <a href="https://github.com/ramhaidar/TelkomSehat_Laravel_10.6.2/graphs/contributors">
-                        SriPandita Team™
+                        SriPandita Team&trade;
                     </a>
                 </div>
             </div>

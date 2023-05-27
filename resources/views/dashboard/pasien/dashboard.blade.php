@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Mahasiswa')
 
-@extends('dashboard.mahasiswa.dashboard-mahasiswa-template')
+@extends('dashboard.pasien.dashboard-pasien-template')
 
 @section('contentx')
     <!-- ======= Breadcrumb ======= -->
@@ -26,7 +26,8 @@
                                 <h5 class="card-title">TelkomSehat Siap Melayani Anda</h5>
                                 <div class="d-flex align-items-center">
                                     <div class="ps-3">
-                                        <img src="assets_NADM/img/ds_illustrasi.png" class="img-fluid" alt="" style="width: 260px;">
+                                        <img src="assets_NADM/img/ds_illustrasi.png" class="img-fluid" alt=""
+                                            style="width: 260px;">
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +77,8 @@
         var dt = new Date();
         var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
         document.getElementById("haritanggal").innerHTML = hari[dt.getDay()] + ', ';
-        document.getElementById("tanggalwaktu").innerHTML = set(dt.getDate()) + '-' + set(dt.getMonth() + 1) + '-' + dt.getFullYear();
+        document.getElementById("tanggalwaktu").innerHTML = set(dt.getDate()) + '-' + set(dt.getMonth() + 1) + '-' + dt
+            .getFullYear();
         window.onload = function() {
             jam();
         }

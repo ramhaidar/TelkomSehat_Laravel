@@ -14,8 +14,8 @@ class Konsultasi extends Model
     protected $table = 'konsultasi';
 
     protected $fillable = [
-        'mahasiswaid',
-        'dokterid',
+        'pasien_id',
+        'dokter_id',
         'keluhan',
         'keterangan',
         'jawaban',
@@ -23,11 +23,11 @@ class Konsultasi extends Model
 
     public function mahasiswa(): HasOne
     {
-        return $this->hasOne(Mahasiswa::class, 'id', 'mahasiswaid');
+        return $this->hasOne(Mahasiswa::class, 'id', 'pasien_id');
     }
 
     public function dokter(): HasOne
     {
-        return $this->hasOne(Dokter::class, 'id', 'dokterid');
+        return $this->hasOne(Dokter::class, 'id', 'dokter_id');
     }
 }

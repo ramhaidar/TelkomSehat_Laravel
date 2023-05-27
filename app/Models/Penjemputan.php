@@ -16,19 +16,19 @@ class Penjemputan extends Model
     protected $table = 'penjemputan';
 
     protected $fillable = [
-        'mahasiswaid',
-        'paramedisid',
+        'pasien_id',
+        'paramedis_id',
         'lintang',
         'bujur',
     ];
 
     public function mahasiswa(): HasOne
     {
-        return $this->hasOne(Mahasiswa::class, 'id', 'mahasiswaid');
+        return $this->hasOne(Mahasiswa::class, 'id', 'pasien_id');
     }
 
     public function paramedis(): HasOne
     {
-        return $this->hasOne(Paramedis::class, 'id', 'paramedisid');
+        return $this->hasOne(Paramedis::class, 'id', 'paramedis_id');
     }
 }

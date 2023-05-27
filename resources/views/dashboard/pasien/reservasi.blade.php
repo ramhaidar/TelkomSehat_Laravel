@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Reservasi')
 
-@extends('dashboard.mahasiswa.dashboard-mahasiswa-template')
+@extends('dashboard.pasien.dashboard-pasien-template')
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('jquery/jquery-ui-1.12.1.css') }}">
@@ -114,8 +114,9 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('dashboard.mahasiswa.reservasi.action') }}">
-                            <input type="text" name="buatReservasi" hidden class="form-control" required value="{{ $user->id }}">
+                        <form method="POST" action="{{ route('dashboard.pasien.reservasi.action') }}">
+                            <input type="text" name="buatReservasi" hidden class="form-control" required
+                                value="{{ $user->id }}">
                             @csrf
 
                             <div class="row mb-3">
@@ -135,7 +136,8 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Tanggal</label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="tanggal" name="tanggal" value="dd-mm-yyyy" class="form-control">
+                                    <input type="text" id="tanggal" name="tanggal" value="dd-mm-yyyy"
+                                        class="form-control">
                                 </div>
                             </div>
 
@@ -201,9 +203,12 @@
                             </div>
 
                             <div class="col-6">
-                                <form method="POST" action="{{ route('dashboard.mahasiswa.reservasi.action') }}">
-                                    <input type="text" name="buatReservasi" hidden class="form-control" required value="{{ $user->id }}">
-                                    <button class="btn btn-primary mb-3 mt-3 shadow rounded float-end" href="{{ route('dashboard-mahasiswa-reservasi') }}"><i style="padding-right: 10px" class="bi bi-calendar2-plus"></i>Buat Reservasi</button>
+                                <form method="POST" action="{{ route('dashboard.pasien.reservasi.action') }}">
+                                    <input type="text" name="buatReservasi" hidden class="form-control" required
+                                        value="{{ $user->id }}">
+                                    <button class="btn btn-primary mb-3 mt-3 shadow rounded float-end"
+                                        href="{{ route('dashboard-pasien-reservasi') }}"><i style="padding-right: 10px"
+                                            class="bi bi-calendar2-plus"></i>Buat Reservasi</button>
                                     @csrf
                                 </form>
                             </div>
@@ -242,7 +247,7 @@
                             <tbody>
                                 @foreach ($dataReservasi as $data)
                                     <tr>
-                                        <th scope="row"><a class="text-primary">{{ $user->mahasiswa->nim }}</a></th>
+                                        <th scope="row"><a class="text-primary">{{ $user->pasien->nim }}</a></th>
                                         <td>{{ $user->name }}</td>
                                         <td><a class="text-primary">{{ $data->keluhan }}</a></td>
                                         <td>{{ $data->tanggal }}</td>
@@ -264,47 +269,67 @@
                                             <td>15:00 - 16:00</td>
                                         @endif
 
-                                        @if (isset($data->dokterid))
+                                        @if (isset($data->dokter_id))
                                             <td><a class="text-primary">{{ $data->dokter->user->name }}</a></td>
                                         @else
-                                            <td><i class="bi bi-dash-lg"></i><i class="bi bi-dash-lg"></i><i class="bi bi-dash-lg"></i></td>
+                                            <td><i class="bi bi-dash-lg"></i><i class="bi bi-dash-lg"></i><i
+                                                    class="bi bi-dash-lg"></i></td>
                                         @endif
 
                                         <td>{{ $data->spesialis }}</td>
 
-                                        @if (isset($data->dokterid))
+                                        @if (isset($data->dokter_id))
                                             @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
                                                 <td><span class="badge bg-secondary shadow rounded">Completed</span></td>
                                                 <td>
-                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
+                                                    <button disabled
+                                                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                                                        class="btn btn-sm btn-danger shadow rounded"><i
+                                                            style="padding-right: 10px"
+                                                            class="bi bi-x-circle"></i>Batal</button>
                                                 </td>
                                             @else
-                                                @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokterid))
+                                                @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokter_id))
                                                     <td><span class="badge bg-success shadow rounded">Approved</span></td>
                                                 @else
                                                     <td><span class="badge bg-warning shadow rounded">Pending</span></td>
                                                 @endif
                                                 <td>
-                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
+                                                    <button disabled
+                                                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                                                        class="btn btn-sm btn-danger shadow rounded"><i
+                                                            style="padding-right: 10px"
+                                                            class="bi bi-x-circle"></i>Batal</button>
                                                 </td>
                                             @endif
                                         @else
                                             @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
                                                 <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
                                                 <td>
-                                                    <button disabled style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</button>
+                                                    <button disabled
+                                                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                                                        class="btn btn-sm btn-danger shadow rounded"><i
+                                                            style="padding-right: 10px"
+                                                            class="bi bi-x-circle"></i>Batal</button>
                                                 </td>
                                             @else
-                                                @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokterid))
+                                                @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokter_id))
                                                     <td><span class="badge bg-success shadow rounded">Approved</span></td>
                                                 @else
                                                     <td><span class="badge bg-warning shadow rounded">Pending</span></td>
                                                 @endif
                                                 <td>
-                                                    <form method="POST" action="{{ route('dashboard.mahasiswa.reservasi.action') }}" id="formHapus{{ $loop->iteration }}">
+                                                    <form method="POST"
+                                                        action="{{ route('dashboard.pasien.reservasi.action') }}"
+                                                        id="formHapus{{ $loop->iteration }}">
                                                         @csrf
-                                                        <input type="hidden" hidden name="hapusID" hidden class="form-control" required value="{{ $data->id }}">
-                                                        <a onclick="document.getElementById('formHapus{{ $loop->iteration }}').submit()" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" class="btn btn-sm btn-danger shadow rounded"><i style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</a>
+                                                        <input type="hidden" hidden name="hapusID" hidden
+                                                            class="form-control" required value="{{ $data->id }}">
+                                                        <a onclick="document.getElementById('formHapus{{ $loop->iteration }}').submit()"
+                                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                                                            class="btn btn-sm btn-danger shadow rounded"><i
+                                                                style="padding-right: 10px"
+                                                                class="bi bi-x-circle"></i>Batal</a>
                                                     </form>
                                                 </td>
                                             @endif

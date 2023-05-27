@@ -15,8 +15,8 @@ class Reservasi extends Model
     protected $table = 'reservasi';
 
     protected $fillable = [
-        'mahasiswaid',
-        'dokterid',
+        'pasien_id',
+        'dokter_id',
         'spesialis',
         'tanggal',
         'waktu',
@@ -27,11 +27,11 @@ class Reservasi extends Model
 
     public function mahasiswa(): HasOne
     {
-        return $this->hasOne(Mahasiswa::class, 'id', 'mahasiswaid');
+        return $this->hasOne(Mahasiswa::class, 'id', 'pasien_id');
     }
 
     public function dokter(): HasOne
     {
-        return $this->hasOne(Dokter::class, 'id', 'dokterid');
+        return $this->hasOne(Dokter::class, 'id', 'dokter_id');
     }
 }

@@ -20,44 +20,44 @@ use App\Http\Controllers\DashboardController;
 // --- Mahasiswa -- //
 
 Route::get(
-    '/dashboard-mahasiswa',
-    [DashboardController::class, 'dashboard_mahasiswa']
-)->name('dashboard-mahasiswa');
+    '/dashboard-pasien',
+    [DashboardController::class, 'dashboard_pasien']
+)->name('dashboard-pasien');
 
 Route::get(
-    '/dashboard-mahasiswa-reservasi',
-    [DashboardController::class, 'dashboard_mahasiswa_reservasi']
-)->name('dashboard-mahasiswa-reservasi');
+    '/dashboard-pasien-reservasi',
+    [DashboardController::class, 'dashboard_pasien_reservasi']
+)->name('dashboard-pasien-reservasi');
 
 Route::post(
-    '/dashboard-mahasiswa-reservasi',
-    [DashboardController::class, 'dashboard_mahasiswa_reservasi_action']
-)->name('dashboard.mahasiswa.reservasi.action');
+    '/dashboard-pasien-reservasi',
+    [DashboardController::class, 'dashboard_pasien_reservasi_action']
+)->name('dashboard.pasien.reservasi.action');
 
 Route::get(
-    '/dashboard-mahasiswa-konsultasi',
-    [DashboardController::class, 'dashboard_mahasiswa_konsultasi']
-)->name('dashboard-mahasiswa-konsultasi');
+    '/dashboard-pasien-konsultasi',
+    [DashboardController::class, 'dashboard_pasien_konsultasi']
+)->name('dashboard-pasien-konsultasi');
 
 Route::post(
-    '/dashboard-mahasiswa-konsultasi',
-    [DashboardController::class, 'dashboard_mahasiswa_konsultasi_action']
-)->name('dashboard.mahasiswa.konsultasi.action');
+    '/dashboard-pasien-konsultasi',
+    [DashboardController::class, 'dashboard_pasien_konsultasi_action']
+)->name('dashboard.pasien.konsultasi.action');
 
 Route::get(
-    '/dashboard-mahasiswa-penjemputan',
-    [DashboardController::class, 'dashboard_mahasiswa_penjemputan']
-)->name('dashboard-mahasiswa-penjemputan');
+    '/dashboard-pasien-penjemputan',
+    [DashboardController::class, 'dashboard_pasien_penjemputan']
+)->name('dashboard-pasien-penjemputan');
 
 Route::post(
-    '/dashboard-mahasiswa-penjemputan',
-    [DashboardController::class, 'dashboard_mahasiswa_penjemputan_action']
-)->name('dashboard.mahasiswa.penjemputan.action');
+    '/dashboard-pasien-penjemputan',
+    [DashboardController::class, 'dashboard_pasien_penjemputan_action']
+)->name('dashboard.pasien.penjemputan.action');
 
 Route::get(
-    '/dashboard-mahasiswa-test',
-    [DashboardController::class, 'dashboard_mahasiswa_test']
-)->name('dashboard-mahasiswa-test');
+    '/dashboard-pasien-test',
+    [DashboardController::class, 'dashboard_pasien_test']
+)->name('dashboard-pasien-test');
 
 // --- Dokter -- //
 
@@ -119,6 +119,18 @@ Route::post(
     '/login',
     [UserController::class, 'login_action']
 )->name('login.action');
+
+// --- Registrasi -- //
+
+Route::get(
+    '/registrasi-pasien',
+    [UserController::class, 'registrasi_pasien']
+)->name('registrasi-pasien');
+
+Route::post(
+    '/registrasi-pasien',
+    [UserController::class, 'registrasi_pasien_action']
+)->name('registrasi.pasien.action');
 
 // --- Beranda -- //
 

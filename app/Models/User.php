@@ -3,8 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Mahasiswa;
+use App\Models\Pasien;
 use App\Models\Paramedis;
+use App\Models\Dokter;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -24,8 +25,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'mahasiswaid',
-        'dokterid',
+        'pasien_id',
+        'dokter_id',
         'mobile_app_token',
     ];
 
@@ -48,18 +49,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function mahasiswa(): HasOne
+    public function pasien(): HasOne
     {
-        return $this->hasOne(Mahasiswa::class, 'id', 'mahasiswaid');
+        return $this->hasOne(Pasien::class, 'id', 'pasien_id');
     }
 
     public function dokter(): HasOne
     {
-        return $this->hasOne(Dokter::class, 'id', 'dokterid');
+        return $this->hasOne(Dokter::class, 'id', 'dokter_id');
     }
 
     public function paramedis(): HasOne
     {
-        return $this->hasOne(Paramedis::class, 'id', 'paramedisid');
+        return $this->hasOne(Paramedis::class, 'id', 'paramedis_id');
     }
 }

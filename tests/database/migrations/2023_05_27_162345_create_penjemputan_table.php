@@ -4,38 +4,36 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+class CreatePenjemputanTable extends Migration
+{
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('penjemputan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pasien_id')->nullable();
             $table->unsignedBigInteger('paramedis_id')->nullable();
-            $table->foreign('pasien_id')->references('id')->on('mahasiswa');
-            $table->foreign('paramedis_id')->references('id')->on('paramedis');
             $table->string('lintang');
             $table->string('bujur');
-            $table->boolean('selesai')->default(false);
+            $table->boolean('selesai')->default(0);
             $table->timestamps();
+            
+            $table->foreign('pasien_id', 'penjemputan_mahasiswaid_foreign')->references('id')->on('mahasiswa');
+            $table->foreign('paramedis_id', 'penjemputan_paramedisid_foreign')->references('id')->on('paramedis');
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('penjemputan', function (Blueprint $table) {
-            $table->dropForeign(['pasien_id']);
-            $table->dropColumn('pasien_id');
-
-            $table->dropForeign(['paramedis_id']);
-            $table->dropColumn('paramedis_id');
-        });
-
         Schema::dropIfExists('penjemputan');
     }
-};
+}

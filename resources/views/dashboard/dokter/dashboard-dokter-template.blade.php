@@ -108,16 +108,21 @@
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
         <div class="copyright">
-            &copy; Copyright <strong><span>TelkomSehat</span></strong>. All Rights Reserved
+            Copyright &copy; 2023 <strong><span>TelkomSehat</span></strong> — All Rights Reserved
         </div>
         <div class="credits">
-            Designed by <a href="{{ url()->current() }}">YoNdakTauKokTanyaSaya</a>
+            {{-- Designed by <a href="{{ url()->current() }}">YoNdakTauKokTanyaSaya</a> --}}
+            Designed by
+            <a href="https://github.com/ramhaidar/TelkomSehat_Laravel_10.6.2/graphs/contributors">
+                SriPandita Team&trade;
+            </a>
         </div>
     </footer>
     <!-- ======= End Footer ======= -->
 
     <!-- ======= Arrow Up Button ======= -->
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
     <!-- ======= End Arrow Up Button ======= -->
 
 @endsection

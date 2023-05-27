@@ -28,14 +28,16 @@
     <script>
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             alert(
-                "Ukuran layar Anda terlalu kecil untuk mengakses situs web ini. \nSilakan perlebar ukuran web browser anda atau gunakan desktop mode.");
+                "Ukuran layar Anda terlalu kecil untuk mengakses situs web ini. \nSilakan perlebar ukuran web browser anda atau gunakan desktop mode."
+                );
             location.reload();
         }
 
         //if (window.innerWidth < 1270 || window.innerHeight < 610) {
         if (window.innerWidth < window.innerHeight) {
             alert(
-                "Ukuran layar Anda terlalu kecil untuk mengakses situs web ini. \nSilakan perlebar ukuran web browser anda atau gunakan desktop mode.");
+                "Ukuran layar Anda terlalu kecil untuk mengakses situs web ini. \nSilakan perlebar ukuran web browser anda atau gunakan desktop mode."
+                );
             location.reload();
         }
     </script>

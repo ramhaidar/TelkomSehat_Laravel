@@ -22,8 +22,8 @@ return new class extends Migration {
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('paramedisid')->after('dokterid')->nullable();
-            $table->foreign('paramedisid')->references('id')->on('paramedis');
+            $table->unsignedBigInteger('paramedis_id')->after('dokter_id')->nullable();
+            $table->foreign('paramedis_id')->references('id')->on('paramedis');
         });
     }
 
@@ -38,8 +38,8 @@ return new class extends Migration {
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['paramedisid']);
-            $table->dropColumn('paramedisid');
+            $table->dropForeign(['paramedis_id']);
+            $table->dropColumn('paramedis_id');
         });
 
         Schema::dropIfExists('paramedis');

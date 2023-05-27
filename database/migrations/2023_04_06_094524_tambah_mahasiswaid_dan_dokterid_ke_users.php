@@ -11,10 +11,10 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('mahasiswaid')->after('password')->nullable();
-            $table->unsignedBigInteger('dokterid')->after('mahasiswaid')->nullable();
-            $table->foreign('mahasiswaid')->references('id')->on('mahasiswa');
-            $table->foreign('dokterid')->references('id')->on('dokter');
+            $table->unsignedBigInteger('pasien_id')->after('password')->nullable();
+            $table->unsignedBigInteger('dokter_id')->after('pasien_id')->nullable();
+            $table->foreign('pasien_id')->references('id')->on('mahasiswa');
+            $table->foreign('dokter_id')->references('id')->on('dokter');
         });
     }
 
@@ -24,11 +24,11 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['mahasiswaid']);
-            $table->dropColumn('mahasiswaid');
+            $table->dropForeign(['pasien_id']);
+            $table->dropColumn('pasien_id');
 
-            $table->dropForeign(['dokterid']);
-            $table->dropColumn('dokterid');
+            $table->dropForeign(['dokter_id']);
+            $table->dropColumn('dokter_id');
         });
     }
 };

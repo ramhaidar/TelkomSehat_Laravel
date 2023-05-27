@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Konsultasi')
 
-@extends('dashboard.mahasiswa.dashboard-mahasiswa-template')
+@extends('dashboard.pasien.dashboard-pasien-template')
 
 @section('style')
     <style>
@@ -38,7 +38,7 @@
                 <div class="card recent-sales shadow rounded overflow-auto">
                     <div class="card-body">
                         <h5 class="card-title">Form Konsultasi Mahasiswa</h5>
-                        <form method="POST" action="{{ route('dashboard.mahasiswa.konsultasi.action') }}">
+                        <form method="POST" action="{{ route('dashboard.pasien.konsultasi.action') }}">
                             @csrf
                             <div class="row mb-3">
                                 <label for="keluhan" class="col-sm-2 col-form-label py-3">Keluhan</label>
@@ -84,9 +84,12 @@
                                 <h5 class="card-title">Konsultasi Mahasiswa</h5>
                             </div>
                             <div class="col-6">
-                                <form method="POST" action="{{ route('dashboard.mahasiswa.konsultasi.action') }}">
-                                    <input type="text" name="buatKonsultasi" hidden class="form-control" required value="{{ $user->id }}">
-                                    <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded" href="{{ route('dashboard-mahasiswa-konsultasi') }}"><i class="bi bi-chat-square-text"></i> Konsultasi</button>
+                                <form method="POST" action="{{ route('dashboard.pasien.konsultasi.action') }}">
+                                    <input type="text" name="buatKonsultasi" hidden class="form-control" required
+                                        value="{{ $user->id }}">
+                                    <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded"
+                                        href="{{ route('dashboard-pasien-konsultasi') }}"><i
+                                            class="bi bi-chat-square-text"></i> Konsultasi</button>
                                     @csrf
                                 </form>
                             </div>
@@ -121,9 +124,13 @@
                                         <td>{{ $data->keluhan }}</td>
                                         <td>
                                             @if (isset($data->jawaban))
-                                                <button style="width: 120px" type="button" class="btn btn-success shadow rounded" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
+                                                <button style="width: 120px" type="button"
+                                                    class="btn btn-success shadow rounded" data-bs-toggle="modal"
+                                                    data-bs-target="#ModalJawaban{{ $loop->iteration }}">
                                                 @else
-                                                    <button style="width: 120px" type="button" class="btn btn-secondary shadow rounded" data-bs-toggle="modal" data-bs-target="#ModalJawaban{{ $loop->iteration }}">
+                                                    <button style="width: 120px" type="button"
+                                                        class="btn btn-secondary shadow rounded" data-bs-toggle="modal"
+                                                        data-bs-target="#ModalJawaban{{ $loop->iteration }}">
                                             @endif
                                             <i class="bi bi-file-earmark-check" style="padding-right: 10px"></i>Lihat
                                             </button>
@@ -132,12 +139,16 @@
                                                 <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="ModalJawabanLabel">{{ $data->keluhan }}</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <h1 class="modal-title fs-5" id="ModalJawabanLabel">
+                                                                {{ $data->keluhan }}</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             @if (isset($data->dokter))
-                                                                <h6><b>Dokter: </b>{{ $data->dokter->user->name }} <strong>[{{ $data->dokter->kodedokter }}]</strong></h6>
+                                                                <h6><b>Dokter: </b>{{ $data->dokter->user->name }}
+                                                                    <strong>[{{ $data->dokter->kodedokter }}]</strong>
+                                                                </h6>
                                                             @else
                                                                 <h6><b>Dokter: </b> -</h6>
                                                             @endif
@@ -149,11 +160,13 @@
                                                             @if (isset($data->jawaban))
                                                                 <p>{{ $data->jawaban }}</p>
                                                             @else
-                                                                <p class="text text-secondary">// Belum ada Jawaban dari Dokter //</p>
+                                                                <p class="text text-secondary">// Belum ada Jawaban dari
+                                                                    Dokter //</p>
                                                             @endif
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
                                                         </div>
                                                     </div>
                                                 </div>

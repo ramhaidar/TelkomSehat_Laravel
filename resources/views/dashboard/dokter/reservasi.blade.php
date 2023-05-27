@@ -58,8 +58,8 @@
                         <tbody>
                             @foreach ($dataReservasi as $data)
                                 <tr>
-                                    <th scope="row"><a class="text-primary">{{ $data->mahasiswa->nim }}</a></th>
-                                    <td>{{ $data->mahasiswa->user->name }}</td>
+                                    <th scope="row"><a class="text-primary">{{ $data->pasien->nim }}</a></th>
+                                    <td>{{ $data->pasien->user->name }}</td>
                                     <td><a class="text-primary">{{ $data->keluhan }}</a></td>
                                     <td>{{ $data->tanggal }}</td>
                                     @if ($data->waktu == '8')
@@ -83,25 +83,32 @@
                                     <td>
                                         <form method="POST" action="{{ route('dashboard.dokter.reservasi.action') }}">
                                             @csrf
-                                            <input type="text" name="reservasiID" hidden class="form-control" required value="{{ $data->id }}">
+                                            <input type="text" name="reservasiID" hidden class="form-control" required
+                                                value="{{ $data->id }}">
 
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ApproveConfirmation{{ $loop->iteration }}" href="{{ route('dashboard-mahasiswa-konsultasi') }}">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                data-bs-target="#ApproveConfirmation{{ $loop->iteration }}"
+                                                href="{{ route('dashboard-pasien-konsultasi') }}">
                                                 <i class="bi bi-check-circle"></i>
                                                 <span style="padding-left: 10px">Approve</span>
                                             </button>
 
-                                            <div class="modal fade" id="ApproveConfirmation{{ $loop->iteration }}" tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
+                                            <div class="modal fade" id="ApproveConfirmation{{ $loop->iteration }}"
+                                                tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h1 class="modal-title fs-5" id="LabelModal">Konfirmasi</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Apakah Anda yakin ingin menyetujui reservasi {{ $data->mahasiswa->user->name }}
+                                                            Apakah Anda yakin ingin menyetujui reservasi
+                                                            {{ $data->pasien->user->name }}
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
                                                             <button class="btn btn-primary">Approve</button>
                                                         </div>
                                                     </div>

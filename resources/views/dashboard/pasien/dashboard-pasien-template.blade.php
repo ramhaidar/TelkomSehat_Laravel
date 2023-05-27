@@ -37,13 +37,13 @@
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown" href="#">
                         <img src="assets_NADM/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $mahasiswa->username }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $pasien->username }}</span>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->name }}</h6>
-                            <span>{{ $mahasiswa->nim }}</span>
+                            <span>{{ '@' . $pasien->username }}</span>
                         </li>
 
                         <li>
@@ -68,9 +68,9 @@
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
                 @if ($title == 'Dashboard Mahasiswa')
-                    <a class="nav-link " href="{{ route('dashboard-mahasiswa') }}">
+                    <a class="nav-link " href="{{ route('dashboard-pasien') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-pasien') }}">
                 @endif
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -79,9 +79,9 @@
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Reservasi')
-                    <a class="nav-link" href="{{ route('dashboard-mahasiswa-reservasi') }}">
+                    <a class="nav-link" href="{{ route('dashboard-pasien-reservasi') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa-reservasi') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-pasien-reservasi') }}">
                 @endif
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Reservasi</span>
@@ -90,9 +90,9 @@
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Konsultasi')
-                    <a class="nav-link" href="{{ route('dashboard-mahasiswa-konsultasi') }}">
+                    <a class="nav-link" href="{{ route('dashboard-pasien-konsultasi') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa-konsultasi') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-pasien-konsultasi') }}">
                 @endif
 
                 <i class="bi bi-chat-square-text"></i>
@@ -106,9 +106,9 @@
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Penjemputan')
-                    <a class="nav-link" href="{{ route('dashboard-mahasiswa-penjemputan') }}">
+                    <a class="nav-link" href="{{ route('dashboard-pasien-penjemputan') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-mahasiswa-penjemputan') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-pasien-penjemputan') }}">
                 @endif
                 <i class="bi bi-truck-front"></i>
                 <span>Penjemputan</span>
@@ -127,10 +127,14 @@
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
         <div class="copyright">
-            &copy; Copyright <strong><span>TelkomSehat</span></strong>. All Rights Reserved
+            Copyright &copy; 2023 <strong><span>TelkomSehat</span></strong> — All Rights Reserved
         </div>
         <div class="credits">
-            Designed by <a href="{{ url()->current() }}">YoNdakTauKokTanyaSaya</a>
+            {{-- Designed by <a href="{{ url()->current() }}">YoNdakTauKokTanyaSaya</a> --}}
+            Designed by
+            <a href="https://github.com/ramhaidar/TelkomSehat_Laravel_10.6.2/graphs/contributors">
+                SriPandita Team&trade;
+            </a>
         </div>
     </footer>
     <!-- ======= End Footer ======= -->

@@ -91,7 +91,7 @@
             {{-- <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a> --}}
             {{-- <a href="{{ route('login') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a> --}}
             @auth
-                @if ($users->mahasiswaid)
+                @if ($users->pasien_id)
                     <a class="btn btn-primary appointment-btn scrollto" href="{{ route('dashboard-mahasiswa') }}" role="button">Dashboard</a>
                 @endif
             @endauth
@@ -914,7 +914,7 @@
 
             <div class="me-md-auto text-center text-md-start">
                 <div class="copyright">
-                    &copy; Copyright <strong><span>TelkomSehat</span></strong>. All Rights Reserved
+                    Copyright &copy; 2023 <strong><span>TelkomSehat</span></strong> — All Rights Reserved
                 </div>
                 <div class="credits">
                     Designed by <a href="https://telkomsehat.com/">YoNdakTauKokTanyaSaya</a>
