@@ -1,0 +1,25 @@
+@extends('@@layout@@')
+
+@section('breadcrumb')
+<li class="breadcrumb-item">
+    @@table@@
+</li>
+@endsection
+
+@section('tools')
+@@createLink@@
+@endsection
+
+@section('content')
+
+<div class="row">
+    @@indexHtml@@
+</div>
+<div class='row'>
+    <div class="col-sm-12">
+        {{{$records->render()}}}
+    </div>
+</div>
+@include('@@folderName@@/partial/modal_form')
+
+@endSection

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Dokter;
-use App\Models\Mahasiswa;
+use App\Models\Pasien;
 use App\Models\Paramedis;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -22,8 +22,8 @@ class AwalanSeeder extends Seeder
 
         // —————————————————————————————————————————————————————————— //
 
-        $pasien_id = Mahasiswa::create([
-            'nim' => '1301204017',
+        $pasien_id = Pasien::create([
+            // 'nim' => '1301204017',
             'username' => 'robithnaufal',
             'nomortelepon' => '6281246229522',
         ])->id;
@@ -35,12 +35,12 @@ class AwalanSeeder extends Seeder
             'pasien_id' => $pasien_id,
         ])->id;
 
-        Mahasiswa::find($pasien_id)->update(['userid' => $userID]);
+        Pasien::find($pasien_id)->update(['userid' => $userID]);
 
         // —————————————————————————————————————————————————————————— //
 
-        $pasien_id = Mahasiswa::create([
-            'nim' => '1301204459',
+        $pasien_id = Pasien::create([
+            // 'nim' => '1301204459',
             'username' => 'haidarx',
             'nomortelepon' => '6281238777306',
         ])->id;
@@ -52,12 +52,12 @@ class AwalanSeeder extends Seeder
             'pasien_id' => $pasien_id,
         ])->id;
 
-        Mahasiswa::find($pasien_id)->update(['userid' => $userID]);
+        Pasien::find($pasien_id)->update(['userid' => $userID]);
 
         // —————————————————————————————————————————————————————————— //
 
-        $pasien_id = Mahasiswa::create([
-            'nim' => '1301204112',
+        $pasien_id = Pasien::create([
+            // 'nim' => '1301204112',
             'username' => 'dimasrfq',
             'nomortelepon' => '6285155106991',
         ])->id;
@@ -69,12 +69,12 @@ class AwalanSeeder extends Seeder
             'pasien_id' => $pasien_id,
         ])->id;
 
-        Mahasiswa::find($pasien_id)->update(['userid' => $userID]);
+        Pasien::find($pasien_id)->update(['userid' => $userID]);
 
         // —————————————————————————————————————————————————————————— //
 
-        $pasien_id = Mahasiswa::create([
-            'nim' => '1301204231',
+        $pasien_id = Pasien::create([
+            // 'nim' => '1301204231',
             'username' => 'ahmadfasya',
             'nomortelepon' => '6285755347595',
         ])->id;
@@ -86,12 +86,12 @@ class AwalanSeeder extends Seeder
             'pasien_id' => $pasien_id,
         ])->id;
 
-        Mahasiswa::find($pasien_id)->update(['userid' => $userID]);
+        Pasien::find($pasien_id)->update(['userid' => $userID]);
 
         // —————————————————————————————————————————————————————————— //
 
-        $pasien_id = Mahasiswa::create([
-            'nim' => '1301204416',
+        $pasien_id = Pasien::create([
+            // 'nim' => '1301204416',
             'username' => 'hiksal',
             'nomortelepon' => '628112104949',
         ])->id;
@@ -103,7 +103,7 @@ class AwalanSeeder extends Seeder
             'pasien_id' => $pasien_id,
         ])->id;
 
-        Mahasiswa::find($pasien_id)->update(['userid' => $userID]);
+        Pasien::find($pasien_id)->update(['userid' => $userID]);
 
         // —————————————————————————————————————————————————————————— //
 

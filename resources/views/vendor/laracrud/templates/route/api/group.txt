@@ -1,0 +1,4 @@
+
+$api->group(['prefix'=>'@@prefix@@'@@namespace@@], function () {
+    @@routes@@
+});

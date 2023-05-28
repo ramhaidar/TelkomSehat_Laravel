@@ -12,20 +12,47 @@
 
 @section('header')
     <!-- Vendor CSS Files -->
-    <link href="assets_MDLB/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="assets_MDLB/vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="assets_MDLB/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets_MDLB/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets_MDLB/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets_MDLB/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets_MDLB/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets_MDLB/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    {{-- <link href="assets_MDLB/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"> --}}
+    {{-- <link href="assets_MDLB/vendor/animate.css/animate.min.css" rel="stylesheet"> --}}
+    {{-- <link href="assets_MDLB/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> --}}
+    {{-- <link href="assets_MDLB/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> --}}
+    {{-- <link href="assets_MDLB/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"> --}}
+    {{-- <link href="assets_MDLB/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> --}}
+    {{-- <link href="assets_MDLB/vendor/remixicon/remixicon.css" rel="stylesheet"> --}}
+    {{-- <link href="assets_MDLB/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+        integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+        integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
+        integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/js/glightbox.min.js"
+        integrity="sha512-S/H9RQ6govCzeA7F9D0m8NGfsGf0/HjJEiLEfWGaMCjFzavo+DkRbYtZLSO+X6cZsIKQ6JvV/7Y9YMaYnSGnAA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.3.0/remixicon.css"
+        integrity="sha512-0JEaZ1BDR+FsrPtq5Ap9o05MUwn8lKs2GiCcRVdOH0qDcUcCoMKi8fDVJ9gnG8VN1Mp/vuWw2sMO0SQom5th4g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.css"
+        integrity="sha512-Y1c7KsgMNtf7pIhrj/Ul2LhutImFYr+TsCmjB8mGAk+cgG1Vm8U1g7tvfmRr6yD5nds03Qgc6Mcb86MBKu1Llg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Main CSS File -->
     <link href="assets_MDLB/css/style.css" rel="stylesheet">
 
     <!-- JQuery 3.6.0 File -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 
 @section('content')
@@ -69,12 +96,12 @@
                 <a class="btn btn-secondary btn-sm float-end mx-2 px-4"
                     style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;"
                     href="{{ route('registrasi-pasien') }}" role="button">
-                    <h6 style="margin: 0;">Registrasi</h6>
+                    <p style="margin: 0;">Registrasi</p>
                 </a>
                 <a class="btn btn-primary btn-sm float-end mx-2 px-4"
                     style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;"
                     href="{{ route('login') }}" role="button">
-                    <h6 style="margin: 0;">Login</h6>
+                    <p style="margin: 0;">Login</p>
                 </a>
             @endguest
         </div>
@@ -276,7 +303,7 @@
     <!-- ======= End Kontak Section ======= -->
 
     <!-- ======= Footer Section ======= -->
-    <footer id="footer">
+    <footer id="footer" class="shadow border-top border-3 border-primary-subtle">
         <div class="container d-md-flex py-4">
 
             <div class="me-md-auto text-center text-md-start">
@@ -313,11 +340,21 @@
 
 @section('bottomScript')
     <!-- Vendor JS -->
-    <script src="assets_MDLB/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets_MDLB/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets_MDLB/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets_MDLB/vendor/swiper/swiper-bundle.min.js"></script>
+    {{-- <script src="assets_MDLB/vendor/purecounter/purecounter_vanilla.js"></script> --}}
+    {{-- <script src="assets_MDLB/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
+    {{-- <script src="assets_MDLB/vendor/glightbox/js/glightbox.min.js"></script> --}}
+    {{-- <script src="assets_MDLB/vendor/swiper/swiper-bundle.min.js"></script> --}}
     <script src="assets_MDLB/vendor/php-email-form/validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"
+        integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/js/glightbox.min.js"
+        integrity="sha512-S/H9RQ6govCzeA7F9D0m8NGfsGf0/HjJEiLEfWGaMCjFzavo+DkRbYtZLSO+X6cZsIKQ6JvV/7Y9YMaYnSGnAA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.js"
+        integrity="sha512-+z66PuMP/eeemN2MgRhPvI3G15FOBbsp5NcCJBojg6dZBEFL0Zoi0PEGkhjubEcQF7N1EpTX15LZvfuw+Ej95Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Main JS -->
     <script src="assets_MDLB/js/main.js"></script>

@@ -1,0 +1,34 @@
+@extends('@@layout@@')
+@section('breadcrumb')
+<li class="breadcrumb-item">
+    <a href="{{route('@@indexRoute@@')}}">@@table@@</a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{route('@@showRoute@@',$model->@@routeModelKey@@)}}">{{$model->@@tableTitle@@}}</a>
+</li>
+<li class="breadcrumb-item">
+    Edit
+</li>
+@endsection
+@section('header')
+<h3><i class="fa fa-pencil"></i> Edit {{$model->@@tableTitle@@}}</h3>
+@endSection
+
+@section('tools')
+@@createLink@@
+@endsection
+
+@section('content')
+<div class="row">
+    <div class='col-md-12'>
+        <div class='card'>
+            <div class="card-body">
+                @include('@@folder@@.@@partialFilename@@',[
+                'route'=>route('@@updateRoute@@',$model->@@routeModelKey@@),
+                'method'=>'PUT'
+                ])
+            </div>
+        </div>
+    </div>
+</div>
+@endSection

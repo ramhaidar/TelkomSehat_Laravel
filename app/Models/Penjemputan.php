@@ -1,34 +1,65 @@
 <?php
-
 namespace App\Models;
 
-use App\Models\Mahasiswa;
-use App\Models\Paramedis;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+   @property bigint $pasien_id pasien id
+@property bigint $paramedis_id paramedis id
+@property varchar $lintang lintang
+@property varchar $bujur bujur
+@property tinyint $selesai selesai
+@property timestamp $created_at created at
+@property timestamp $updated_at updated at
+@property Paramedi $paramedi belongsTo
+@property Pasien $pasien belongsTo
+   
+ */
 class Penjemputan extends Model
 {
-    use HasFactory;
 
-    protected $primaryKey = 'id';
+    /**
+     * Database table name
+     */
     protected $table = 'penjemputan';
 
+    /**
+     * Mass assignable columns
+     */
     protected $fillable = [
         'pasien_id',
         'paramedis_id',
         'lintang',
         'bujur',
+        'selesai'
     ];
 
-    public function mahasiswa(): HasOne
+    /**
+     * Date time columns.
+     */
+    protected $dates = [];
+
+    /**
+     * paramedi
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function paramedi()
     {
-        return $this->hasOne(Mahasiswa::class, 'id', 'pasien_id');
+        return $this->belongsTo(Paramedi::class, 'paramedis_id');
     }
 
-    public function paramedis(): HasOne
+    /**
+     * pasien
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function pasien()
     {
-        return $this->hasOne(Paramedis::class, 'id', 'paramedis_id');
+        return $this->belongsTo(Pasien::class, 'pasien_id');
     }
+
+
+
+
 }

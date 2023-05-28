@@ -1,0 +1,28 @@
+@extends('@@layout@@')
+
+@section('breadcrumb')
+<li class="breadcrumb-item">
+    @@table@@
+</li>
+@endsection
+
+@section('tools')
+@@createLink@@
+@endsection
+
+@section('content')
+
+<div class="row">
+    @foreach($records as $record)
+    <div class="col-sm-6">
+        @include('@@folder@@.@@partialFilename@@')
+    </div>
+    @endforeach
+</div>
+
+<div class='row'>
+    <div class="col-sm-12">
+        {{{$records->render()}}}
+    </div>
+</div>
+@endSection

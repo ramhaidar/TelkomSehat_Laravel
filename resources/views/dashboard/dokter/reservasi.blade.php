@@ -47,7 +47,7 @@
                     <table class="table table-borderless datatable">
                         <thead>
                             <tr>
-                                <th scope="col">NIM</th>
+                                {{-- <th scope="col">NIM</th> --}}
                                 <th scope="col">Nama</th>
                                 <th scope="col">Keluhan</th>
                                 <th scope="col">Tanggal</th>
@@ -58,7 +58,7 @@
                         <tbody>
                             @foreach ($dataReservasi as $data)
                                 <tr>
-                                    <th scope="row"><a class="text-primary">{{ $data->pasien->nim }}</a></th>
+                                    {{-- <th scope="row"><a class="text-primary">{{ $data->pasien->nim }}</a></th> --}}
                                     <td>{{ $data->pasien->user->name }}</td>
                                     <td><a class="text-primary">{{ $data->keluhan }}</a></td>
                                     <td>{{ $data->tanggal }}</td>

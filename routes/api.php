@@ -19,10 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('mahasiswa', UserController::class);
-
-// Route::resource('login', [UserController::class, 'login_action']);
-// Route::post('login', 'UserController@store');
-// Route::post('login', [UserController::class, 'login_action'])->middleware('throttle:10,1');
 Route::post('login', [UserController::class, 'login_action']);
+
 Route::post('mobile_app_token_check', [UserController::class, 'mobile_app_token_check']);

@@ -13,6 +13,7 @@
     },
     "require-dev": {
         "bennett-treptow/laravel-migration-generator": "^4.3",
+        "digitaldream/laracrud": "^4.0",
         "fakerphp/faker": "^1.21",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",

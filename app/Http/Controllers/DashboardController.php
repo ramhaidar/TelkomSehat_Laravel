@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Paramedis;
 use App\Models\Reservasi;
 use App\Models\Konsultasi;
 use App\Models\Penjemputan;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,19 +19,16 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $pasien = User::find($user->id)
-                ->pasien()
-                ->first();
-            $Reservasi = Reservasi::all();
+            $pasien = $user->pasien()->first();
+            $myReservasi = Reservasi::where("pasien_id", $pasien->id)->count();
+            $countReservasi = Reservasi::count();
 
             return view("dashboard.pasien.dashboard", [
                 "user" => $user,
                 "pasien" => $pasien,
                 "title" => "Dashboard Pasien",
-                "myReservasi" => $Reservasi
-                    ->where("pasien_id", $pasien->id)
-                    ->count(),
-                "countReservasi" => $Reservasi->count(),
+                "myReservasi" => $myReservasi,
+                "countReservasi" => $countReservasi,
             ]);
         }
         return redirect()->route("login");
@@ -39,13 +38,8 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $pasien = User::find($user->id)
-                ->pasien()
-                ->first();
-            $dataReservasi = Reservasi::where(
-                "pasien_id",
-                $pasien->id
-            )->get();
+            $pasien = $user->pasien()->first();
+            $dataReservasi = Reservasi::where("pasien_id", $pasien->id)->get();
 
             return view("dashboard.pasien.reservasi", [
                 "user" => $user,
@@ -67,9 +61,7 @@ class DashboardController extends Controller
             } elseif (
                 isset($request->buatReservasi) and !isset($request->dokter)
             ) {
-                $pasien = User::find($user->id)
-                    ->pasien()
-                    ->first();
+                $pasien = $user->pasien()->first();
                 $hariIni = date("d");
                 $jamSekarang = date("H");
 
@@ -82,16 +74,14 @@ class DashboardController extends Controller
                     "hariIni" => $hariIni,
                 ]);
             } else {
-                $pasien = User::find($user->id)
-                    ->pasien()
-                    ->first();
+                $pasien = $user->pasien()->first();
                 $validator = Validator::make($request->all(), [
                     "dokter" => [
                         "required",
-                        "in:Dokter Gigi,Dokter Umum,Dokter Kulit,Psikiater,Dokter THT",
+                        Rule::in(['Dokter Gigi', 'Dokter Umum', 'Dokter Kulit', 'Psikiater', 'Dokter THT']),
                     ],
                     "tanggal" => ["required", "date_format:d-m-Y"],
-                    "waktu" => ["required", "in:8,9,10,11,12,13,14,15"],
+                    "waktu" => ["required", Rule::in([8, 9, 10, 11, 12, 13, 14, 15])],
                     "keluhan" => ["required"],
                 ]);
 
@@ -104,11 +94,10 @@ class DashboardController extends Controller
                     ])->withErrors($validator);
                 }
 
-                $tempDate = strtotime($request->tanggal);
-                $formattedDate = date("Y-m-d", $tempDate);
+                $formattedDate = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
                 Reservasi::create([
-                    "pasien_id" => strval($user->pasien_id),
+                    "pasien_id" => $user->pasien_id,
                     "spesialis" => $request->dokter,
                     "tanggal" => $formattedDate,
                     "waktu" => $request->waktu,
@@ -127,19 +116,9 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $pasien = User::find($user->id)
-                ->pasien()
-                ->first();
-            $dataKonsultasi = Konsultasi::where(
-                "pasien_id",
-                $pasien->id
-            )->get();
-            return view("dashboard.pasien.konsultasi", [
-                "user" => $user,
-                "pasien" => $pasien,
-                "title" => "Dashboard Konsultasi",
-                "dataKonsultasi" => $dataKonsultasi,
-            ]);
+            $pasien = $user->pasien()->first();
+            $dataKonsultasi = Konsultasi::where("pasien_id", $pasien->id)->get();
+            return view("dashboard.pasien.konsultasi", compact("user", "pasien", "dataKonsultasi"))->with("title", "Dashboard Konsultasi");
         }
         return redirect()->route("login");
     }
@@ -147,51 +126,43 @@ class DashboardController extends Controller
     public function dashboard_pasien_konsultasi_action(Request $request)
     {
         $user = Auth::user();
-        if ($user) {
-            if (isset($request->buatKonsultasi) and !isset($request->keluhan)) {
-                $pasien = User::find($user->id)
-                    ->pasien()
-                    ->first();
-                return view("dashboard.pasien.konsultasi", [
-                    "user" => $user,
-                    "pasien" => $pasien,
-                    "title" => "Dashboard Konsultasi",
-                    "buatKonsultasi" => $request->buatKonsultasi,
-                ]);
-            } else {
-                $pasien = User::find($user->id)
-                    ->pasien()
-                    ->first();
-                $request->validate([
-                    "keluhan" => ["required", "max:84"],
-                    "keterangan" => "required",
-                ]);
-
-                Konsultasi::create([
-                    "pasien_id" => strval($user->pasien_id),
-                    "keluhan" => $request->keluhan,
-                    "keterangan" => $request->keterangan,
-                ]);
-
-                return redirect()
-                    ->route("dashboard-pasien-konsultasi")
-                    ->with("success", "Sukses Mengirimkan Konsultasi");
-            }
+        if (!$user) {
+            return redirect()->route("login");
         }
-        return redirect()->route("login");
+
+        $pasien = $user->pasien()->first();
+
+        if (isset($request->buatKonsultasi) && !isset($request->keluhan)) {
+            return view("dashboard.pasien.konsultasi", [
+                "user" => $user,
+                "pasien" => $pasien,
+                "title" => "Dashboard Konsultasi",
+                "buatKonsultasi" => $request->buatKonsultasi,
+            ]);
+        }
+
+        $request->validate([
+            "keluhan" => ["required", "max:84"],
+            "keterangan" => "required",
+        ]);
+
+        Konsultasi::create([
+            "pasien_id" => strval($user->pasien_id),
+            "keluhan" => $request->keluhan,
+            "keterangan" => $request->keterangan,
+        ]);
+
+        return redirect()
+            ->route("dashboard-pasien-konsultasi")
+            ->with("success", "Sukses Mengirimkan Konsultasi");
     }
 
     public function dashboard_pasien_test(Request $request)
     {
         $user = Auth::user();
         if ($user) {
-            $pasien = User::find($user->id)
-                ->pasien()
-                ->first();
-            return view("dashboard.pasien.test", [
-                "user" => $user,
-                "pasien" => $pasien,
-            ]);
+            $pasien = $user->pasien()->first();
+            return view("dashboard.pasien.test", compact('user', 'pasien'));
         }
         return redirect()->route("login");
     }
@@ -200,26 +171,13 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $pasien = User::find($user->id)
-                ->pasien()
-                ->first();
+            $pasien = $user->pasien()->first();
             $dataPenjemputan = Penjemputan::where("pasien_id", $pasien->id)
                 ->where("selesai", false)
-                ->orderByDesc("id")
-                ->get()
+                ->latest()
                 ->first();
 
-            if (isset($dataPenjemputan)) {
-                $paramedis = Paramedis::where(
-                    "id",
-                    $dataPenjemputan->paramedis_id
-                )
-                    ->orderByDesc("id")
-                    ->get()
-                    ->first();
-            } else {
-                $paramedis = null;
-            }
+            $paramedis = isset($dataPenjemputan) ? Paramedis::find($dataPenjemputan->paramedis_id) : null;
 
             return view("dashboard.pasien.penjemputan", [
                 "user" => $user,
@@ -236,9 +194,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $pasien = User::find($user->id)
-                ->pasien()
-                ->first();
+            $pasien = $user->pasien()->first();
 
             Penjemputan::create([
                 "pasien_id" => $pasien->id,
@@ -256,16 +212,22 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $dokter = User::find($user->id)
-                ->dokter()
-                ->first();
-            $dataReservasi = Reservasi::where("dokter_id", $user->dokter->id)
+            $dokter = $user->dokter()->first();
+            $dataReservasi = Reservasi::where("dokter_id", $dokter->id)
                 ->orderBy("id")
                 ->get();
-            $dataKonsultasi = Konsultasi::where("dokter_id", $user->dokter->id)
+            $dataKonsultasi = Konsultasi::where("dokter_id", $dokter->id)
                 ->orderBy("id")
                 ->get();
             $Reservasi = Reservasi::all();
+
+            $spesialisSuffixes = [
+                "Dokter Gigi" => ", drg.",
+                "Dokter Umum" => ", dr.",
+                "Dokter Kulit" => ", SpKK.",
+                "Psikiater" => ", SpKJ.",
+                "Dokter THT" => ", SpTHT."
+            ];
 
             if ($dokter->spesialis == "Dokter Gigi") {
                 $namaDokter = $user->name . ", drg.";
@@ -285,22 +247,19 @@ class DashboardController extends Controller
                 "title" => "Dashboard Dokter",
                 "dataReservasi" => $dataReservasi,
                 "dataKonsultasi" => $dataKonsultasi,
-                "myReservasi" => $Reservasi
-                    ->where("dokter_id", $dokter->id)
-                    ->count(),
+                "myReservasi" => $Reservasi->where("dokter_id", $dokter->id)->count(),
                 "countReservasi" => $Reservasi->count(),
             ]);
         }
         return redirect()->route("login");
     }
 
+
     public function dashboard_dokter_reservasi(Request $request)
     {
         $user = Auth::user();
         if ($user) {
-            $dokter = User::find($user->id)
-                ->dokter()
-                ->first();
+            $dokter = $user->dokter()->first();
             $jam_sekarang = intval(date("H"));
             $JamTidakKosong = Reservasi::where("dokter_id", $dokter->id)
                 ->pluck("waktu")
@@ -346,11 +305,8 @@ class DashboardController extends Controller
 
     public function dashboard_dokter_reservasi_action(Request $request)
     {
-        $user = Auth::user();
-        if ($user) {
-            $dokter = User::find($user->id)
-                ->dokter()
-                ->first();
+        if (Auth::check()) {
+            $dokter = Auth::user()->dokter()->first();
             Reservasi::where("id", $request->reservasiID)->update([
                 "dokter_id" => $dokter->id,
             ]);
@@ -360,16 +316,14 @@ class DashboardController extends Controller
         return redirect()->route("login");
     }
 
+
     public function dashboard_dokter_konsultasi(Request $request)
     {
-        $user = Auth::user();
-        $dataKonsultasi = Konsultasi::where("jawaban", null)->get();
-        if ($user) {
-            $dokter = User::find($user->id)
-                ->dokter()
-                ->first();
+        if (Auth::check()) {
+            $dokter = Auth::user()->dokter()->first();
+            $dataKonsultasi = Konsultasi::whereNull("jawaban")->get();
             return view("dashboard.dokter.konsultasi", [
-                "user" => $user,
+                "user" => Auth::user(),
                 "dokter" => $dokter,
                 "title" => "Dashboard Konsultasi",
                 "dataKonsultasi" => $dataKonsultasi,
@@ -380,17 +334,12 @@ class DashboardController extends Controller
 
     public function dashboard_dokter_konsultasi_action(Request $request)
     {
-        $user = Auth::user();
-        if ($user) {
-            $dokter = User::find($user->id)
-                ->dokter()
-                ->first();
-            $check = Konsultasi::where("id", $request->konsultasiID)
-                ->get()
-                ->first();
+        if (Auth::check()) {
+            $dokter = Auth::user()->dokter()->first();
+            $check = Konsultasi::find($request->konsultasiID);
 
-            if ($check->jawaban == null and $check->dokter_id == null) {
-                Konsultasi::find($request->konsultasiID)->update([
+            if ($check && is_null($check->jawaban) && is_null($check->dokter_id)) {
+                $check->update([
                     "jawaban" => $request->jawaban,
                     "dokter_id" => $dokter->id,
                 ]);
@@ -401,13 +350,10 @@ class DashboardController extends Controller
 
     public function dashboard_paramedis(Request $request)
     {
-        $user = Auth::user();
-        if ($user) {
-            $paramedis = User::find($user->id)
-                ->paramedis()
-                ->first();
+        if (Auth::check()) {
+            $paramedis = Auth::user()->paramedis()->first();
             return view("dashboard.paramedis.dashboard", [
-                "user" => $user,
+                "user" => Auth::user(),
                 "paramedis" => $paramedis,
                 "title" => "Dashboard Paramedis",
             ]);
@@ -417,31 +363,17 @@ class DashboardController extends Controller
 
     public function dashboard_paramedis_penjemputan(Request $request)
     {
-        $user = Auth::user();
-        if ($user) {
-            $paramedis = User::find($user->id)
-                ->paramedis()
-                ->first();
+        if (Auth::check()) {
+            $paramedis = Auth::user()->paramedis()->first();
             $dataPenjemputan = Penjemputan::where(["selesai" => false])->get();
 
             $berlangsungPenjemputan = Penjemputan::where([
                 "paramedis_id" => $paramedis->id,
                 "selesai" => false,
-            ])->get();
-
-            if ($berlangsungPenjemputan->isEmpty()) {
-                $berlangsungPenjemputan = null;
-            } else {
-                $berlangsungPenjemputan = Penjemputan::where(
-                    "paramedis_id",
-                    $paramedis->id
-                )
-                    ->get()
-                    ->last();
-            }
+            ])->latest()->first();
 
             return view("dashboard.paramedis.penjemputan", [
-                "user" => $user,
+                "user" => Auth::user(),
                 "paramedis" => $paramedis,
                 "title" => "Dashboard Penjemputan",
                 "dataPenjemputan" => $dataPenjemputan,
@@ -453,19 +385,16 @@ class DashboardController extends Controller
 
     public function dashboard_paramedis_penjemputan_action(Request $request)
     {
-        $user = Auth::user();
-        if ($user) {
-            $check = Penjemputan::where("id", $request->jemputID)
-                ->get()
-                ->first();
-            if (!$check->paramedis_id) {
-                Penjemputan::where("id", $request->jemputID)->update([
-                    "paramedis_id" => $user->paramedis->id,
+        if (Auth::check()) {
+            $check = Penjemputan::find($request->jemputID);
+            if ($check && !$check->paramedis_id) {
+                $check->update([
+                    "paramedis_id" => Auth::user()->paramedis->id,
                 ]);
             }
 
             if ($request->selesai == "done") {
-                Penjemputan::where("id", $request->jemputID)->update([
+                $check->update([
                     "selesai" => true,
                 ]);
             }
