@@ -28,7 +28,7 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
@@ -94,11 +94,10 @@
                                         @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
                                             <td><span class="badge bg-secondary shadow rounded">Completed</span></td>
                                             <td>
-                                                <button disabled
+                                                <button class="btn btn-sm btn-danger shadow rounded"
                                                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                                                    class="btn btn-sm btn-danger shadow rounded"><i
-                                                        style="padding-right: 10px"
-                                                        class="bi bi-x-circle"></i>Batal</button>
+                                                    disabled><i class="bi bi-x-circle"
+                                                        style="padding-right: 10px"></i>Batal</button>
                                             </td>
                                         @else
                                             @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokter_id))
@@ -107,22 +106,20 @@
                                                 <td><span class="badge bg-warning shadow rounded">Approved</span></td>
                                             @endif
                                             <td>
-                                                <button disabled
+                                                <button class="btn btn-sm btn-danger shadow rounded"
                                                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                                                    class="btn btn-sm btn-danger shadow rounded"><i
-                                                        style="padding-right: 10px"
-                                                        class="bi bi-x-circle"></i>Batal</button>
+                                                    disabled><i class="bi bi-x-circle"
+                                                        style="padding-right: 10px"></i>Batal</button>
                                             </td>
                                         @endif
                                     @else
                                         @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
                                             <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
                                             <td>
-                                                <button disabled
+                                                <button class="btn btn-sm btn-danger shadow rounded"
                                                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                                                    class="btn btn-sm btn-danger shadow rounded"><i
-                                                        style="padding-right: 10px"
-                                                        class="bi bi-x-circle"></i>Batal</button>
+                                                    disabled><i class="bi bi-x-circle"
+                                                        style="padding-right: 10px"></i>Batal</button>
                                             </td>
                                         @else
                                             @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokter_id))
@@ -131,16 +128,15 @@
                                                 <td><span class="badge bg-warning shadow rounded">Approved</span></td>
                                             @endif
                                             <td>
-                                                <form method="POST"
-                                                    action="{{ route('dashboard.pasien.reservasi.action') }}"
-                                                    id="formHapus{{ $loop->iteration }}">
+                                                <form id="formHapus{{ $loop->iteration }}" method="POST"
+                                                    action="{{ route('dashboard.pasien.reservasi.action') }}">
                                                     @csrf
-                                                    <input type="hidden" hidden name="hapusID" hidden class="form-control"
-                                                        required value="{{ $data->id }}">
-                                                    <a onclick="document.getElementById('formHapus{{ $loop->iteration }}').submit()"
+                                                    <input class="form-control" name="hapusID" type="hidden"
+                                                        value="{{ $data->id }}" hidden hidden required>
+                                                    <a class="btn btn-sm btn-danger shadow rounded"
                                                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                                                        class="btn btn-sm btn-danger shadow rounded"><i
-                                                            style="padding-right: 10px" class="bi bi-x-circle"></i>Batal</a>
+                                                        onclick="document.getElementById('formHapus{{ $loop->iteration }}').submit()"><i
+                                                            class="bi bi-x-circle" style="padding-right: 10px"></i>Batal</a>
                                                 </form>
                                             </td>
                                         @endif
@@ -164,8 +160,8 @@
                         </div>
                         <div class="col-6">
                             <form method="POST" action="{{ route('dashboard.pasien.konsultasi.action') }}">
-                                <input type="text" name="buatKonsultasi" hidden class="form-control" required
-                                    value="{{ $user->id }}">
+                                <input class="form-control" name="buatKonsultasi" type="text"
+                                    value="{{ $user->id }}" hidden required>
                                 @csrf
                             </form>
                         </div>
@@ -187,35 +183,35 @@
                                     <td>
                                         <form method="POST" action="{{ route('dashboard.dokter.konsultasi.action') }}">
                                             @csrf
-                                            <input type="text" name="konsultasiID" hidden class="form-control" required
-                                                value="{{ $data->id }}">
+                                            <input class="form-control" name="konsultasiID" type="text"
+                                                value="{{ $data->id }}" hidden required>
 
-                                            <button type="button" class="btn btn-secondary mb-0 mt-0 shadow rounded"
+                                            <button class="btn btn-secondary mb-0 mt-0 shadow rounded"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#KonsulatsiModal{{ $loop->iteration }}"><i
+                                                data-bs-target="#KonsulatsiModal{{ $loop->iteration }}" type="button"><i
                                                     class="bi bi-book" style="padding-right: 10px"></i>Lihat</button>
 
                                             <div class="modal fade" id="KonsulatsiModal{{ $loop->iteration }}"
-                                                tabindex="-1" aria-labelledby="KonsulatsiModalLabel" aria-hidden="true">
+                                                aria-labelledby="KonsulatsiModalLabel" aria-hidden="true" tabindex="-1">
                                                 <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h1 class="modal-title fs-5" id="KonsulatsiModalLabel">Balas
                                                                 Keluhan</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            <button class="btn-close" data-bs-dismiss="modal" type="button"
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mb-3">
-                                                                <label for="recipient-name"
-                                                                    class="col-form-label">Kepada:</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="recipient-name" disabled
-                                                                    value="{{ $data->pasien->user->name }}">
+                                                                <label class="col-form-label"
+                                                                    for="recipient-name">Kepada:</label>
+                                                                <input class="form-control" id="recipient-name"
+                                                                    type="text"
+                                                                    value="{{ $data->pasien->user->name }}" disabled>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="recipient-name"
-                                                                    class="col-form-label">Keterangan:</label>
+                                                                <label class="col-form-label"
+                                                                    for="recipient-name">Keterangan:</label>
                                                                 <div class="form-control" id="A01">
                                                                     <div class="input-content" id="A02">
                                                                         <p>{{ $data->keterangan }}</p>
@@ -223,8 +219,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="recipient-name"
-                                                                    class="col-form-label">Jawaban:</label>
+                                                                <label class="col-form-label"
+                                                                    for="recipient-name">Jawaban:</label>
                                                                 <div class="form-control" id="A01">
                                                                     <div class="input-content" id="A02">
                                                                         <p>{{ $data->jawaban }}</p>
@@ -233,9 +229,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button"
-                                                                class="btn btn-secondary shadow rounded"
-                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button class="btn btn-secondary shadow rounded"
+                                                                data-bs-dismiss="modal" type="button">Close</button>
                                                         </div>
                                                     </div>
                                                 </div>

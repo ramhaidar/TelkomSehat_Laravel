@@ -1,6 +1,6 @@
 @section('title', 'Beranda')
 
-@extends('app')
+@extends('_app')
 
 @section('style')
     <style>
@@ -20,28 +20,28 @@
     {{-- <link href="assets_MDLB/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> --}}
     {{-- <link href="assets_MDLB/vendor/remixicon/remixicon.css" rel="stylesheet"> --}}
     {{-- <link href="assets_MDLB/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"
         integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet"
         integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css" rel="stylesheet"
         integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/js/glightbox.min.js"
         integrity="sha512-S/H9RQ6govCzeA7F9D0m8NGfsGf0/HjJEiLEfWGaMCjFzavo+DkRbYtZLSO+X6cZsIKQ6JvV/7Y9YMaYnSGnAA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.3.0/remixicon.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.3.0/remixicon.css" rel="stylesheet"
         integrity="sha512-0JEaZ1BDR+FsrPtq5Ap9o05MUwn8lKs2GiCcRVdOH0qDcUcCoMKi8fDVJ9gnG8VN1Mp/vuWw2sMO0SQom5th4g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.css" rel="stylesheet"
         integrity="sha512-Y1c7KsgMNtf7pIhrj/Ul2LhutImFYr+TsCmjB8mGAk+cgG1Vm8U1g7tvfmRr6yD5nds03Qgc6Mcb86MBKu1Llg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -58,16 +58,16 @@
 @section('content')
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top shadow">
+    <header class="fixed-top shadow" id="header">
         <div class="container d-flex align-items-center">
             <h1 class="logo me-auto">
-                <a href="{{ route('beranda') }}" class="logo d-flex align-items-center w-auto" id="nodecoration">
+                <a class="logo d-flex align-items-center w-auto" id="nodecoration" href="{{ route('home') }}">
                     <img src="{{ asset('favicon.ico') }}" alt="">
                     <span class="d-none ms-3 d-lg-block">TelkomSehat</span>
                 </a>
             </h1>
 
-            <nav id="navbar" class="navbar order-last order-lg-0" style="padding-right: 25px;">
+            <nav class="navbar order-last order-lg-0" id="navbar" style="padding-right: 25px;">
                 <ul>
                     <li><a class="nav-link scrollto active" href="#hero">Beranda</a></li>
                     <li><a class="nav-link scrollto" href="#services">Layanan</a></li>
@@ -79,28 +79,27 @@
             @auth
                 <a class="btn btn-danger appointment-btn-red float-end" href="{{ route('logout.action') }}"
                     role="button">Sign-Out</a>
-                @if ($users->pasien_id)
-                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-pasien') }}"
+                @if ($users->patient_id)
+                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-patient') }}"
                         role="button">Dashboard</a>
-                @elseif ($users->dokter_id)
-                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-dokter') }}"
+                @elseif ($users->doctor_id)
+                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-doctor') }}"
                         role="button">Dashboard</a>
-                @elseif ($users->paramedis_id)
-                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-paramedis') }}"
+                @elseif ($users->paramedic_id)
+                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-paramedic') }}"
                         role="button">Dashboard</a>
                 @endif
             @endauth
 
             @guest
                 <div class="me-3" style="border-left: 1px solid black; height: 40px;"></div>
-                <a class="btn btn-secondary btn-sm float-end mx-2 px-4"
-                    style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;"
-                    href="{{ route('registrasi-pasien') }}" role="button">
+                <a class="btn btn-secondary btn-sm float-end mx-2 px-4" href="{{ route('registration-patient') }}"
+                    role="button"
+                    style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;">
                     <p style="margin: 0;">Registrasi</p>
                 </a>
-                <a class="btn btn-primary btn-sm float-end mx-2 px-4"
-                    style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;"
-                    href="{{ route('login') }}" role="button">
+                <a class="btn btn-primary btn-sm float-end mx-2 px-4" href="{{ route('login') }}" role="button"
+                    style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;">
                     <p style="margin: 0;">Login</p>
                 </a>
             @endguest
@@ -109,7 +108,7 @@
     <!-- ======= End Header ======= -->
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
+    <section class="d-flex align-items-center" id="hero">
         <div class="container">
             <h1>Welcome to TelkomSehat</h1>
             <h2>Sehatkan Hidupmu dengan TelkomSehat, Solusi Kesehatan Digitalmu!</h2>
@@ -121,7 +120,7 @@
     <main id="main">
 
         <!-- ======= Why Us Section ======= -->
-        <section id="why-us" class="why-us">
+        <section class="why-us" id="why-us">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 d-flex align-items-stretch">
@@ -184,7 +183,7 @@
         </section><!-- End Why Us Section -->
 
         <!-- ======= Layanan Section ======= -->
-        <section id="services" class="services">
+        <section class="services" id="services">
             <div class="container">
                 <div class="section-title">
                     <h2>Layanan</h2>
@@ -270,7 +269,7 @@
     <!-- ======= End Main Section ======= -->
 
     <!-- ======= Kontak Section ======= -->
-    <section id="contact" class="contact">
+    <section class="contact" id="contact">
         <div class="footer-top mb-5">
             <div class="container mb-5">
                 <div class="section-title mb-5">
@@ -303,7 +302,7 @@
     <!-- ======= End Kontak Section ======= -->
 
     <!-- ======= Footer Section ======= -->
-    <footer id="footer" class="shadow border-top border-3 border-primary-subtle">
+    <footer class="shadow border-top border-3 border-primary-subtle" id="footer">
         <div class="container d-md-flex py-4">
 
             <div class="me-md-auto text-center text-md-start">
@@ -319,11 +318,11 @@
                 </div>
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                <a target="_blank" href="https://twitter.com/TelkoMedika" class="twitter"><i
+                <a class="twitter" href="https://twitter.com/TelkoMedika" target="_blank"><i
                         class="bx bxl-twitter"></i></a>
-                <a target="_blank" href="https://www.facebook.com/TelkoMedika/" class="facebook"><i
+                <a class="facebook" href="https://www.facebook.com/TelkoMedika/" target="_blank"><i
                         class="bx bxl-facebook"></i></a>
-                <a target="_blank" href="https://www.instagram.com/telkomedika/" class="instagram"><i
+                <a class="instagram" href="https://www.instagram.com/telkomedika/" target="_blank"><i
                         class="bx bxl-instagram"></i></a>
             </div>
         </div>
@@ -332,7 +331,7 @@
 
     <!-- ======= Arrow Up Button ======= -->
     <div id="preloader"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <a class="back-to-top d-flex align-items-center justify-content-center" href="#">
         <i class="fas fa-arrow-up"></i>
     </a>
     <!-- ======= End Arrow Up Button ======= -->

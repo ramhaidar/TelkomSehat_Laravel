@@ -1,8 +1,9 @@
-@section('title', 'Dashboard Paramedis')
+@section('title', 'Dashboard Dokter')
 
-@extends('app')
+@extends('_app')
 
 @section('header')
+    <!-- Vendor CSS Files -->
     <!-- Vendor CSS Files -->
     {{-- <link href="assets_NADM/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> --}}
     {{-- <link href="assets_NADM/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> --}}
@@ -11,22 +12,22 @@
     {{-- <link href="assets_NADM/vendor/quill/quill.bubble.css" rel="stylesheet"> --}}
     {{-- <link href="assets_NADM/vendor/remixicon/remixicon.css" rel="stylesheet"> --}}
     <link href="assets_NADM/vendor/simple-datatables/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet"
         integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css" rel="stylesheet"
         integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.css" rel="stylesheet"
         integrity="sha512-XMxqcAfuPHOh2Kz0Z3oDynUcLgyKP6B1NCKUTxyVbM02u1ZrygDcLddKw7KpN/SGmdw8raHbKgaIHP7+bEfGYw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.bubble.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.bubble.css" rel="stylesheet"
         integrity="sha512-mLecVYo2QWbbYIF2u/ppRT91u615n044kBhrGzqbKQRRQxBUj8BR5b+z9qQsUNyWVYr8Z+c/TISuI7cnbpqpWg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.3.0/remixicon.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.3.0/remixicon.css" rel="stylesheet"
         integrity="sha512-0JEaZ1BDR+FsrPtq5Ap9o05MUwn8lKs2GiCcRVdOH0qDcUcCoMKi8fDVJ9gnG8VN1Mp/vuWw2sMO0SQom5th4g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -37,36 +38,30 @@
 @section('content')
 
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
+    <header class="header fixed-top d-flex align-items-center" id="header">
         <div class="d-flex align-items-center justify-content-between">
-            <a href="{{ route('beranda') }}" class="logo d-flex align-items-center">
+            {{-- <i class="bi bi-list toggle-sidebar-btn pe-2 me-3 border border-3 border-primary-subtle rounded"></i> --}}
+            <a class="logo d-flex align-items-center" href="{{ route('home') }}">
                 <img src="{{ asset('favicon.ico') }}" alt="">
                 <span class="d-none d-lg-block">TelkomSehat</span>
             </a>
-            <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li>
-
                 <li class="nav-item dropdown pe-3">
-
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets_NADM/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $paramedis->username }}</span>
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown" href="">
+                        <img class="rounded-circle" src="assets_NADM/img/profile-img.jpg" alt="Profile">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $dokter->username }}</span>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->name }}</h6>
-                            <span>{{ $paramedis->kodeParamedis }}</span>
+                            <span>{{ $dokter->kodedokter }}</span>
+                            <br>
+                            <span>{{ $dokter->spesialis }}</span>
                         </li>
-
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -85,13 +80,13 @@
     <!-- ======= End Header ======= -->
 
     <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                @if ($title == 'Dashboard Paramedis')
-                    <a class="nav-link " href="{{ route('dashboard-paramedis') }}">
+                @if ($title == 'Dashboard Dokter')
+                    <a class="nav-link " href="{{ route('dashboard-dokter') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-paramedis') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter') }}">
                 @endif
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -99,26 +94,38 @@
             </li>
 
             <li class="nav-item">
-                @if ($title == 'Dashboard Penjemputan')
-                    <a class="nav-link" href="{{ route('dashboard-paramedis-penjemputan') }}">
+                @if ($title == 'Dashboard Reservasi')
+                    <a class="nav-link" href="{{ route('dashboard-dokter-reservasi') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-paramedis-penjemputan') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter-reservasi') }}">
                 @endif
-                <i class="bi bi-truck-front"></i>
-                <span>Penjemputan</span>
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Reservasi</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                @if ($title == 'Dashboard Konsultasi')
+                    <a class="nav-link" href="{{ route('dashboard-dokter-konsultasi') }}">
+                    @else
+                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter-konsultasi') }}">
+                @endif
+                <i class="bi bi-chat-square-text"></i>
+                <span>Konsultasi</span>
                 </a>
             </li>
         </ul>
     </aside>
+    <!-- ======= End Sidebar ======= -->
 
     <!-- ======= Main ======= -->
-    <main id="main" class="main">
+    <main class="main" id="main">
         @yield('contentx')
     </main>
     <!-- ======= End Main ======= -->
 
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
+    <footer class="footer" id="footer">
         <div class="copyright">
             Copyright &copy; 2023 <strong><span>TelkomSehat</span></strong> — All Rights Reserved
         </div>
@@ -133,7 +140,7 @@
     <!-- ======= End Footer ======= -->
 
     <!-- ======= Arrow Up Button ======= -->
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+    <a class="back-to-top d-flex align-items-center justify-content-center" href="#"><i
             class="bi bi-arrow-up-short"></i></a>
     <!-- ======= End Arrow Up Button ======= -->
 

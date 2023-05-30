@@ -1,6 +1,25 @@
-@section('title', 'Dashboard Mahasiswa')
+@section('title', 'Dashboard Pasien')
 
-@extends('dashboard.pasien.dashboard-pasien-template')
+@extends('dashboard.patient._dashboard-patient-template')
+
+@section('style')
+    <style>
+        .card-wrapper {
+            height: 250px;
+            /* set a fixed height */
+            width: 250px;
+            /* set a fixed width */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+    </style>
+@endsection
 
 @section('contentx')
     <!-- ======= Breadcrumb ======= -->
@@ -8,25 +27,28 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
     </div>
     <!-- ======= End Breadcrumb ======= -->
 
+    <hr class="border-2 border-bottom border-dark">
+
     <!-- ======= Dashboard ======= -->
     <section class="section dashboard">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg">
                 <div class="row">
-                    <div class="col-xxl-4 col-xl-12">
-                        <div class="card info-card shadow rounded customers-card">
+
+                    <div class="col-xxl-4 col-xl-12 card-wrapper">
+                        <div class="card info-card shadow rounded customers-card h-100">
+                            <h5 class="card-title text-center">TelkomSehat Siap Melayani Anda</h5>
                             <div class="card-body">
-                                <h5 class="card-title">TelkomSehat Siap Melayani Anda</h5>
                                 <div class="d-flex align-items-center">
                                     <div class="ps-3">
-                                        <img src="assets_NADM/img/ds_illustrasi.png" class="img-fluid" alt=""
+                                        <img class="img-fluid" src="assets_NADM/img/ds_illustrasi.png" alt=""
                                             style="width: 260px;">
                                     </div>
                                 </div>
@@ -34,10 +56,11 @@
                         </div>
                     </div>
 
-                    <div class="col-xxl-4 col-xl-12">
-                        <div class="card shadow rounded overflow-auto customers-card">
+                    <div class="col-xxl-4 col-xl-12 card-wrapper">
+                        <div class="card info-card shadow rounded customers-card h-100">
+                            <h5 class="card-title text-center">Waktu Sekarang</h5>
+
                             <div class="card-body">
-                                <h5 class="card-title">Waktu Sekarang</h5>
                                 <h2 id="jam" style="font-size: 18px"></h2>
                                 <h2 style="font-size: 18px">
                                     <span id="haritanggal"></span>
@@ -47,23 +70,25 @@
                         </div>
                     </div>
 
-                    <div class="col-xxl-4 col-xl-12">
-                        <div class="card info-card shadow rounded customers-card">
+                    <div class="col-xxl-4 col-xl-12 card-wrapper">
+                        <div class="card info-card shadow rounded customers-card h-100">
+                            <h5 class="card-title text-center">Jumlah Reservasi </h5>
                             <div class="card-body">
-                                <h5 class="card-title">Jumlah Reservasi </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
                                     </div>
 
                                     <div class="ps-3">
-                                        <h6>{{ $myReservasi }}</h6>
-                                        <span class="text-danger small pt-1 fw-bold">from {{ $countReservasi }} total</span>
+                                        <h6>{{ $myReservation }}</h6>
+                                        <span class="text-danger small pt-1 fw-bold">from {{ $countReservation }}
+                                            total</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

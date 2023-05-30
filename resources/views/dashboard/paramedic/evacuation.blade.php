@@ -8,7 +8,7 @@
         <h1>Penjemputan</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item active">Penjemputan</li>
             </ol>
         </nav>
@@ -39,106 +39,106 @@
                                         <td>{{ $data->lintang }} <br> {{ $data->bujur }}</td>
 
                                         <td>
-                                            <form method="POST"
-                                                action="{{ route('dashboard.paramedis.penjemputan.action') }}"
-                                                id="formJemput{{ $loop->iteration }}">
+                                            <form id="formJemput{{ $loop->iteration }}" method="POST"
+                                                action="{{ route('dashboard.paramedis.penjemputan.action') }}">
                                                 @csrf
-                                                <input type="hidden" name="jemputID" hidden class="form-control" required
-                                                    value="{{ $data->id }}">
+                                                <input class="form-control" name="jemputID" type="hidden"
+                                                    value="{{ $data->id }}" hidden required>
 
                                                 @if (!isset($berlangsungPenjemputan))
                                                     @if (!$data->paramedis_id)
-                                                        <button type="button" class="btn btn-success shadow rounded"
+                                                        <button class="btn btn-success shadow rounded" id="formTombol"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#JemputConfirmation{{ $loop->iteration }}"
-                                                            href="{{ route('dashboard-pasien-konsultasi') }}"
-                                                            id="formTombol">
-                                                            <i style="padding-right: 10px" class="bi bi-ev-front"></i>
+                                                            type="button"
+                                                            href="{{ route('dashboard-pasien-konsultasi') }}">
+                                                            <i class="bi bi-ev-front" style="padding-right: 10px"></i>
                                                             Jemput
                                                         </button>
                                                     @else
-                                                        <button type="button" disabled
-                                                            class="btn btn-secondary shadow rounded" data-bs-toggle="modal"
+                                                        <button class="btn btn-secondary shadow rounded" id="formTombol"
+                                                            data-bs-toggle="modal"
                                                             data-bs-target="#JemputConfirmation{{ $loop->iteration }}"
-                                                            href="{{ route('dashboard-pasien-konsultasi') }}"
-                                                            id="formTombol">
-                                                            <i style="padding-right: 10px" class="bi bi-ev-front"></i>
+                                                            type="button"
+                                                            href="{{ route('dashboard-pasien-konsultasi') }}" disabled>
+                                                            <i class="bi bi-ev-front" style="padding-right: 10px"></i>
                                                             Jemput
                                                         </button>
                                                     @endif
                                                 @elseif ($berlangsungPenjemputan->paramedis_id == $data->paramedis_id)
-                                                    <a target="_blank"
+                                                    <a class="btn btn-primary shadow rounded"
                                                         href="https://maps.google.com/maps?q={{ $data->lintang }},{{ $data->bujur }}"
                                                         style="justify-content: center; align-items: center;"
-                                                        class="btn btn-primary shadow rounded">
-                                                        <i style="padding-right: 10px" class="bi bi-geo-alt"></i>
+                                                        target="_blank">
+                                                        <i class="bi bi-geo-alt" style="padding-right: 10px"></i>
                                                         Lihat
                                                     </a>
-                                                    <input type="hidden" name="selesai" hidden class="form-control"
-                                                        required value="done">
+                                                    <input class="form-control" name="selesai" type="hidden" value="done"
+                                                        hidden required>
 
-                                                    <button type="button" class="btn btn-success shadow rounded"
+                                                    <button class="btn btn-success shadow rounded" id="formTombol"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#SelesaiConfirmation{{ $loop->iteration }}"
-                                                        href="{{ route('dashboard-pasien-konsultasi') }}" id="formTombol">
-                                                        <i style="padding-right: 10px" class="bi bi-check2-all"></i>
+                                                        type="button" href="{{ route('dashboard-pasien-konsultasi') }}">
+                                                        <i class="bi bi-check2-all" style="padding-right: 10px"></i>
                                                         Selesai
                                                     </button>
                                                 @else
-                                                    <button type="button" disabled class="btn btn-secondary shadow rounded"
+                                                    <button class="btn btn-secondary shadow rounded" id="formTombol"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#JemputConfirmation{{ $loop->iteration }}"
-                                                        href="{{ route('dashboard-pasien-konsultasi') }}" id="formTombol">
-                                                        <i style="padding-right: 10px" class="bi bi-ev-front"></i>
+                                                        type="button" href="{{ route('dashboard-pasien-konsultasi') }}"
+                                                        disabled>
+                                                        <i class="bi bi-ev-front" style="padding-right: 10px"></i>
                                                         Jemput
                                                     </button>
                                                 @endif
 
                                                 <div class="modal fade" id="JemputConfirmation{{ $loop->iteration }}"
-                                                    tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
+                                                    aria-labelledby="LabelModal" aria-hidden="true" tabindex="-1">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="LabelModal">Konfirmasi</h1>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <button class="btn-close" data-bs-dismiss="modal"
+                                                                    type="button" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 Apakah Anda yakin ingin melakukan penjemputan darurat
                                                                 {{ $data->pasien->user->name }} ?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <a onclick="document.getElementById('formJemput{{ $loop->iteration }}').submit()"
-                                                                    target="_blank"
+                                                                <button class="btn btn-secondary" data-bs-dismiss="modal"
+                                                                    type="button">Batal</button>
+                                                                <a class="btn btn-primary shadow rounded"
                                                                     href="https://maps.google.com/maps?q={{ $data->lintang }},{{ $data->bujur }}"
                                                                     style="justify-content: center; align-items: center;"
-                                                                    class="btn btn-primary shadow rounded">Jemput</a>
+                                                                    onclick="document.getElementById('formJemput{{ $loop->iteration }}').submit()"
+                                                                    target="_blank">Jemput</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="modal fade" id="SelesaiConfirmation{{ $loop->iteration }}"
-                                                    tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
+                                                    aria-labelledby="LabelModal" aria-hidden="true" tabindex="-1">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="LabelModal">Konfirmasi</h1>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <button class="btn-close" data-bs-dismiss="modal"
+                                                                    type="button" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 Apakah Anda yakin ingin menyelesaikan penjemputan
                                                                 {{ $data->pasien->user->name }} ?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <a onclick="document.getElementById('formJemput{{ $loop->iteration }}').submit()"
+                                                                <button class="btn btn-secondary" data-bs-dismiss="modal"
+                                                                    type="button">Batal</button>
+                                                                <a class="btn btn-success shadow rounded"
                                                                     style="justify-content: center; align-items: center;"
-                                                                    class="btn btn-success shadow rounded">Selesai</a>
+                                                                    onclick="document.getElementById('formJemput{{ $loop->iteration }}').submit()">Selesai</a>
                                                             </div>
                                                         </div>
                                                     </div>

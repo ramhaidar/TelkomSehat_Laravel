@@ -1,112 +1,101 @@
 <?php
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
 
 /**
-  @property varchar $name name
-@property varchar $email email
-@property timestamp $email_verified_at email verified at
-@property varchar $password password
-@property bigint $pasien_id pasien id
-@property bigint $dokter_id dokter id
-@property bigint $paramedis_id paramedis id
-@property varchar $remember_token remember token
-@property varchar $mobile_app_token mobile app token
-@property timestamp $created_at created at
-@property timestamp $updated_at updated at
-@property Paramedi $paramedi belongsTo
-@property Dokter $dokter belongsTo
-@property Pasien $pasien belongsTo
-@property \Illuminate\Database\Eloquent\Collection $dokter hasMany
-@property \Illuminate\Database\Eloquent\Collection $paramedi hasMany
-@property \Illuminate\Database\Eloquent\Collection $pasien hasMany
-   
+ * Created by Reliese Model.
  */
-class User extends Model
-{
 
-    /**
-     * Database table name
-     */
-    protected $table = 'users';
+namespace App\Models;
 
-    /**
-     * Mass assignable columns
-     */
-    protected $fillable = [
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+/**
+ * Class User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $email
+ * @property Carbon|null $email_verified_at
+ * @property string $password
+ * @property int|null $patient_id
+ * @property int|null $doctor_id
+ * @property int|null $paramedic_id
+ * @property string|null $remember_token
+ * @property string|null $mobile_app_token
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ *
+ * @property Doctor|null $doctor
+ * @property Patient|null $patient
+ * @property Paramedic|null $paramedic
+ * @property Collection|Doctor[] $doctors
+ * @property Collection|Paramedic[] $paramedics
+ * @property Collection|Patient[] $patients
+ *
+ * @package App\Models
+ */
+class User extends Authenticatable
+    {
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $_table = 'users';
+
+    protected $_casts = [ 
+        'email_verified_at' => 'datetime',
+        'patient_id'        => 'int',
+        'doctor_id'         => 'int',
+        'paramedic_id'      => 'int',
+    ];
+
+    protected $_hidden = [ 
+        'password',
+        'remember_token',
+        'mobile_app_token',
+    ];
+
+    protected $_fillable = [ 
         'name',
         'email',
         'email_verified_at',
-        'pasien_id',
-        'dokter_id',
-        'paramedis_id',
-        'mobile_app_token'
+        'password',
+        'patient_id',
+        'doctor_id',
+        'paramedic_id',
+        'remember_token',
+        'mobile_app_token',
     ];
 
-    /**
-     * Date time columns.
-     */
-    protected $dates = ['email_verified_at'];
+    public function doctor ()
+        {
+        return $this->belongsTo ( Doctor::class);
+        }
 
-    /**
-     * paramedi
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function paramedi()
-    {
-        return $this->belongsTo(Paramedi::class, 'paramedis_id');
+    public function patient ()
+        {
+        return $this->belongsTo ( Patient::class);
+        }
+
+    public function paramedic ()
+        {
+        return $this->belongsTo ( Paramedic::class);
+        }
+
+    public function doctors ()
+        {
+        return $this->hasMany ( Doctor::class);
+        }
+
+    public function paramedics ()
+        {
+        return $this->hasMany ( Paramedic::class);
+        }
+
+    public function patients ()
+        {
+        return $this->hasMany ( Patient::class);
+        }
     }
-
-    /**
-     * dokter
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function dokter()
-    {
-        return $this->belongsTo(Dokter::class, 'dokter_id');
-    }
-
-    /**
-     * pasien
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function pasien()
-    {
-        return $this->belongsTo(Pasien::class, 'pasien_id');
-    }
-
-    /**
-     * dokters
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function dokters()
-    {
-        return $this->hasMany(Dokter::class, 'user_id');
-    }
-    /**
-     * paramedis
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function paramedis()
-    {
-        return $this->hasMany(Paramedi::class, 'user_id');
-    }
-    /**
-     * pasiens
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function pasiens()
-    {
-        return $this->hasMany(Pasien::class, 'user_id');
-    }
-
-
-
-}

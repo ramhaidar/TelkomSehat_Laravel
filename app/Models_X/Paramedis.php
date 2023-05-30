@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 @property \Illuminate\Database\Eloquent\Collection $user hasMany
    
  */
-class Paramedi extends Model
+class Paramedis extends Model
 {
 
     /**

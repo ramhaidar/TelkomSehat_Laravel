@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Paramedis;
-use App\Models\Reservasi;
-use App\Models\Konsultasi;
-use App\Models\Penjemputan;
+use App\Models\Doctor;
+use App\Models\Paramedic;
+use App\Models\Evacuation;
+use App\Models\Reservation;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -15,391 +15,450 @@ use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
-    public function dashboard_pasien(Request $request)
+    public function dashboard_patient ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            $pasien = $user->pasien()->first();
-            $myReservasi = Reservasi::where("pasien_id", $pasien->id)->count();
-            $countReservasi = Reservasi::count();
+        $user = Auth::user ();
+        if ( $user )
+        {
+            $patient          = $user->patient ()->first ();
+            $myReservation    = Reservation::where ( "patient_id", $patient->id )->count ();
+            $countReservation = Reservation::count ();
 
-            return view("dashboard.pasien.dashboard", [
-                "user" => $user,
-                "pasien" => $pasien,
-                "title" => "Dashboard Pasien",
-                "myReservasi" => $myReservasi,
-                "countReservasi" => $countReservasi,
-            ]);
+            return view ( "dashboard.patient.dashboard", [ 
+                "user"             => $user,
+                "patient"          => $patient,
+                "title"            => "Dashboard Pasien",
+                "myReservation"    => $myReservation,
+                "countReservation" => $countReservation,
+            ] );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_pasien_reservasi(Request $request)
+    public function dashboard_patient_reservation ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            $pasien = $user->pasien()->first();
-            $dataReservasi = Reservasi::where("pasien_id", $pasien->id)->get();
+        $user = Auth::user ();
+        if ( $user )
+        {
+            $patient         = $user->patient ()->first ();
+            $dataReservation = Reservation::where ( "patient_id", $patient->id )->get ();
 
-            return view("dashboard.pasien.reservasi", [
-                "user" => $user,
-                "pasien" => $pasien,
-                "title" => "Dashboard Reservasi",
-                "dataReservasi" => $dataReservasi,
-            ]);
+            return view ( "dashboard.patient.reservation", [ 
+                "user"            => $user,
+                "patient"         => $patient,
+                "title"           => "Dashboard Reservasi",
+                "dataReservation" => $dataReservation,
+            ] );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_pasien_reservasi_action(Request $request)
+    public function dashboard_patient_reservation_action ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            if (isset($request->hapusID)) {
-                Reservasi::destroy($request->hapusID);
-                return redirect()->route("dashboard-pasien-reservasi");
-            } elseif (
-                isset($request->buatReservasi) and !isset($request->dokter)
-            ) {
-                $pasien = $user->pasien()->first();
-                $hariIni = date("d");
-                $jamSekarang = date("H");
+        $user = Auth::user ();
+        if ( $user )
+        {
+            if ( isset( $request->hapusID ) )
+            {
+                Reservation::destroy ( $request->hapusID );
+                return redirect ()->route ( "dashboard-patient-reservation" );
+            }
+            elseif (
+                isset( $request->makeReservation ) and ! isset( $request->doctor )
+            )
+            {
+                $patient     = $user->patient ()->first ();
+                $hariIni     = date ( "d" );
+                $jamSekarang = date ( "H" );
 
-                return view("dashboard.pasien.reservasi", [
-                    "user" => $user,
-                    "pasien" => $pasien,
-                    "title" => "Dashboard Reservasi",
-                    "buatReservasi" => $request->buatReservasi,
-                    "jamSekarang" => $jamSekarang,
-                    "hariIni" => $hariIni,
-                ]);
-            } else {
-                $pasien = $user->pasien()->first();
-                $validator = Validator::make($request->all(), [
-                    "dokter" => [
+                return view ( "dashboard.patient.reservation", [ 
+                    "user"            => $user,
+                    "patient"         => $patient,
+                    "title"           => "Dashboard Reservasi",
+                    "makeReservation" => $request->makeReservation,
+                    "jamSekarang"     => $jamSekarang,
+                    "hariIni"         => $hariIni,
+                ] );
+            }
+            else
+            {
+                $patient   = $user->patient ()->first ();
+                $validator = Validator::make ( $request->all (), [ 
+                    "doctor"  => [ 
                         "required",
-                        Rule::in(['Dokter Gigi', 'Dokter Umum', 'Dokter Kulit', 'Psikiater', 'Dokter THT']),
+                        Rule::in ( [ 'Dokter Gigi', 'Dokter Umum', 'Dokter Kulit', 'Psikiater', 'Dokter THT' ] ),
                     ],
-                    "tanggal" => ["required", "date_format:d-m-Y"],
-                    "waktu" => ["required", Rule::in([8, 9, 10, 11, 12, 13, 14, 15])],
-                    "keluhan" => ["required"],
-                ]);
+                    "tanggal" => [ "required", "date_format:d-m-Y" ],
+                    "waktu"   => [ "required", Rule::in ( [ 8, 9, 10, 11, 12, 13, 14, 15 ] ) ],
+                    "keluhan" => [ "required" ],
+                ] );
 
-                if ($validator->fails()) {
-                    return view("dashboard.pasien.reservasi", [
-                        "user" => $user,
-                        "pasien" => $pasien,
-                        "title" => "Dashboard Reservasi",
-                        "buatReservasi" => $request->buatReservasi,
-                    ])->withErrors($validator);
+                if ( $validator->fails () )
+                {
+                    return view ( "dashboard.patient.reservation", [ 
+                        "user"            => $user,
+                        "patient"         => $patient,
+                        "title"           => "Dashboard Reservasi",
+                        "makeReservation" => $request->makeReservation,
+                    ] )->withErrors ( $validator );
                 }
 
-                $formattedDate = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
+                $formattedDate = Carbon::createFromFormat ( 'd-m-Y', $request->tanggal )->format ( 'Y-m-d' );
 
-                Reservasi::create([
-                    "pasien_id" => $user->pasien_id,
-                    "spesialis" => $request->dokter,
-                    "tanggal" => $formattedDate,
-                    "waktu" => $request->waktu,
-                    "keluhan" => $request->keluhan,
-                ]);
+                Reservation::create ( [ 
+                    "patient_id" => $user->patient_id,
+                    "spesialis"  => $request->doctor,
+                    "tanggal"    => $formattedDate,
+                    "waktu"      => $request->waktu,
+                    "keluhan"    => $request->keluhan,
+                ] );
 
-                return redirect()
-                    ->route("dashboard-pasien-reservasi")
-                    ->with("success", "Sukses Membuat Reservasi");
+                return redirect ()
+                    ->route ( "dashboard-patient-reservation" )
+                    ->with ( "success", "Sukses Membuat Reservation" );
             }
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_pasien_konsultasi(Request $request)
+    public function dashboard_patient_consultation ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            $pasien = $user->pasien()->first();
-            $dataKonsultasi = Konsultasi::where("pasien_id", $pasien->id)->get();
-            return view("dashboard.pasien.konsultasi", compact("user", "pasien", "dataKonsultasi"))->with("title", "Dashboard Konsultasi");
+        $user = Auth::user ();
+        if ( $user )
+        {
+            $patient          = $user->patient ()->first ();
+            $dataConsultation = Consultation::where ( "patient_id", $patient->id )->get ();
+            return view ( "dashboard.patient.consultation", compact (
+                "user",
+                "patient",
+                "dataConsultation"
+            ) )->with ( "title", "Dashboard Konsultasi" );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_pasien_konsultasi_action(Request $request)
+    public function dashboard_patient_consultation_action ( Request $request )
     {
-        $user = Auth::user();
-        if (!$user) {
-            return redirect()->route("login");
+        $user = Auth::user ();
+        if ( ! $user )
+        {
+            return redirect ()->route ( "login" );
         }
 
-        $pasien = $user->pasien()->first();
+        $patient = $user->patient ()->first ();
 
-        if (isset($request->buatKonsultasi) && !isset($request->keluhan)) {
-            return view("dashboard.pasien.konsultasi", [
-                "user" => $user,
-                "pasien" => $pasien,
-                "title" => "Dashboard Konsultasi",
-                "buatKonsultasi" => $request->buatKonsultasi,
-            ]);
+        if ( isset( $request->buatConsultation ) && ! isset( $request->keluhan ) )
+        {
+            return view ( "dashboard.patient.consultation", [ 
+                "user"             => $user,
+                "patient"          => $patient,
+                "title"            => "Dashboard Konsultasi",
+                "buatConsultation" => $request->buatConsultation,
+            ] );
         }
 
-        $request->validate([
-            "keluhan" => ["required", "max:84"],
+        $request->validate ( [ 
+            "keluhan"    => [ "required", "max:84" ],
             "keterangan" => "required",
-        ]);
+        ] );
 
-        Konsultasi::create([
-            "pasien_id" => strval($user->pasien_id),
-            "keluhan" => $request->keluhan,
+        Consultation::create ( [ 
+            "patient_id" => strval ( $user->patient_id ),
+            "keluhan"    => $request->keluhan,
             "keterangan" => $request->keterangan,
-        ]);
+        ] );
 
-        return redirect()
-            ->route("dashboard-pasien-konsultasi")
-            ->with("success", "Sukses Mengirimkan Konsultasi");
+        return redirect ()
+            ->route ( "dashboard-patient-consultation" )
+            ->with ( "success", "Sukses Mengirimkan Consultation" );
     }
 
-    public function dashboard_pasien_test(Request $request)
+    public function dashboard_patient_test ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            $pasien = $user->pasien()->first();
-            return view("dashboard.pasien.test", compact('user', 'pasien'));
+        $user = Auth::user ();
+        if ( $user )
+        {
+            $patient = $user->patient ()->first ();
+            return view ( "dashboard.patient.test", compact ( 'user', 'patient' ) );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_pasien_penjemputan(Request $request)
+    public function dashboard_patient_evacuation ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            $pasien = $user->pasien()->first();
-            $dataPenjemputan = Penjemputan::where("pasien_id", $pasien->id)
-                ->where("selesai", false)
-                ->latest()
-                ->first();
+        $user = Auth::user ();
+        if ( $user )
+        {
+            $patient        = $user->patient ()->first ();
+            $dataEvacuation = Evacuation::where ( "patient_id", $patient->id )
+                ->where ( "is_done", false )
+                ->latest ()
+                ->first ();
 
-            $paramedis = isset($dataPenjemputan) ? Paramedis::find($dataPenjemputan->paramedis_id) : null;
+            $paramedic = isset( $dataEvacuation ) ? Paramedic::find ( $dataEvacuation->paramedic_id ) : null;
 
-            return view("dashboard.pasien.penjemputan", [
-                "user" => $user,
-                "pasien" => $pasien,
-                "title" => "Dashboard Penjemputan",
-                "dataPenjemputan" => $dataPenjemputan,
-                "paramedis" => $paramedis,
-            ]);
+            return view ( "dashboard.patient.evacuation", [ 
+                "user"           => $user,
+                "patient"        => $patient,
+                "title"          => "Dashboard Penjemputan",
+                "dataEvacuation" => $dataEvacuation,
+                "paramedic"      => $paramedic,
+            ] );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_pasien_penjemputan_action(Request $request)
+    public function dashboard_patient_evacuation_action ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            $pasien = $user->pasien()->first();
+        $user = Auth::user ();
+        if ( $user )
+        {
+            $patient = $user->patient ()->first ();
 
-            Penjemputan::create([
-                "pasien_id" => $pasien->id,
-                "paramedis_id" => null,
-                "lintang" => $request->lintang,
-                "bujur" => $request->bujur,
-            ]);
+            Evacuation::create ( [ 
+                "patient_id"   => $patient->id,
+                "paramedic_id" => null,
+                "lintang"      => $request->lintang,
+                "bujur"        => $request->bujur,
+            ] );
 
-            return redirect()->route("dashboard-pasien-penjemputan");
+            return redirect ()->route ( "dashboard-patient-evacuation" );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_dokter(Request $request)
+    public function dashboard_doctor ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            $dokter = $user->dokter()->first();
-            $dataReservasi = Reservasi::where("dokter_id", $dokter->id)
-                ->orderBy("id")
-                ->get();
-            $dataKonsultasi = Konsultasi::where("dokter_id", $dokter->id)
-                ->orderBy("id")
-                ->get();
-            $Reservasi = Reservasi::all();
+        $user = Auth::user ();
+        if ( $user )
+        {
+            $doctor           = $user->doctor ()->first ();
+            $dataReservation  = Reservation::where ( "doctor_id", $doctor->id )
+                ->orderBy ( "id" )
+                ->get ();
+            $dataConsultation = Consultation::where ( "doctor_id", $doctor->id )
+                ->orderBy ( "id" )
+                ->get ();
+            $Reservation      = Reservation::all ();
 
-            $spesialisSuffixes = [
-                "Dokter Gigi" => ", drg.",
-                "Dokter Umum" => ", dr.",
+            $spesialisSuffixes = [ 
+                "Dokter Gigi"  => ", drg.",
+                "Dokter Umum"  => ", dr.",
                 "Dokter Kulit" => ", SpKK.",
-                "Psikiater" => ", SpKJ.",
-                "Dokter THT" => ", SpTHT."
+                "Psikiater"    => ", SpKJ.",
+                "Dokter THT"   => ", SpTHT.",
             ];
 
-            if ($dokter->spesialis == "Dokter Gigi") {
+            if ( "Dokter Gigi" == $doctor->spesialis )
+            {
                 $namaDokter = $user->name . ", drg.";
-            } elseif ($dokter->spesialis == "Dokter Umum") {
+            }
+            elseif ( "Dokter Umum" == $doctor->spesialis )
+            {
                 $namaDokter = $user->name . ", dr.";
-            } elseif ($dokter->spesialis == "Dokter Kulit") {
+            }
+            elseif ( "Dokter Kulit" == $doctor->spesialis )
+            {
                 $namaDokter = $user->name . ", SpKK.";
-            } elseif ($dokter->spesialis == "Psikiater") {
+            }
+            elseif ( "Psikiater" == $doctor->spesialis )
+            {
                 $namaDokter = $user->name . ", SpKJ.";
-            } elseif ($dokter->spesialis == "Dokter THT") {
+            }
+            elseif ( "Dokter THT" == $doctor->spesialis )
+            {
                 $namaDokter = $user->name . ", SpTHT.";
             }
 
-            return view("dashboard.dokter.dashboard", [
-                "user" => $user,
-                "dokter" => $dokter,
-                "title" => "Dashboard Dokter",
-                "dataReservasi" => $dataReservasi,
-                "dataKonsultasi" => $dataKonsultasi,
-                "myReservasi" => $Reservasi->where("dokter_id", $dokter->id)->count(),
-                "countReservasi" => $Reservasi->count(),
-            ]);
+            return view ( "dashboard.doctor.dashboard", [ 
+                "user"             => $user,
+                "doctor"           => $doctor,
+                "title"            => "Dashboard Dokter",
+                "dataReservation"  => $dataReservation,
+                "dataConsultation" => $dataConsultation,
+                "myReservation"    => $Reservation->where ( "doctor_id", $doctor->id )->count (),
+                "countReservation" => $Reservation->count (),
+            ] );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-
-    public function dashboard_dokter_reservasi(Request $request)
+    public function dashboard_doctor_reservation ( Request $request )
     {
-        $user = Auth::user();
-        if ($user) {
-            $dokter = $user->dokter()->first();
-            $jam_sekarang = intval(date("H"));
-            $JamTidakKosong = Reservasi::where("dokter_id", $dokter->id)
-                ->pluck("waktu")
-                ->all();
+        $user = Auth::user ();
+        if ( $user )
+        {
+            $doctor         = $user->doctor ()->first ();
+            $jam_sekarang   = intval ( date ( "H" ) );
+            $JamTidakKosong = Reservation::where ( "doctor_id", $doctor->id )
+                ->pluck ( "waktu" )
+                ->all ();
 
-            $dataReservasi1 = Reservasi::where(
+            $dataReservation1 = Reservation::where (
                 "tanggal",
                 ">",
-                now()->toDateString()
+                now ()->toDateString ()
             )
-                ->where([
-                    "dokter_id" => null,
-                    "spesialis" => $dokter->spesialis,
-                ])
-                ->whereNotIn("waktu", $JamTidakKosong);
+                ->where ( [ 
+                    "doctor_id" => null,
+                    "spesialis" => $doctor->spesialis,
+                ] )
+                ->whereNotIn ( "waktu", $JamTidakKosong );
 
-            $dataReservasi = Reservasi::where(
+            $dataReservation = Reservation::where (
                 "tanggal",
                 "=",
-                now()->toDateString()
+                now ()->toDateString ()
             )
-                ->where("waktu", ">", $jam_sekarang - 1)
-                ->where([
-                    "dokter_id" => null,
-                    "spesialis" => $dokter->spesialis,
-                ])
-                ->whereNotIn("waktu", $JamTidakKosong)
-                ->orderBy("tanggal")
-                ->union($dataReservasi1)
-                ->orderBy("tanggal")
-                ->get()
-                ->all();
+                ->where ( "waktu", ">", $jam_sekarang - 1 )
+                ->where ( [ 
+                    "doctor_id" => null,
+                    "spesialis" => $doctor->spesialis,
+                ] )
+                ->whereNotIn ( "waktu", $JamTidakKosong )
+                ->orderBy ( "tanggal" )
+                ->union ( $dataReservation1 )
+                ->orderBy ( "tanggal" )
+                ->get ()
+                ->all ();
 
-            return view("dashboard.dokter.reservasi", [
-                "user" => $user,
-                "dokter" => $dokter,
-                "title" => "Dashboard Reservasi",
-                "dataReservasi" => $dataReservasi,
-            ]);
+            return view ( "dashboard.doctor.reservation", [ 
+                "user"            => $user,
+                "doctor"          => $doctor,
+                "title"           => "Dashboard Reservasi",
+                "dataReservation" => $dataReservation,
+            ] );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_dokter_reservasi_action(Request $request)
+    public function dashboard_doctor_reservation_action ( Request $request )
     {
-        if (Auth::check()) {
-            $dokter = Auth::user()->dokter()->first();
-            Reservasi::where("id", $request->reservasiID)->update([
-                "dokter_id" => $dokter->id,
-            ]);
+        if ( Auth::check () )
+        {
+            $doctor = Auth::user ()->doctor ()->first ();
+            Reservation::where ( "id", $request->reservationID )->update ( [ 
+                "doctor_id" => $doctor->id,
+            ] );
 
-            return redirect(route("dashboard-dokter-reservasi"));
+            return redirect ( route ( "dashboard-doctor-reservation" ) );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-
-    public function dashboard_dokter_konsultasi(Request $request)
+    public function dashboard_doctor_consultation ( Request $request )
     {
-        if (Auth::check()) {
-            $dokter = Auth::user()->dokter()->first();
-            $dataKonsultasi = Konsultasi::whereNull("jawaban")->get();
-            return view("dashboard.dokter.konsultasi", [
-                "user" => Auth::user(),
-                "dokter" => $dokter,
-                "title" => "Dashboard Konsultasi",
-                "dataKonsultasi" => $dataKonsultasi,
-            ]);
+        if ( Auth::check () )
+        {
+            $doctor           = Auth::user ()->doctor ()->first ();
+            $dataConsultation = Consultation::whereNull ( "jawaban" )->get ();
+            return view ( "dashboard.doctor.consultation", [ 
+                "user"             => Auth::user (),
+                "doctor"           => $doctor,
+                "title"            => "Dashboard Konsultasi",
+                "dataConsultation" => $dataConsultation,
+            ] );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_dokter_konsultasi_action(Request $request)
+    public function dashboard_doctor_consultation_action ( Request $request )
     {
-        if (Auth::check()) {
-            $dokter = Auth::user()->dokter()->first();
-            $check = Konsultasi::find($request->konsultasiID);
+        if ( Auth::check () )
+        {
+            $doctor = Auth::user ()->doctor ()->first ();
+            $check  = Consultation::find ( $request->consultationID );
 
-            if ($check && is_null($check->jawaban) && is_null($check->dokter_id)) {
-                $check->update([
-                    "jawaban" => $request->jawaban,
-                    "dokter_id" => $dokter->id,
-                ]);
+            if ( $check && is_null ( $check->jawaban ) && is_null ( $check->doctor_id ) )
+            {
+                $check->update ( [ 
+                    "jawaban"   => $request->jawaban,
+                    "doctor_id" => $doctor->id,
+                ] );
             }
         }
-        return redirect()->route("dashboard-dokter-konsultasi");
+        return redirect ()->route ( "dashboard-doctor-consultation" );
     }
 
-    public function dashboard_paramedis(Request $request)
+    public function dashboard_paramedic ( Request $request )
     {
-        if (Auth::check()) {
-            $paramedis = Auth::user()->paramedis()->first();
-            return view("dashboard.paramedis.dashboard", [
-                "user" => Auth::user(),
-                "paramedis" => $paramedis,
-                "title" => "Dashboard Paramedis",
-            ]);
+        if ( Auth::check () )
+        {
+            $paramedic = Auth::user ()->paramedic ()->first ();
+            return view ( "dashboard.paramedic.dashboard", [ 
+                "user"      => Auth::user (),
+                "paramedic" => $paramedic,
+                "title"     => "Dashboard Paramedis",
+            ] );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_paramedis_penjemputan(Request $request)
+    public function dashboard_paramedic_evacuation ( Request $request )
     {
-        if (Auth::check()) {
-            $paramedis = Auth::user()->paramedis()->first();
-            $dataPenjemputan = Penjemputan::where(["selesai" => false])->get();
+        if ( Auth::check () )
+        {
+            $paramedic      = Auth::user ()->paramedic ()->first ();
+            $dataEvacuation = Evacuation::where ( [ "selesai" => false ] )->get ();
 
-            $berlangsungPenjemputan = Penjemputan::where([
-                "paramedis_id" => $paramedis->id,
-                "selesai" => false,
-            ])->latest()->first();
+            $berlangsungEvacuation = Evacuation::where ( [ 
+                "paramedic_id" => $paramedic->id,
+                "selesai"      => false,
+            ] )->latest ()->first ();
 
-            return view("dashboard.paramedis.penjemputan", [
-                "user" => Auth::user(),
-                "paramedis" => $paramedis,
-                "title" => "Dashboard Penjemputan",
-                "dataPenjemputan" => $dataPenjemputan,
-                "berlangsungPenjemputan" => $berlangsungPenjemputan,
-            ]);
+            return view ( "dashboard.paramedic.evacuation", [ 
+                "user"                  => Auth::user (),
+                "paramedic"             => $paramedic,
+                "title"                 => "Dashboard Penjemputan",
+                "dataEvacuation"        => $dataEvacuation,
+                "berlangsungEvacuation" => $berlangsungEvacuation,
+            ] );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
 
-    public function dashboard_paramedis_penjemputan_action(Request $request)
+    public function dashboard_paramedic_evacuation_action ( Request $request )
     {
-        if (Auth::check()) {
-            $check = Penjemputan::find($request->jemputID);
-            if ($check && !$check->paramedis_id) {
-                $check->update([
-                    "paramedis_id" => Auth::user()->paramedis->id,
-                ]);
+        if ( Auth::check () )
+        {
+            $check = Evacuation::find ( $request->jemputID );
+            if ( $check && ! $check->paramedic_id )
+            {
+                $check->update ( [ 
+                    "paramedic_id" => Auth::user ()->paramedic->id,
+                ] );
             }
 
-            if ($request->selesai == "done") {
-                $check->update([
+            if ( "done" == $request->selesai )
+            {
+                $check->update ( [ 
                     "selesai" => true,
-                ]);
+                ] );
             }
-            return redirect()->route("dashboard-paramedis-penjemputan");
+            return redirect ()->route ( "dashboard-paramedic-evacuation" );
         }
-        return redirect()->route("login");
+        return redirect ()->route ( "login" );
     }
+
+    public function get_available_doctor ( Request $request )
+    {
+        if ( request ()->segment ( 1 ) == 'api' )
+        {
+            $tanggal              = $request->input ( 'tanggal' );
+            $waktu                = $request->input ( 'waktu' );
+            $tanggalFormatted     = date ( 'Y-m-d', strtotime ( $tanggal ) );
+            $doctorIdNotAvailable = Reservation::whereNotNull ( 'doctor_id' )
+                ->whereNotNull ( 'patient_id' )
+                ->where ( 'time', $waktu )
+                ->where ( 'date', $tanggalFormatted )
+                ->get ( 'doctor_id' )
+                ->pluck ( 'doctor_id' )
+                ->toArray ();
+            $availableDoctor      = Doctor::whereNotIn ( 'id', $doctorIdNotAvailable )->orderBy ( 'speciality' )->with ( 'users' )->get ();
+            return response ()->json ( [ 
+                "data" => $availableDoctor,
+            ] );
+        }
+    }
+
 }

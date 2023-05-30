@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
+use App\Models\Paramedic;
+use App\Models\Patient;
 use App\Models\User;
-use App\Models\Dokter;
-use App\Models\Pasien;
-use App\Models\Paramedis;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,109 +13,150 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function login_action(Request $request)
+    public function login_action ( Request $request )
     {
-        $request->validate([
+        $request->validate ( [ 
             'username' => 'required|string|max:255',
             'password' => 'required|string|max:255',
-        ]);
+        ] );
 
-        if (request()->segment(1) == 'api') {
-            $pasien_id = Pasien::when($request->username, function ($query, $username) {
-                $query->where('username', $username);
-            })->value('id');
+        if ( request ()->segment ( 1 ) == 'api' )
+        {
+            $patient_id = Patient::when ( $request->username, function ($query, $username)
+            {
+                $query->where ( 'username', $username );
+            } )->value ( 'id' );
 
-            $dokter_id = Dokter::when($request->username, function ($query, $username) {
-                $query->where('username', $username);
-            })->value('id');
+            $doctor_id = Doctor::when ( $request->username, function ($query, $username)
+            {
+                $query->where ( 'username', $username );
+            } )->value ( 'id' );
 
-            $paramedis_id = Paramedis::when($request->username, function ($query, $username) {
-                $query->where('username', $username);
-            })->value('id');
+            $paramedic_id = Paramedic::when ( $request->username, function ($query, $username)
+            {
+                $query->where ( 'username', $username );
+            } )->value ( 'id' );
 
-            $user = User::when($pasien_id, function ($query, $pasien_id) {
-                $query->where('pasien_id', $pasien_id);
-            })->when($dokter_id, function ($query, $dokter_id) {
-                $query->where('dokter_id', $dokter_id);
-            })->when($paramedis_id, function ($query, $paramedis_id) {
-                $query->where('paramedis_id', $paramedis_id);
-            })->first();
+            $user = User::when ( $patient_id, function ($query, $patient_id)
+            {
+                $query->where ( 'patient_id', $patient_id );
+            } )->when ( $doctor_id, function ($query, $doctor_id)
+            {
+                $query->where ( 'doctor_id', $doctor_id );
+            } )->when ( $paramedic_id, function ($query, $paramedic_id)
+            {
+                $query->where ( 'paramedic_id', $paramedic_id );
+            } )->first ();
 
-            if ($user && Hash::check($request->password, $user->password)) {
-                $role = optional($user->pasien)->id ? 'Pasien' : (optional($user->dokter)->id ? 'Dokter' : 'Paramedis');
-                $generatedToken = hash('sha512', $user->{$role}->username . ' — ' . $user->password . ' — ' . Carbon::now()->format('d-m-Y'));
-                $user->update(['mobile_app_token' => $generatedToken]);
-                $token = $user->createToken('authToken')->accessToken;
+            if ( $user && Hash::check ( $request->password, $user->password ) )
+            {
+                $role           = optional ( $user->patient )->id ? 'Patient' : ( optional ( $user->doctor )->id ? 'Doctor' : 'Paramedic' );
+                $generatedToken = hash ( 'sha512', $user->{$role}->username . ' — ' . $user->password . ' — ' . Carbon::now ()->format ( 'd-m-Y' ) );
+                $user->update ( [ 'mobile_app_token' => $generatedToken ] );
+                $token = $user->createToken ( 'authToken' )->accessToken;
 
-                return json_encode(['token' => $token, 'role' => $role, 'stayloggedintoken' => $generatedToken]);
+                return json_encode ( [ 'token' => $token, 'role' => $role, 'stayloggedintoken' => $generatedToken ] );
                 // return response()->json(['token' => $token, 'role' => $role, 'stayloggedintoken' => $generatedToken], 200);
             }
-            return response()->json(['error' => 'Unauthorized'], 401);
-        } else {
-            $pasien_id = Pasien::when($request->username, function ($query, $username) {
-                $query->where('username', $username);
-            })->value('id');
+            return response ()->json ( [ 'error' => 'Unauthorized' ], 401 );
+        }
+        else
+        {
+            $patient_id = Patient::when ( $request->username, function ($query, $username)
+            {
+                $query->where ( 'username', $username );
+            } )->value ( 'id' );
 
-            $dokter_id = Dokter::when($request->username, function ($query, $username) {
-                $query->where('username', $username);
-            })->value('id');
+            $doctor_id = Doctor::when ( $request->username, function ($query, $username)
+            {
+                $query->where ( 'username', $username );
+            } )->value ( 'id' );
 
-            $paramedis_id = Paramedis::when($request->username, function ($query, $username) {
-                $query->where('username', $username);
-            })->value('id');
+            $paramedic_id = Paramedic::when ( $request->username, function ($query, $username)
+            {
+                $query->where ( 'username', $username );
+            } )->value ( 'id' );
 
-            $user = User::when($pasien_id, function ($query, $pasien_id) {
-                $query->where('pasien_id', $pasien_id);
-            })->when($dokter_id, function ($query, $dokter_id) {
-                $query->where('dokter_id', $dokter_id);
-            })->when($paramedis_id, function ($query, $paramedis_id) {
-                $query->where('paramedis_id', $paramedis_id);
-            })->first();
+            $user = User::when ( $patient_id, function ($query, $patient_id)
+            {
+                $query->where ( 'patient_id', $patient_id );
+            } )->when ( $doctor_id, function ($query, $doctor_id)
+            {
+                $query->where ( 'doctor_id', $doctor_id );
+            } )->when ( $paramedic_id, function ($query, $paramedic_id)
+            {
+                $query->where ( 'paramedic_id', $paramedic_id );
+            } )->first ();
 
-            if ($user && Hash::check($request->password, $user->password)) {
-                $request->session()->regenerate();
-                Auth::attempt(['name' => $user->name, 'password' => $request->password]);
-                if (optional($user->pasien)->id) {
-                    return redirect()->route('dashboard-pasien');
-                } elseif (optional($user->dokter)->id) {
-                    return redirect()->route('dashboard-dokter');
-                } elseif (optional($user->paramedis)->id) {
-                    return redirect()->route('dashboard-paramedis');
+            if ( $user && Hash::check ( $request->password, $user->password ) )
+            {
+                $request->session ()->regenerate ();
+                Auth::attempt ( [ 'name' => $user->name, 'password' => $request->password ] );
+                if ( optional ( $user->patient )->id )
+                {
+                    return redirect ()->route ( 'dashboard-patient' );
                 }
-                return redirect()->route('login')->with('gagal', 'Username dan/atau Password Salah.');
+                elseif ( optional ( $user->doctor )->id )
+                {
+                    return redirect ()->route ( 'dashboard-doctor' );
+                }
+                elseif ( optional ( $user->paramedic )->id )
+                {
+                    return redirect ()->route ( 'dashboard-paramedic' );
+                }
+                return redirect ()->route ( 'login' )->with ( 'gagal', 'Username dan/atau Password Salah.' );
             }
-            return redirect()->route('login')->with('gagal', 'Username dan/atau Password Salah.');
+            return redirect ()->route ( 'login' )->with ( 'gagal', 'Username dan/atau Password Salah.' );
         }
     }
 
-    public function login(Request $request)
+    public function login ( Request $request )
     {
-        if (Auth::user()) {
-            if (Auth::user()->pasien_id) {
-                return redirect()->route('dashboard-pasien');
-            } elseif (Auth::user()->dokter_id) {
-                return redirect()->route('dashboard-dokter');
-            } elseif (Auth::user()->paramedis_id) {
-                return redirect()->route('dashboard-paramedis');
+        if ( Auth::user () )
+        {
+            if ( Auth::user ()->patient_id )
+            {
+                return redirect ()->route ( 'dashboard-patient' );
             }
-            return redirect()->route('beranda');
+            elseif ( Auth::user ()->doctor_id )
+            {
+                return redirect ()->route ( 'dashboard-doctor' );
+            }
+            elseif ( Auth::user ()->paramedic_id )
+            {
+                return redirect ()->route ( 'dashboard-paramedic' );
+            }
+            return redirect ()->route ( 'beranda' );
         }
-        return view('login');
+        return view ( 'login' );
     }
 
-
-    public function registrasi_pasien_action(Request $request)
+    public function registration_patient_action ( Request $request )
     {
-        $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email|max:255',
-            'username' => 'required|string|unique:pasien,username|max:255',
-            'no_hp' => [
+        $validatedData = $request->validate ( [ 
+            'nama'     => [ 
                 'required',
-                'unique:pasien,nomortelepon',
-                'regex:/^(\+62|0)[0-9]{8,15}$/'
+                'string',
+                'max:255',
             ],
-            'password' => [
+            'email'    => [ 
+                'required',
+                'email',
+                'unique:users,email',
+                'max:255',
+            ],
+            'username' => [ 
+                'required',
+                'string',
+                'unique:patient,username',
+                'max:255'
+            ],
+            'no_hp'    => [ 
+                'required',
+                'unique:patient,nomortelepon',
+                'regex:/^(\+62|0)[0-9]{8,15}$/',
+            ],
+            'password' => [ 
                 'required',
                 'string',
                 'min:8',
@@ -123,69 +164,72 @@ class UserController extends Controller
                 'confirmed',
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             ],
-        ]);
+        ] );
 
-        $User = User::create([
-            'name' => $validatedData['nama'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
+        $User = User::create ( [ 
+            'name'     => $validatedData[ 'nama' ],
+            'email'    => $validatedData[ 'email' ],
+            'password' => Hash::make ( $validatedData[ 'password' ] ),
+        ] );
 
-        $Pasien = Pasien::create([
-            'username' => $validatedData['username'],
-            'nomortelepon' => $validatedData['no_hp'],
-        ]);
+        $Patient = Patient::create ( [ 
+            'username'     => $validatedData[ 'username' ],
+            'nomortelepon' => $validatedData[ 'no_hp' ],
+        ] );
 
-        $User->update(['pasien_id' => $Pasien->id]);
-        $Pasien->update(['user_id' => $User->id]);
+        $User->update ( [ 'patient_id' => $Patient->id ] );
+        $Patient->update ( [ 'user_id' => $User->id ] );
 
-        return redirect()->route("login")->with("success", "Registrasi Berhasil!");
+        return redirect ()->route ( "login" )->with ( "success", "Registrasi Berhasil!" );
     }
 
-    public function registrasi_pasien(Request $request)
+    public function registration_patient ( Request $request )
     {
-        return view('registrasi');
+        return view ( 'registration' );
     }
 
-    public function logout_action(Request $request)
+    public function logout_action ( Request $request )
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect(route('beranda'));
+        Auth::logout ();
+        $request->session ()->invalidate ();
+        $request->session ()->regenerateToken ();
+        return redirect ( route ( 'beranda' ) );
     }
 
-    public function mobile_app_token_check(Request $request)
+    public function mobile_app_token_check ( Request $request )
     {
-        if ($request->segment(1) !== 'api') {
-            return response()->json(['tokenCheck' => false], 401);
+        if ( $request->segment ( 1 ) !== 'api' )
+        {
+            return response ()->json ( [ 'tokenCheck' => false ], 401 );
         }
 
-        $request->validate([
-            'username' => 'required',
+        $request->validate ( [ 
+            'username'          => 'required',
             'stayloggedintoken' => 'required',
-            'role' => 'required',
-        ]);
+            'role'              => 'required',
+        ] );
 
-        $model = ucfirst($request->role);
-        $ID = $model::where('username', $request->username)->value('userid');
-        $User = User::find($ID);
+        $model = ucfirst ( $request->role );
+        $ID    = $model::where ( 'username', $request->username )->value ( 'userid' );
+        $User  = User::find ( $ID );
 
-        if (!$User) {
-            return response()->json(['tokenCheck' => false], 401);
+        if ( ! $User )
+        {
+            return response ()->json ( [ 'tokenCheck' => false ], 401 );
         }
 
-        $databaseToken = $User->mobile_app_token;
-        $checkToken = hash('sha512', $request->username . " — " . $User->password . " — " . Carbon::now()->format('d-m-Y'));
-        $generatedToken = hash('sha512', $User->{$request->role}->username . " — " . $User->password . " — " . Carbon::now()->format('d-m-Y'));
+        $databaseToken  = $User->mobile_app_token;
+        $checkToken     = hash ( 'sha512', $request->username . " — " . $User->password . " — " . Carbon::now ()->format ( 'd-m-Y' ) );
+        $generatedToken = hash ( 'sha512', $User->{$request->role}->username . " — " . $User->password . " — " . Carbon::now ()->format ( 'd-m-Y' ) );
 
-        if ($databaseToken === $checkToken && $checkToken === $generatedToken) {
-            return response()->json(['tokenCheck' => true], 200);
+        if ( $databaseToken === $checkToken && $checkToken === $generatedToken )
+        {
+            return response ()->json ( [ 'tokenCheck' => true ], 200 );
         }
 
         $User->mobile_app_token = null;
-        $User->save();
+        $User->save ();
 
-        return response()->json(['tokenCheck' => false], 401);
+        return response ()->json ( [ 'tokenCheck' => false ], 401 );
     }
 }

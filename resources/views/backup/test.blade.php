@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Mahasiswa')
 
-@extends('app')
+@extends('_app')
 
 @section('header')
     <!-- Vendor CSS Files -->
@@ -19,10 +19,10 @@
 @section('content')
 
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
+    <header class="header fixed-top d-flex align-items-center" id="header">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a class="logo d-flex align-items-center" href="index.html">
                 <img src="assets_NADM/img/logo.png" alt="">
                 <span class="d-none d-lg-block">NiceAdmin</span>
             </a>
@@ -31,7 +31,7 @@
 
         <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <input name="query" type="text" title="Enter search keyword" placeholder="Search">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
         </div><!-- End Search Bar -->
@@ -47,7 +47,7 @@
 
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-icon" data-bs-toggle="dropdown" href="#">
                         <i class="bi bi-bell"></i>
                         <span class="badge bg-primary badge-number">4</span>
                     </a><!-- End Notification Icon -->
@@ -122,7 +122,7 @@
 
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-icon" data-bs-toggle="dropdown" href="#">
                         <i class="bi bi-chat-left-text"></i>
                         <span class="badge bg-success badge-number">3</span>
                     </a><!-- End Messages Icon -->
@@ -138,7 +138,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets_NADM/img/messages-1.jpg" alt="" class="rounded-circle">
+                                <img class="rounded-circle" src="assets_NADM/img/messages-1.jpg" alt="">
                                 <div>
                                     <h4>Maria Hudson</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -152,7 +152,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets_NADM/img/messages-2.jpg" alt="" class="rounded-circle">
+                                <img class="rounded-circle" src="assets_NADM/img/messages-2.jpg" alt="">
                                 <div>
                                     <h4>Anna Nelson</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -166,7 +166,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets_NADM/img/messages-3.jpg" alt="" class="rounded-circle">
+                                <img class="rounded-circle" src="assets_NADM/img/messages-3.jpg" alt="">
                                 <div>
                                     <h4>David Muldon</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -188,8 +188,9 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets_NADM/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown"
+                        href="#">
+                        <img class="rounded-circle" src="assets_NADM/img/profile-img.jpg" alt="Profile">
                         <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -248,7 +249,7 @@
     </header><!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+    <aside class="sidebar" id="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -268,9 +269,10 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-menu-button-wide"></i><span>Components</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul class="nav-content collapse " id="components-nav" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="components-alerts.html">
                             <i class="bi bi-circle"></i><span>Alerts</span>
@@ -348,7 +350,7 @@
                 <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul class="nav-content collapse " id="forms-nav" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="forms-elements.html">
                             <i class="bi bi-circle"></i><span>Form Elements</span>
@@ -374,9 +376,10 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul class="nav-content collapse " id="tables-nav" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="tables-general.html">
                             <i class="bi bi-circle"></i><span>General Tables</span>
@@ -394,7 +397,7 @@
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul class="nav-content collapse " id="charts-nav" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="charts-chartjs.html">
                             <i class="bi bi-circle"></i><span>Chart.js</span>
@@ -417,7 +420,7 @@
                 <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul class="nav-content collapse " id="icons-nav" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="icons-bootstrap.html">
                             <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
@@ -491,14 +494,17 @@
 
     </aside><!-- End Sidebar-->
 
-    <main id="main" class="main">
+    <main class="main" id="main">
 
         {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3960.2766998534994!2d107.63132761525175!3d-6.976643970256049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNTgnMzUuOSJTIDEwN8KwMzgnMDAuNyJF!5e0!3m2!1sen!2sid!4v1681233348599!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
 
         {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3960.276699853487!2d107.660492!3d-6.917840!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNTgnMzUuOSJTIDEwN8KwMzgnMDAuNyJF!5e0!3m2!1sid!2sid!4v1681233623240!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
 
         {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3960.276699853487!2d107.66037674552679!3d-6.917882262485007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNTgnMzUuOSJTIDEwN8KwMzgnMDAuNyJF!5e0!3m2!1sid!2sid!4v1681233623240!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
-        <iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAwEHWPAMerBlBh1GNxJdSfQciMiOGOh98&center=-6.976648697976676,107.63351648974074&zoom=15" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe
+            src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAwEHWPAMerBlBh1GNxJdSfQciMiOGOh98&center=-6.976648697976676,107.63351648974074&zoom=15"
+            style="border:0;" width="600" height="450" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
         {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
         <script>
             var iframe = document.createElement('iframe');
@@ -508,7 +514,9 @@
 
         <iframe id="map-container"></iframe> --}}
         <div class="col-lg col-md-6 footer-links">
-            <iframe style="border:0; width: 100%; height: 350px;" src="https://maps.google.com/maps?q=-6.978866,107.631575&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"" frameborder="0" allowfullscreen></iframe> </ul> -->
+            <iframe style="border:0; width: 100%; height: 350px;"
+                src="https://maps.google.com/maps?q=-6.978866,107.631575&iwloc=&output=embed" frameborder="0"
+                scrolling="no" marginheight="0" marginwidth="0"" frameborder="0" allowfullscreen></iframe> </ul> -->
         </div>
         <p>Current location: <span id="location"></span></p>
 
@@ -534,7 +542,7 @@
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
+    <footer class="footer" id="footer">
         <div class="copyright">
             &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
         </div>
@@ -547,7 +555,8 @@
         </div>
     </footer><!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a class="back-to-top d-flex align-items-center justify-content-center" href="#"><i
+            class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS -->
     <script src="assets_NADM/vendor/apexcharts/apexcharts.min.js"></script>

@@ -1,6 +1,6 @@
 @section('title', 'Login')
 
-@extends('app')
+@extends('_app')
 
 @section('header')
     <!-- Vendor CSS Files -->
@@ -11,22 +11,22 @@
     {{-- <link href="assets_NADM/vendor/quill/quill.bubble.css" rel="stylesheet"> --}}
     {{-- <link href="assets_NADM/vendor/remixicon/remixicon.css" rel="stylesheet"> --}}
     <link href="assets_NADM/vendor/simple-datatables/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet"
         integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css" rel="stylesheet"
         integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.css" rel="stylesheet"
         integrity="sha512-XMxqcAfuPHOh2Kz0Z3oDynUcLgyKP6B1NCKUTxyVbM02u1ZrygDcLddKw7KpN/SGmdw8raHbKgaIHP7+bEfGYw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.bubble.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.bubble.css" rel="stylesheet"
         integrity="sha512-mLecVYo2QWbbYIF2u/ppRT91u615n044kBhrGzqbKQRRQxBUj8BR5b+z9qQsUNyWVYr8Z+c/TISuI7cnbpqpWg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.3.0/remixicon.css"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.3.0/remixicon.css" rel="stylesheet"
         integrity="sha512-0JEaZ1BDR+FsrPtq5Ap9o05MUwn8lKs2GiCcRVdOH0qDcUcCoMKi8fDVJ9gnG8VN1Mp/vuWw2sMO0SQom5th4g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -56,7 +56,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-3">
-                            <a href="{{ route('beranda') }}" class="logo d-flex align-items-center w-auto">
+                            <a class="logo d-flex align-items-center w-auto" href="{{ route('home') }}">
                                 <img src="{{ asset('favicon.ico') }}" alt="">
                                 <span class="d-none d-lg-block">TelkomSehat</span>
                             </a>
@@ -91,26 +91,26 @@
                                     </div>
                                 @endif
 
-                                <form method="POST" action="{{ route('login.action') }}" class="row g-3 needs-validation">
+                                <form class="row g-3 needs-validation" method="POST" action="{{ route('login.action') }}">
                                     @csrf
 
                                     <div class="col-12">
-                                        <label for="yourUsername" class="form-label">Username</label>
+                                        <label class="form-label" for="yourUsername">Username</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="inputGroupPrepend"><i
                                                     class="bi bi-at"></i></span>
-                                            <input type="text" name="username" class="form-control" id="yourUsername"
+                                            <input class="form-control" id="yourUsername" name="username" type="text"
                                                 placeholder="Username" required>
                                             <div class="invalid-feedback">Masukkan Username.</div>
                                         </div>
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="yourPassword" class="form-label">Password</label>
+                                        <label class="form-label" for="yourPassword">Password</label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control" placeholder="Password"
-                                                id="password-input" required name="password">
-                                            <button type="button" class="input-group-text" id="show-password-btn"><i
+                                            <input class="form-control" id="password-input" name="password" type="password"
+                                                placeholder="Password" required>
+                                            <button class="input-group-text" id="show-password-btn" type="button"><i
                                                     class="bi bi-eye"></i></button>
                                         </div>
                                         <div class="invalid-feedback">Masukkan Password.</div>

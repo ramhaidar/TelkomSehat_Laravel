@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use App\Models\Penjemputan;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,148 +14,152 @@ use App\Http\Controllers\DashboardController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
-// --- Mahasiswa -- //
+// --- Patient -- //
 
-Route::get(
-    '/dashboard-pasien',
-    [DashboardController::class, 'dashboard_pasien']
-)->name('dashboard-pasien');
+Route::get ( '/dashboard-patient', [ 
+    DashboardController::class,
+    'dashboard_patient'
+] )->name ( 'dashboard-patient' );
 
-Route::get(
-    '/dashboard-pasien-reservasi',
-    [DashboardController::class, 'dashboard_pasien_reservasi']
-)->name('dashboard-pasien-reservasi');
+Route::get ( '/dashboard-patient-reservation', [ 
+    DashboardController::class,
+    'dashboard_patient_reservation'
+] )->name ( 'dashboard-patient-reservation' );
 
-Route::post(
-    '/dashboard-pasien-reservasi',
-    [DashboardController::class, 'dashboard_pasien_reservasi_action']
-)->name('dashboard.pasien.reservasi.action');
+Route::post ( '/dashboard-patient-reservation', [ 
+    DashboardController::class,
+    'dashboard_patient_reservation_action'
+] )->name ( 'dashboard.patient.reservation.action' );
 
-Route::get(
-    '/dashboard-pasien-konsultasi',
-    [DashboardController::class, 'dashboard_pasien_konsultasi']
-)->name('dashboard-pasien-konsultasi');
+Route::get ( '/dashboard-patient-consultation', [ 
+    DashboardController::class,
+    'dashboard_patient_consultation'
+] )->name ( 'dashboard-patient-consultation' );
 
-Route::post(
-    '/dashboard-pasien-konsultasi',
-    [DashboardController::class, 'dashboard_pasien_konsultasi_action']
-)->name('dashboard.pasien.konsultasi.action');
+Route::post ( '/dashboard-patient-consultation', [ 
+    DashboardController::class,
+    'dashboard_patient_consultation_action'
+] )->name ( 'dashboard.patient.consultation.action' );
 
-Route::get(
-    '/dashboard-pasien-penjemputan',
-    [DashboardController::class, 'dashboard_pasien_penjemputan']
-)->name('dashboard-pasien-penjemputan');
+Route::get ( '/dashboard-patient-evacuation', [ 
+    DashboardController::class,
+    'dashboard_patient_evacuation'
+] )->name ( 'dashboard-patient-evacuation' );
 
-Route::post(
-    '/dashboard-pasien-penjemputan',
-    [DashboardController::class, 'dashboard_pasien_penjemputan_action']
-)->name('dashboard.pasien.penjemputan.action');
+Route::post ( '/dashboard-patient-evacuation', [ 
+    DashboardController::class,
+    'dashboard_patient_evacuation_action'
+] )->name ( 'dashboard.patient.evacuation.action' );
 
-Route::get(
-    '/dashboard-pasien-test',
-    [DashboardController::class, 'dashboard_pasien_test']
-)->name('dashboard-pasien-test');
+Route::get ( '/dashboard-patient-test', [ 
+    DashboardController::class,
+    'dashboard_patient_test'
+] )->name ( 'dashboard-patient-test' );
 
-// --- Dokter -- //
 
-Route::get(
-    '/dashboard-dokter',
-    [DashboardController::class, 'dashboard_dokter']
-)->name('dashboard-dokter');
 
-Route::get(
-    '/dashboard-dokter-reservasi',
-    [DashboardController::class, 'dashboard_dokter_reservasi']
-)->name('dashboard-dokter-reservasi');
+// --- Doctor -- //
 
-Route::post(
-    '/dashboard-dokter-reservasi',
-    [DashboardController::class, 'dashboard_dokter_reservasi_action']
-)->name('dashboard.dokter.reservasi.action');
+Route::get ( '/dashboard-doctor', [ 
+    DashboardController::class,
+    'dashboard_doctor'
+] )->name ( 'dashboard-doctor' );
 
-Route::get(
-    '/dashboard-dokter-konsultasi',
-    [DashboardController::class, 'dashboard_dokter_konsultasi']
-)->name('dashboard-dokter-konsultasi');
+Route::get ( '/dashboard-doctor-reservation', [ 
+    DashboardController::class,
+    'dashboard_doctor_reservation'
+] )->name ( 'dashboard-doctor-reservation' );
 
-Route::post(
-    '/dashboard-dokter-konsultasi',
-    [DashboardController::class, 'dashboard_dokter_konsultasi_action']
-)->name('dashboard.dokter.konsultasi.action');
+Route::post ( '/dashboard-doctor-reservation', [ 
+    DashboardController::class,
+    'dashboard_doctor_reservation_action'
+] )->name ( 'dashboard.doctor.reservation.action' );
 
-Route::get(
-    '/dashboard-dokter-test',
-    [DashboardController::class, 'dashboard_dokter_test']
-)->name('dashboard-dokter-test');
+Route::get ( '/dashboard-doctor-consultation', [ 
+    DashboardController::class,
+    'dashboard_doctor_consultation'
+] )->name ( 'dashboard-doctor-consultation' );
 
-// -- Paramedis -- //
+Route::post ( '/dashboard-doctor-consultation', [ 
+    DashboardController::class,
+    'dashboard_doctor_consultation_action'
+] )->name ( 'dashboard.doctor.consultation.action' );
 
-Route::get(
-    '/dashboard-paramedis',
-    [DashboardController::class, 'dashboard_paramedis']
-)->name('dashboard-paramedis');
+Route::get ( '/dashboard-doctor-test', [ 
+    DashboardController::class,
+    'dashboard_doctor_test'
+] )->name ( 'dashboard-doctor-test' );
 
-Route::get(
-    '/dashboard-paramedis-penjemputan',
-    [DashboardController::class, 'dashboard_paramedis_penjemputan']
-)->name('dashboard-paramedis-penjemputan');
+// -- Paramedic -- //
 
-Route::post(
-    '/dashboard-paramedis-penjemputan',
-    [DashboardController::class, 'dashboard_paramedis_penjemputan_action']
-)->name('dashboard.paramedis.penjemputan.action');
+Route::get ( '/dashboard-paramedic', [ 
+    DashboardController::class,
+    'dashboard_paramedic'
+] )->name ( 'dashboard-paramedic' );
+
+Route::get ( '/dashboard-paramedic-evacuation', [ 
+    DashboardController::class,
+    'dashboard_paramedic_evacuation'
+] )->name ( 'dashboard-paramedic-evacuation' );
+
+Route::post ( '/dashboard-paramedic-evacuation', [ 
+    DashboardController::class,
+    'dashboard_paramedic_evacuation_action'
+] )->name ( 'dashboard.paramedic.evacuation.action' );
 
 // --- Login -- //
 
-Route::get(
-    '/login',
-    [UserController::class, 'login']
-)->name('login');
+Route::get ( '/login', [ 
+    UserController::class,
+    'login'
+] )->name ( 'login' );
 
-Route::post(
-    '/login',
-    [UserController::class, 'login_action']
-)->name('login.action');
+Route::post ( '/login', [ 
+    UserController::class,
+    'login_action'
+] )->name ( 'login.action' );
+
 
 // --- Registrasi -- //
 
-Route::get(
-    '/registrasi-pasien',
-    [UserController::class, 'registrasi_pasien']
-)->name('registrasi-pasien');
+Route::get ( '/', [ 
+    UserController::class,
+    'registration_patient'
+] )->name ( 'registration-patient' );
 
-Route::post(
-    '/registrasi-pasien',
-    [UserController::class, 'registrasi_pasien_action']
-)->name('registrasi.pasien.action');
+Route::post ( '/', [ 
+    UserController::class,
+    'registration_patient_action'
+] )->name ( 'registration.patient.action' );
 
 // --- Beranda -- //
 
-Route::get(
-    '/',
-    [HomeController::class, 'beranda']
-)->name('beranda');
+Route::get ( '/', function ()
+    {
+    $user = Auth::user ();
+    $data = $user ? [ 'users' => $user ] : [];
+    return view ( 'index', $data );
+    } )->name ( 'home' );
 
 // -- Logout -- //
 
-Route::get(
-    '/logout',
-    [UserController::class, 'logout_action']
-)->name('logout.action');
+Route::get ( '/logout', [ UserController::class, 'logout_action' ] )->name ( 'logout.action' );
 
 // -- Ajax Test -- //
-Route::get('/data-penjemputan', function () {
-    // $data = Penjemputan::where('id', $id)->first();
-    $data = Penjemputan::get()->all();
-    return response()->json($data);
-});
+Route::get ( '/data-evacuation', function ()
+    {
+    $data = Penjemputan::all ();
+    return response ()->json ( [ 'data' => $data ] );
+    } );
 
-Route::get('/data/{id}', function ($id) {
-    $data = Penjemputan::where('id', $id)->get();
-    if (!isset($data)) {
-        return md5("Kosong");
-    }
-    return md5($data);
-});
+Route::get ( '/data/{id}', function ($id)
+    {
+    $data = Penjemputan::find ( $id );
+    if ( ! $data )
+        {
+        return md5 ( 'Kosong' );
+        }
+    return md5 ( $data );
+    } );

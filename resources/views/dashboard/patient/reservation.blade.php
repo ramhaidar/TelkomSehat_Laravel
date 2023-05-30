@@ -1,14 +1,39 @@
 @section('title', 'Dashboard Reservasi')
 
-@extends('dashboard.pasien.dashboard-pasien-template')
+@extends('dashboard.patient._dashboard-patient-template')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('jquery/jquery-ui-1.12.1.css') }}">
+    {{-- <link href="{{ asset('jquery/jquery-ui-1.12.1.css') }}" rel="stylesheet"> --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" rel="stylesheet"
+        integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/theme.min.css" rel="stylesheet"
+        integrity="sha512-hbs/7O+vqWZS49DulqH1n2lVtu63t3c3MTAn0oYMINS5aT8eIAbJGDXgLt6IxDHcWyzVTgf9XyzZ9iWyVQ7mCQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
-@section('script')
-    <script script src="{{ asset('jquery/jquery-3.6.4.min.js') }}"></script>
-    <script src="{{ asset('jquery/jquery-ui-1.13.2.min.js') }}"></script>
+@section('bottomScriptx')
+    {{-- <script src="{{ asset('jquery/jquery-3.6.4.min.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- <script src="{{ asset('jquery/jquery-ui-1.13.2.min.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        var IsDateSelected = false;
+        var IsTimeSelected = false;
+        var IsDokterSelected = false;
+
+        var DokterSelected;
+        var DateSelected;
+        var TimeSelected;
+
+        var AvailableDoctor;
+    </script>
+
     <script>
         $(function() {
             var now = new Date();
@@ -34,7 +59,30 @@
                     const day = dateParts[0];
                     selectedDate = new Date(year, month, day);
 
+
+                    // const waktuSelect = document.getElementById('waktu');
+                    // waktuSelect.removeAttribute('disabled');
+                    // waktuSelect.selectedIndex = 0;
+
+                    var waktuSelect = $('#waktu');
+                    // waktuSelect.empty();
+                    // waktuSelect.append('<option value=null selected="">Pilih Waktu</option>');
+                    waktuSelect.find('option').slice(1).prop('hidden', true);
+                    waktuSelect.removeAttr('disabled');
+                    waktuSelect.prop('selectedIndex', 0);
+
                     checkSelectedDate();
+
+                    var dokterSelect = $('#dokter');
+                    dokterSelect.empty();
+                    dokterSelect.append('<option value=null selected="">Pilih Dokter</option>');
+
+                    IsDateSelected = true;
+                    IsTimeSelected = false;
+
+                    DateSelected = $(this).val();
+
+                    checkDateAndTime($(this).val());
                 },
             });
 
@@ -81,28 +129,99 @@
             document.getElementsByClassName("form").submit();
         }
     </script>
+
+    <script>
+        var select = document.querySelector('select[name="waktu"]');
+
+        select.addEventListener('change', function() {
+            TimeSelected = this.value;
+            IsTimeSelected = true;
+            checkDateAndTime()
+        });
+    </script>
+
+    <script>
+        function checkDateAndTime() {
+            if (IsDateSelected && IsTimeSelected) {
+                $.ajax({
+                    url: '/api/get_available_doctor',
+                    type: 'POST',
+                    data: {
+                        tanggal: DateSelected,
+                        waktu: TimeSelected,
+                    },
+                    success: function(response) {
+                        AvailableDoctor = Array.from(response.data);
+
+                        checkAvailableDoctor();
+                    },
+                    error: function(xhr) {
+                        console.log(xhr);
+                    }
+                });
+            }
+        }
+    </script>
+
+    <script>
+        function checkAvailableDoctor() {
+            if (AvailableDoctor) {
+                var select = $('#dokter');
+
+                select.empty();
+                select.append('<option value=null selected="">Pilih Dokter</option>');
+                $.each(AvailableDoctor, function(index, value) {
+                    console.log(value);
+                    select.append(
+                        '<option value="' + value.id + '">' + value.speciality + " (" +
+                        value.users[0].name + ")" + '</option>'
+                    );
+                });
+                select.prop('disabled', false);
+            }
+        }
+    </script>
+
+    <script>
+        var select = document.querySelector('select[name="dokter"]');
+
+        select.addEventListener('change', function() {
+            DokterSelected = this.value;
+            IsDokterSelected = true;
+            checkSelectedDoctor()
+        });
+
+        function checkSelectedDoctor() {
+            if (DokterSelected) {
+                var select = $('#keluhan');
+                select.prop('disabled', false);
+            }
+        }
+    </script>
 @endsection
 
-@if (isset($buatReservasi))
+@if (isset($makeReservation))
     @section('contentx')
-        <!-- ======= Breadcrumb Reservasi Mahasiswa ======= -->
+        <!-- ======= Breadcrumb Reservasi Pasien ======= -->
         <div class="pagetitle">
             <h1>Reservasi</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Reservasi</li>
                 </ol>
             </nav>
         </div>
-        <!-- ======= End Breadcrumb Reservasi Mahasiswa ======= -->
+        <!-- ======= End Breadcrumb Reservasi Pasien ======= -->
 
-        <!-- ======= Form Reservasi Mahasiswa ======= -->
+        <hr class="border-2 border-top border-dark">
+
+        <!-- ======= Form Reservasi Pasien ======= -->
         <section class="section reservasi">
             <div class="col-12">
                 <div class="card shadow rounded overflow-auto">
                     <div class="card-body shadow rounded">
-                        <h5 class="card-title">Form Buat Reservasi Mahasiswa</h5>
+                        <h5 class="card-title">Form Buat Reservasi Pasien</h5>
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -114,38 +233,24 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('dashboard.pasien.reservasi.action') }}">
-                            <input type="text" name="buatReservasi" hidden class="form-control" required
-                                value="{{ $user->id }}">
+                        <form method="POST" action="{{ route('dashboard.patient.reservation.action') }}">
+                            <input class="form-control" name="buatReservasi" type="text" value="{{ $user->id }}"
+                                hidden required>
                             @csrf
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Dokter</label>
-                                <div class="col-sm-10">
-                                    <select class="form-select" name="dokter">
-                                        <option selected="">Pilih Dokter</option>
-                                        <option value="Dokter Gigi">Dokter Gigi</option>
-                                        <option value="Dokter Umum">Dokter Umum</option>
-                                        <option value="Dokter Kulit">Dokter Kulit</option>
-                                        <option value="Psikiater">Psikiater</option>
-                                        <option value="Dokter THT">Dokter THT</option>
-                                    </select>
-                                </div>
-                            </div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Tanggal</label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="tanggal" name="tanggal" value="dd-mm-yyyy"
-                                        class="form-control">
+                                    <input class="form-control" id="tanggal" name="tanggal" type="text"
+                                        value="Pilih Tanggal">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Waktu</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select" name="waktu" aria-label="Default select example">
-                                        <option selected="">Pilih Waktu</option>
+                                    <select class="form-select" id="waktu" name="waktu" disabled>
+                                        <option value=null selected="">Pilih Waktu</option>
                                         <option value="8">08:00 - 09:00</option>
                                         <option value="9">09:00 - 10:00</option>
                                         <option value="10">10:00 - 11:00</option>
@@ -159,16 +264,30 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="keluhan" class="col-sm-2 col-form-label">Keluhan</label>
+                                <label class="col-sm-2 col-form-label">Dokter</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" style="height: 100px" name="keluhan"></textarea>
+                                    <select class="form-select" id="dokter" name="dokter" disabled>
+                                        <option value=null selected="">Pilih Dokter</option>
+                                        {{-- <option value="Dokter Gigi">Dokter Gigi</option>
+                                        <option value="Dokter Umum">Dokter Umum</option>
+                                        <option value="Dokter Kulit">Dokter Kulit</option>
+                                        <option value="Psikiater">Psikiater</option>
+                                        <option value="Dokter THT">Dokter THT</option> --}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="keluhan">Keluhan</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="keluhan" name="keluhan" style="height: 100px" disabled></textarea>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-success shadow rounded">Submit Form</button>
+                                    <button class="btn btn-success shadow rounded" type="submit">Submit Form</button>
                                 </div>
                             </div>
                         </form>
@@ -176,39 +295,41 @@
                 </div>
             </div>
         </section>
-        <!-- ======= End Form Reservasi Mahasiswa ======= -->
+        <!-- ======= End Form Reservasi Pasien ======= -->
     @endsection
 @else
     @section('contentx')
-        <!-- ======= Breadcrumb Reservasi Mahasiswa ======= -->
+        <!-- ======= Breadcrumb Reservasi Pasien ======= -->
         <div class="pagetitle">
             <h1>Reservasi</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Reservasi</li>
                 </ol>
             </nav>
         </div>
-        <!-- ======= Breadcrumb Reservasi Mahasiswa ======= -->
+        <!-- ======= Breadcrumb Reservasi Pasien ======= -->
 
-        <!-- ======= Reservasi Mahasiswa ======= -->
+        <hr class="border-2 border-top border-dark">
+
+        <!-- ======= Reservasi Pasien ======= -->
         <section class="section reservasi">
             <div class="col-12">
                 <div class="card shadow rounded overflow-auto">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
-                                <h5 class="card-title">Reservasi Mahasiswa</h5>
+                                <h5 class="card-title">Reservasi Pasien</h5>
                             </div>
 
                             <div class="col-6">
-                                <form method="POST" action="{{ route('dashboard.pasien.reservasi.action') }}">
-                                    <input type="text" name="buatReservasi" hidden class="form-control" required
-                                        value="{{ $user->id }}">
+                                <form method="POST" action="{{ route('dashboard.patient.reservation.action') }}">
+                                    <input class="form-control" name="makeReservation" type="text"
+                                        value="{{ $user->id }}" hidden required>
                                     <button class="btn btn-primary mb-3 mt-3 shadow rounded float-end"
-                                        href="{{ route('dashboard-pasien-reservasi') }}"><i style="padding-right: 10px"
-                                            class="bi bi-calendar2-plus"></i>Buat Reservasi</button>
+                                        href="{{ route('dashboard-patient-reservation') }}"><i class="bi bi-calendar2-plus"
+                                            style="padding-right: 10px"></i>Buat Reservasi</button>
                                     @csrf
                                 </form>
                             </div>
@@ -245,91 +366,87 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataReservasi as $data)
+                                @foreach ($dataReservation as $data)
                                     <tr>
                                         {{-- <th scope="row"><a class="text-primary">{{ $user->pasien->nim }}</a></th> --}}
                                         <td>{{ $user->name }}</td>
-                                        <td><a class="text-primary">{{ $data->keluhan }}</a></td>
-                                        <td>{{ $data->tanggal }}</td>
-                                        @if ($data->waktu == '8')
+                                        <td><a class="text-primary">{{ $data->complaint }}</a></td>
+                                        <td>{{ $data->date }}</td>
+                                        @if ($data->time == '8')
                                             <td>08:00 - 09:00</td>
-                                        @elseif ($data->waktu == '9')
+                                        @elseif ($data->time == '9')
                                             <td>09:00 - 10:00</td>
-                                        @elseif ($data->waktu == '10')
+                                        @elseif ($data->time == '10')
                                             <td>10:00 - 11:00</td>
-                                        @elseif ($data->waktu == '11')
+                                        @elseif ($data->time == '11')
                                             <td>11:00 - 12:00</td>
-                                        @elseif ($data->waktu == '12')
+                                        @elseif ($data->time == '12')
                                             <td>12:00 - 13:00</td>
-                                        @elseif ($data->waktu == '13')
+                                        @elseif ($data->time == '13')
                                             <td>13:00 - 14:00</td>
-                                        @elseif ($data->waktu == '14')
+                                        @elseif ($data->time == '14')
                                             <td>14:00 - 15:00</td>
-                                        @elseif ($data->waktu == '15')
+                                        @elseif ($data->time == '15')
                                             <td>15:00 - 16:00</td>
                                         @endif
 
-                                        @if (isset($data->dokter_id))
-                                            <td><a class="text-primary">{{ $data->dokter->user->name }}</a></td>
+                                        @if (isset($data->doctor_id))
+                                            <td><a class="text-primary">{{ $data->doctor->user->name }}</a></td>
                                         @else
                                             <td><i class="bi bi-dash-lg"></i><i class="bi bi-dash-lg"></i><i
                                                     class="bi bi-dash-lg"></i></td>
                                         @endif
 
-                                        <td>{{ $data->spesialis }}</td>
+                                        <td>{{ $data->speciality }}</td>
 
-                                        @if (isset($data->dokter_id))
-                                            @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
+                                        @if (isset($data->doctor_id))
+                                            @if (strtotime($data->date . ' ' . $data->time . ':00') < strtotime(now()))
                                                 <td><span class="badge bg-secondary shadow rounded">Completed</span></td>
                                                 <td>
-                                                    <button disabled
+                                                    <button class="btn btn-sm btn-danger shadow rounded"
                                                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                                                        class="btn btn-sm btn-danger shadow rounded"><i
-                                                            style="padding-right: 10px"
-                                                            class="bi bi-x-circle"></i>Batal</button>
+                                                        disabled><i class="bi bi-x-circle"
+                                                            style="padding-right: 10px"></i>Batal</button>
                                                 </td>
                                             @else
-                                                @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokter_id))
+                                                @if (($data->time == '8' or $data->time == '9') and isset($data->doctor_id))
                                                     <td><span class="badge bg-success shadow rounded">Approved</span></td>
                                                 @else
                                                     <td><span class="badge bg-warning shadow rounded">Pending</span></td>
                                                 @endif
                                                 <td>
-                                                    <button disabled
+                                                    <button class="btn btn-sm btn-danger shadow rounded"
                                                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                                                        class="btn btn-sm btn-danger shadow rounded"><i
-                                                            style="padding-right: 10px"
-                                                            class="bi bi-x-circle"></i>Batal</button>
+                                                        disabled><i class="bi bi-x-circle"
+                                                            style="padding-right: 10px"></i>Batal</button>
                                                 </td>
                                             @endif
                                         @else
-                                            @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
+                                            @if (strtotime($data->date . ' ' . $data->time . ':00') < strtotime(now()))
                                                 <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
                                                 <td>
-                                                    <button disabled
+                                                    <button class="btn btn-sm btn-danger shadow rounded"
                                                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                                                        class="btn btn-sm btn-danger shadow rounded"><i
-                                                            style="padding-right: 10px"
-                                                            class="bi bi-x-circle"></i>Batal</button>
+                                                        disabled><i class="bi bi-x-circle"
+                                                            style="padding-right: 10px"></i>Batal</button>
                                                 </td>
                                             @else
-                                                @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokter_id))
+                                                @if (($data->time == '8' or $data->time == '9') and isset($data->doctor_id))
                                                     <td><span class="badge bg-success shadow rounded">Approved</span></td>
                                                 @else
                                                     <td><span class="badge bg-warning shadow rounded">Pending</span></td>
                                                 @endif
                                                 <td>
-                                                    <form method="POST"
-                                                        action="{{ route('dashboard.pasien.reservasi.action') }}"
-                                                        id="formHapus{{ $loop->iteration }}">
+                                                    <form id="formHapus{{ $loop->iteration }}" method="POST"
+                                                        action="{{ route('dashboard.patient.reservation.action') }}">
                                                         @csrf
-                                                        <input type="hidden" hidden name="hapusID" hidden
-                                                            class="form-control" required value="{{ $data->id }}">
-                                                        <a onclick="document.getElementById('formHapus{{ $loop->iteration }}').submit()"
+                                                        <input class="form-control" name="hapusID" type="hidden"
+                                                            value="{{ $data->id }}" hidden hidden required>
+                                                        <a class="btn btn-sm btn-danger shadow rounded"
                                                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                                                            class="btn btn-sm btn-danger shadow rounded"><i
-                                                                style="padding-right: 10px"
-                                                                class="bi bi-x-circle"></i>Batal</a>
+                                                            onclick="document.getElementById('formHapus{{ $loop->iteration }}').submit()"><i
+                                                                class="bi bi-x-circle"
+                                                                style="padding-right: 10px"></i>Batal</a>
                                                     </form>
                                                 </td>
                                             @endif
@@ -342,7 +459,7 @@
                 </div>
             </div>
         </section>
-        <!-- ======= End Reservasi Mahasiswa ======= -->
+        <!-- ======= End Reservasi Pasien ======= -->
 
     @endsection
 @endif

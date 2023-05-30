@@ -1,6 +1,6 @@
 @section('title', 'Beranda')
 
-@extends('app')
+@extends('_app')
 
 @section('style')
     <style>
@@ -50,7 +50,7 @@
             <h1 class="logo me-auto">
                 {{-- <a href="index.html">TelkomSehat</a> --}}
 
-                <a href="{{ route('beranda') }}" class="logo d-flex align-items-center w-auto" id="nodecoration">
+                <a href="{{ route('home') }}" class="logo d-flex align-items-center w-auto" id="nodecoration">
                     <img src="{{ asset('favicon.ico') }}" alt="">
                     <span class="d-none ms-3 d-lg-block">TelkomSehat</span>
                 </a>

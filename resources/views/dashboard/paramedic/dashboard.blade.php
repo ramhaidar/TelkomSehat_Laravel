@@ -8,7 +8,7 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
@@ -26,7 +26,8 @@
                                 <h5 class="card-title">TelkomSehat Siap Melayani Anda</h5>
                                 <div class="d-flex align-items-center">
                                     <div class="ps-3">
-                                        <img src="assets_NADM/img/ds_illustrasi.png" class="img-fluid" alt="" style="width: 260px;">
+                                        <img class="img-fluid" src="assets_NADM/img/ds_illustrasi.png" alt=""
+                                            style="width: 260px;">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +60,8 @@
         var dt = new Date();
         var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
         document.getElementById("haritanggal").innerHTML = hari[dt.getDay()] + ', ';
-        document.getElementById("tanggalwaktu").innerHTML = set(dt.getDate()) + '-' + set(dt.getMonth() + 1) + '-' + dt.getFullYear();
+        document.getElementById("tanggalwaktu").innerHTML = set(dt.getDate()) + '-' + set(dt.getMonth() + 1) + '-' + dt
+            .getFullYear();
         window.onload = function() {
             jam();
         }
