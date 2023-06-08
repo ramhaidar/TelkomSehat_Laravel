@@ -103,14 +103,14 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     ```
 -   Create a Database with the same name as the value `DB_DATABASE` in MySQL (Can Use PHPMyAdmin)
 -   Open a Command Prompt in the Laravel Project Root Folder
-    -   Generate a new application key by running the following command in the terminal:
-        ```
-        php artisan key:generate
-        ```
     -   Execute the following command to install the dependencies needed by Laravel:
         ```
         composer install
         ```
+    -   Generate a new application key by running the following command in the terminal:
+        ```
+        php artisan key:generate
+        ```        
     -   Run the following command to create database tables:
         ```
         php artisan migrate
