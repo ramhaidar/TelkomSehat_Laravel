@@ -126,33 +126,28 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Predefined Users
 
--   Mahasiswa:
+-   Patient:
     -   ```
-        NIM: 1301204112
         Nama: Muhammad Dimas Rifki Irianto
         Username: dimasrfq
         Password: dimas123
         ```
     -   ```
-        NIM: 1301204231
         Nama: Ahmad Fasya Adila
         Username: ahmadfasya
         Password: fasya123
         ```
     -   ```
-        NIM: 1301204416
         Nama: Muhammad Hiksal Daeng Jusuf Bauw
         Username: hiksal
         Password: hiksal123
         ```
     -   ```
-        NIM: 1301204017
         Nama: Robith Naufal Razzak
         Username: robithnaufal
         Password: robithnaufal123
         ```
     -   ```
-        NIM: 1301204459
         Nama: Haidaruddin Muhammad Ramdhan
         Username: haidarx
         Password: haidarx123
