@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Reservasi')
 
-@extends('dashboard.dokter.dashboard-dokter-template')
+@extends('dashboard.doctor._dashboard-doctor-template')
 
 @section('contentx')
     <!-- ======= Breadcrumb Reservasi Dokter ======= -->
@@ -56,27 +56,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dataReservasi as $data)
+                            @foreach ($dataReservation as $data)
                                 <tr>
                                     {{-- <th scope="row"><a class="text-primary">{{ $data->pasien->nim }}</a></th> --}}
-                                    <td>{{ $data->pasien->user->name }}</td>
-                                    <td><a class="text-primary">{{ $data->keluhan }}</a></td>
-                                    <td>{{ $data->tanggal }}</td>
-                                    @if ($data->waktu == '8')
+                                    <td>{{ $data->patient->user->name }}</td>
+                                    <td><a class="text-primary">{{ $data->complaint }}</a></td>
+                                    <td>{{ $data->date }}</td>
+                                    @if ($data->time == '8')
                                         <td>08:00 - 09:00</td>
-                                    @elseif ($data->waktu == '9')
+                                    @elseif ($data->time == '9')
                                         <td>09:00 - 10:00</td>
-                                    @elseif ($data->waktu == '10')
+                                    @elseif ($data->time == '10')
                                         <td>10:00 - 11:00</td>
-                                    @elseif ($data->waktu == '11')
+                                    @elseif ($data->time == '11')
                                         <td>11:00 - 12:00</td>
-                                    @elseif ($data->waktu == '12')
+                                    @elseif ($data->time == '12')
                                         <td>12:00 - 13:00</td>
-                                    @elseif ($data->waktu == '13')
+                                    @elseif ($data->time == '13')
                                         <td>13:00 - 14:00</td>
-                                    @elseif ($data->waktu == '14')
+                                    @elseif ($data->time == '14')
                                         <td>14:00 - 15:00</td>
-                                    @elseif ($data->waktu == '15')
+                                    @elseif ($data->time == '15')
                                         <td>15:00 - 16:00</td>
                                     @endif
 
@@ -104,7 +104,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             Apakah Anda yakin ingin menyetujui reservasi
-                                                            {{ $data->pasien->user->name }}
+                                                            {{ $data->patient->user->name }}
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button class="btn btn-secondary" data-bs-dismiss="modal"

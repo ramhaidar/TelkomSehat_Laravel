@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Dokter')
 
-@extends('dashboard.dokter.dashboard-dokter-template')
+@extends('dashboard.doctor._dashboard-doctor-template')
 
 @section('style')
     <style>
@@ -55,15 +55,15 @@
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Jam</th>
                                 <th scope="col">Dokter</th>
-                                <th scope="col">Status</th>
+                                {{-- <th scope="col">Status</th> --}}
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dataReservasi as $data)
+                            @foreach ($dataReservation as $data)
                                 <tr>
                                     {{-- <th scope="row"><a class="text-primary">{{ $data->pasien->nim }}</a></th> --}}
-                                    <td>{{ $data->pasien->user->name }}</td>
-                                    <td><a class="text-primary">{{ $data->keluhan }}</a></td>
+                                    <td>{{ $data->patient->user->name }}</td>
+                                    <td><a class="text-primary">{{ $data->complaint }}</a></td>
                                     <td>{{ $data->tanggal }}</td>
                                     @if ($data->waktu == '8')
                                         <td>08:00 - 09:00</td>
@@ -105,31 +105,31 @@
                                             @else
                                                 <td><span class="badge bg-warning shadow rounded">Approved</span></td>
                                             @endif
-                                            <td>
+                                            {{-- <td>
                                                 <button class="btn btn-sm btn-danger shadow rounded"
                                                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
                                                     disabled><i class="bi bi-x-circle"
                                                         style="padding-right: 10px"></i>Batal</button>
-                                            </td>
+                                            </td> --}}
                                         @endif
                                     @else
                                         @if (strtotime($data->tanggal . ' ' . $data->waktu . ':00') < strtotime(now()))
                                             <td><span class="badge bg-danger shadow rounded">Rejected</span></td>
-                                            <td>
+                                            {{-- <td>
                                                 <button class="btn btn-sm btn-danger shadow rounded"
                                                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
                                                     disabled><i class="bi bi-x-circle"
                                                         style="padding-right: 10px"></i>Batal</button>
-                                            </td>
+                                            </td> --}}
                                         @else
                                             @if (($data->waktu == '8' or $data->waktu == '9') and isset($data->dokter_id))
                                                 <td><span class="badge bg-success shadow rounded">Approved</span></td>
                                             @else
                                                 <td><span class="badge bg-warning shadow rounded">Approved</span></td>
                                             @endif
-                                            <td>
+                                            {{-- <td>
                                                 <form id="formHapus{{ $loop->iteration }}" method="POST"
-                                                    action="{{ route('dashboard.pasien.reservasi.action') }}">
+                                                    action="{{ route('dashboard.doctor.reservation.action') }}">
                                                     @csrf
                                                     <input class="form-control" name="hapusID" type="hidden"
                                                         value="{{ $data->id }}" hidden hidden required>
@@ -138,7 +138,7 @@
                                                         onclick="document.getElementById('formHapus{{ $loop->iteration }}').submit()"><i
                                                             class="bi bi-x-circle" style="padding-right: 10px"></i>Batal</a>
                                                 </form>
-                                            </td>
+                                            </td> --}}
                                         @endif
                                     @endif
                                 </tr>
@@ -159,9 +159,9 @@
                             <h5 class="card-title">Konsultasi Dokter</h5>
                         </div>
                         <div class="col-6">
-                            <form method="POST" action="{{ route('dashboard.pasien.konsultasi.action') }}">
-                                <input class="form-control" name="buatKonsultasi" type="text"
-                                    value="{{ $user->id }}" hidden required>
+                            <form method="POST" action="{{ route('dashboard.doctor.consultation.action') }}">
+                                <input class="form-control" name="buatKonsultasi" type="text" value="{{ $user->id }}"
+                                    hidden required>
                                 @csrf
                             </form>
                         </div>
@@ -176,18 +176,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dataKonsultasi as $data)
+                            @foreach ($dataConsultation as $data)
                                 <tr>
-                                    <td>{{ $data->pasien->user->name }}</td>
-                                    <td>{{ $data->keluhan }}</td>
+                                    <td>{{ $data->patient->user->name }}</td>
+                                    <td>{{ $data->complaint }}</td>
                                     <td>
-                                        <form method="POST" action="{{ route('dashboard.dokter.konsultasi.action') }}">
+                                        <form method="POST" action="{{ route('dashboard.doctor.consultation.action') }}">
                                             @csrf
                                             <input class="form-control" name="konsultasiID" type="text"
                                                 value="{{ $data->id }}" hidden required>
 
-                                            <button class="btn btn-secondary mb-0 mt-0 shadow rounded"
-                                                data-bs-toggle="modal"
+                                            <button class="btn btn-primary mb-0 mt-0 shadow rounded" data-bs-toggle="modal"
                                                 data-bs-target="#KonsulatsiModal{{ $loop->iteration }}" type="button"><i
                                                     class="bi bi-book" style="padding-right: 10px"></i>Lihat</button>
 
@@ -206,15 +205,15 @@
                                                                 <label class="col-form-label"
                                                                     for="recipient-name">Kepada:</label>
                                                                 <input class="form-control" id="recipient-name"
-                                                                    type="text"
-                                                                    value="{{ $data->pasien->user->name }}" disabled>
+                                                                    type="text" value="{{ $data->patient->user->name }}"
+                                                                    disabled>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label"
                                                                     for="recipient-name">Keterangan:</label>
                                                                 <div class="form-control" id="A01">
                                                                     <div class="input-content" id="A02">
-                                                                        <p>{{ $data->keterangan }}</p>
+                                                                        <p>{{ $data->complaint }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -223,7 +222,7 @@
                                                                     for="recipient-name">Jawaban:</label>
                                                                 <div class="form-control" id="A01">
                                                                     <div class="input-content" id="A02">
-                                                                        <p>{{ $data->jawaban }}</p>
+                                                                        <p>{{ $data->answer }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -273,8 +272,8 @@
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ $myReservasi }}</h6>
-                                        <span class="text-danger small pt-1 fw-bold">from {{ $countReservasi }}
+                                        <h6>{{ $myReservation }}</h6>
+                                        <span class="text-danger small pt-1 fw-bold">from {{ $countReservation }}
                                             total</span>
                                     </div>
                                 </div>

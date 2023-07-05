@@ -58,13 +58,13 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown" href="#">
                         <img class="rounded-circle" src="assets_NADM/img/profile-img.jpg" alt="Profile">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $paramedis->username }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $paramedic->username }}</span>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->name }}</h6>
-                            <span>{{ $paramedis->kodeParamedis }}</span>
+                            <span>{{ $paramedic->paramedic_code }}</span>
                         </li>
 
                         <li>
@@ -89,9 +89,9 @@
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
                 @if ($title == 'Dashboard Paramedis')
-                    <a class="nav-link " href="{{ route('dashboard-paramedis') }}">
+                    <a class="nav-link " href="{{ route('dashboard-paramedic') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-paramedis') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-paramedic') }}">
                 @endif
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -100,9 +100,9 @@
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Penjemputan')
-                    <a class="nav-link" href="{{ route('dashboard-paramedis-penjemputan') }}">
+                    <a class="nav-link" href="{{ route('dashboard-paramedic-evacuation') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-paramedis-penjemputan') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-paramedic-evacuation') }}">
                 @endif
                 <i class="bi bi-truck-front"></i>
                 <span>Penjemputan</span>

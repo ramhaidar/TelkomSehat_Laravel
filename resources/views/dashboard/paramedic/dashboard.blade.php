@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Paramedis')
 
-@extends('dashboard.paramedis.dashboard-paramedis-template')
+@extends('dashboard.paramedic._dashboard-paramedic-template')
 
 @section('contentx')
     <!-- ======= Breadcrumb Dashboard Paramedis ======= -->

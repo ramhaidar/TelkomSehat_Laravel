@@ -25,6 +25,13 @@ Route::post ( 'login', [ UserController::class, 'login_action' ] );
 
 Route::post ( 'mobile_app_token_check', [ UserController::class, 'mobile_app_token_check' ] );
 
+Route::post ( 'dashboard_patient', [ DashboardController::class, 'dashboard_patient' ] );
+
+Route::post ( 'dashboard_doctor', [ DashboardController::class, 'dashboard_doctor' ] );
+
+Route::post ( 'dashboard_paramedic', [ DashboardController::class, 'dashboard_paramedic' ] );
+
+
 // Route::resource ( 'patient', UserController::class);
 
 Route::get ( 'patient', [ UserController::class, 'patient' ] );

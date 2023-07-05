@@ -27,19 +27,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PersonalAccessToken extends Model
 {
-    protected $_table = 'personal_access_tokens';
+    protected $table = 'personal_access_tokens';
 
-    protected $_casts = [
+    protected $casts = [ 
         'tokenable_id' => 'int',
         'last_used_at' => 'datetime',
         'expires_at'   => 'datetime',
     ];
 
-    protected $_hidden = [
+    protected $hidden = [ 
         'token',
     ];
 
-    protected $_fillable = [
+    protected $fillable = [ 
         'tokenable_type',
         'tokenable_id',
         'name',

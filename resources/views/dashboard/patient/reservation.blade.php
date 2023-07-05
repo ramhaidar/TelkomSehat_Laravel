@@ -131,13 +131,15 @@
     </script>
 
     <script>
-        var select = document.querySelector('select[name="waktu"]');
+        var selectWaktu = document.querySelector('select[name="waktu"]');
 
-        select.addEventListener('change', function() {
-            TimeSelected = this.value;
-            IsTimeSelected = true;
-            checkDateAndTime()
-        });
+        if (selectWaktu) {
+            selectWaktu.addEventListener('change', function() {
+                TimeSelected = this.value;
+                IsTimeSelected = true;
+                checkDateAndTime()
+            });
+        }
     </script>
 
     <script>
@@ -170,26 +172,37 @@
 
                 select.empty();
                 select.append('<option value=null selected="">Pilih Dokter</option>');
-                $.each(AvailableDoctor, function(index, value) {
-                    console.log(value);
+                if (AvailableDoctor.length > 0) {
+                    $.each(AvailableDoctor, function(index, value) {
+                        console.log(value);
+                        select.append(
+                            '<option value="' + value.id + '">' + value.speciality + " (" +
+                            value.users[0].name + ")" + '</option>'
+                        );
+                    });
+                } else {
+                    select.empty();
                     select.append(
-                        '<option value="' + value.id + '">' + value.speciality + " (" +
-                        value.users[0].name + ")" + '</option>'
+                        '<option value=null>' +
+                        "Maaf, tidak ada Dokter yang tersedia di Tanggal dan Waktu yang anda pilih." +
+                        '</option>'
                     );
-                });
+                }
                 select.prop('disabled', false);
             }
         }
     </script>
 
     <script>
-        var select = document.querySelector('select[name="dokter"]');
+        var selectDokter = document.querySelector('select[id="dokter"]');
 
-        select.addEventListener('change', function() {
-            DokterSelected = this.value;
-            IsDokterSelected = true;
-            checkSelectedDoctor()
-        });
+        if (selectDokter) {
+            selectDokter.addEventListener('change', function() {
+                DokterSelected = this.value;
+                IsDokterSelected = true;
+                checkSelectedDoctor()
+            });
+        }
 
         function checkSelectedDoctor() {
             if (DokterSelected) {
@@ -208,7 +221,8 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Reservasi</li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard-patient-reservation') }}">Reservasi</a></li>
+                    <li class="breadcrumb-item active">Buat Reservasi</li>
                 </ol>
             </nav>
         </div>
@@ -242,7 +256,7 @@
                                 <label class="col-sm-2 col-form-label">Tanggal</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" id="tanggal" name="tanggal" type="text"
-                                        value="Pilih Tanggal">
+                                        value="Pilih Tanggal" readonly>
                                 </div>
                             </div>
 
@@ -266,7 +280,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Dokter</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select" id="dokter" name="dokter" disabled>
+                                    <select class="form-select" id="dokter" name="doctor_id" disabled>
                                         <option value=null selected="">Pilih Dokter</option>
                                         {{-- <option value="Dokter Gigi">Dokter Gigi</option>
                                         <option value="Dokter Umum">Dokter Umum</option>
@@ -355,12 +369,12 @@
                             <thead>
                                 <tr>
                                     {{-- <th scope="col">NIM</th> --}}
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Keluhan</th>
-                                    <th scope="col">Tanggal</th>
-                                    <th scope="col">Jam</th>
+                                    {{-- <th scope="col">Nama</th> --}}
                                     <th scope="col">Dokter</th>
                                     <th scope="col">Spesialis</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Jam</th>
+                                    <th scope="col">Keluhan</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -369,8 +383,16 @@
                                 @foreach ($dataReservation as $data)
                                     <tr>
                                         {{-- <th scope="row"><a class="text-primary">{{ $user->pasien->nim }}</a></th> --}}
-                                        <td>{{ $user->name }}</td>
-                                        <td><a class="text-primary">{{ $data->complaint }}</a></td>
+                                        {{-- <td>{{ $user->name }}</td> --}}
+                                        @if (isset($data->doctor_id))
+                                            <td><a class="text-primary">{{ $data->doctor->user->name }}</a></td>
+                                        @else
+                                            <td><i class="bi bi-dash-lg"></i><i class="bi bi-dash-lg"></i><i
+                                                    class="bi bi-dash-lg"></i></td>
+                                        @endif
+
+                                        <td>{{ $data->speciality }}</td>
+
                                         <td>{{ $data->date }}</td>
                                         @if ($data->time == '8')
                                             <td>08:00 - 09:00</td>
@@ -387,17 +409,12 @@
                                         @elseif ($data->time == '14')
                                             <td>14:00 - 15:00</td>
                                         @elseif ($data->time == '15')
+
+                                        @elseif ($data->time == '15')
                                             <td>15:00 - 16:00</td>
                                         @endif
 
-                                        @if (isset($data->doctor_id))
-                                            <td><a class="text-primary">{{ $data->doctor->user->name }}</a></td>
-                                        @else
-                                            <td><i class="bi bi-dash-lg"></i><i class="bi bi-dash-lg"></i><i
-                                                    class="bi bi-dash-lg"></i></td>
-                                        @endif
-
-                                        <td>{{ $data->speciality }}</td>
+                                        <td>{{ $data->complaint }}</td>
 
                                         @if (isset($data->doctor_id))
                                             @if (strtotime($data->date . ' ' . $data->time . ':00') < strtotime(now()))

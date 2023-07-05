@@ -29,16 +29,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Reservation extends Model
 {
-    protected $_table = 'reservations';
+    protected $table = 'reservations';
 
-    protected $_casts = [
+    protected $casts = [ 
         'patient_id' => 'int',
         'doctor_id'  => 'int',
         'date'       => 'datetime',
         'time'       => 'int',
     ];
 
-    protected $_fillable = [
+    protected $fillable = [ 
         'patient_id',
         'doctor_id',
         'speciality',
@@ -47,13 +47,13 @@ class Reservation extends Model
         'complaint',
     ];
 
-    public function doctor()
+    public function doctor ()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo ( Doctor::class);
     }
 
-    public function patient()
+    public function patient ()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo ( Patient::class);
     }
 }

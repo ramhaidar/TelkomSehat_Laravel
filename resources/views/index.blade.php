@@ -77,17 +77,35 @@
             </nav>
 
             @auth
-                <a class="btn btn-danger appointment-btn-red float-end" href="{{ route('logout.action') }}"
-                    role="button">Sign-Out</a>
+                <div class="me-3" style="border-left: 1px solid black; height: 40px;"></div>
+                {{-- <a class="btn btn-danger appointment-btn-red float-end" href="{{ route('logout.action') }}"
+                    role="button">Sign-Out</a> --}}
+                <a class="btn btn-secondary btn-sm float-end mx-2 px-4" href="{{ route('logout.action') }}" role="button"
+                    style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;">
+                    <p style="margin: 0;">Sign Out</p>
+                </a>
                 @if ($users->patient_id)
-                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-patient') }}"
-                        role="button">Dashboard</a>
+                    {{-- <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-patient') }}"
+                        role="button">Dashboard</a> --}}
+                    <a class="btn btn-primary btn-sm float-end mx-2 px-4" href="{{ route('dashboard-patient') }}" role="button"
+                        style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;">
+                        <p style="margin: 0;">Dashboard</p>
+                    </a>
                 @elseif ($users->doctor_id)
-                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-doctor') }}"
-                        role="button">Dashboard</a>
+                    {{-- <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-doctor') }}"
+                        role="button">Dashboard</a> --}}
+                    <a class="btn btn-primary btn-sm float-end mx-2 px-4" href="{{ route('dashboard-doctor') }}" role="button"
+                        style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;">
+                        <p style="margin: 0;">Dashboard</p>
+                    </a>
                 @elseif ($users->paramedic_id)
-                    <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-paramedic') }}"
-                        role="button">Dashboard</a>
+                    {{-- <a class="btn btn-primary appointment-btn float-end" href="{{ route('dashboard-paramedic') }}"
+                        role="button">Dashboard</a> --}}
+                    <a class="btn btn-primary btn-sm float-end mx-2 px-4" href="{{ route('dashboard-paramedic') }}"
+                        role="button"
+                        style="width: 10%; height: 40px; display: flex; justify-content: center; align-items: center; font-family: 'Open Sans', sans-serif;">
+                        <p style="margin: 0;">Dashboard</p>
+                    </a>
                 @endif
             @endauth
 

@@ -24,14 +24,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FailedJob extends Model
 {
-    protected $_table   = 'failed_jobs';
+    protected $table = 'failed_jobs';
     public $timestamps = false;
 
-    protected $_casts = [
+    protected $casts = [ 
         'failed_at' => 'datetime',
     ];
 
-    protected $_fillable = [
+    protected $fillable = [ 
         'uuid',
         'connection',
         'queue',

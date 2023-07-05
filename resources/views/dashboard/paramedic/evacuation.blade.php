@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Penjemputan')
 
-@extends('dashboard.paramedis.dashboard-paramedis-template')
+@extends('dashboard.paramedic._dashboard-paramedic-template')
 
 @section('contentx')
     <!-- ======= Breadcrumb Penjemputan Paramedis ======= -->
@@ -22,7 +22,7 @@
                 <div class="card shadow rounded">
                     <div class="card-body">
                         <h5 class="card-title">Penjemputan Darurat</h5>
-                        <table class="table datatable">
+                        <table class="table datata$ble">
                             <thead>
                                 <tr>
                                     <th scope="col">Nama</th>
@@ -32,26 +32,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataPenjemputan as $data)
+                                @foreach ($dataEvacuation as $data)
                                     <tr>
-                                        <td>{{ $data->pasien->user->name }}</td>
-                                        <td>{{ $data->pasien->nomortelepon }}</td>
-                                        <td>{{ $data->lintang }} <br> {{ $data->bujur }}</td>
+                                        <td>{{ $data->patient->user->name }}</td>
+                                        <td>{{ $data->patient->phone_number }}</td>
+                                        <td>{{ $data->latitude }} <br> {{ $data->longitude }}</td>
 
                                         <td>
                                             <form id="formJemput{{ $loop->iteration }}" method="POST"
-                                                action="{{ route('dashboard.paramedis.penjemputan.action') }}">
+                                                action="{{ route('dashboard.patient.evacuation.action') }}">
                                                 @csrf
                                                 <input class="form-control" name="jemputID" type="hidden"
                                                     value="{{ $data->id }}" hidden required>
 
                                                 @if (!isset($berlangsungPenjemputan))
-                                                    @if (!$data->paramedis_id)
+                                                    @if (!$data->paramedic_id)
                                                         <button class="btn btn-success shadow rounded" id="formTombol"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#JemputConfirmation{{ $loop->iteration }}"
                                                             type="button"
-                                                            href="{{ route('dashboard-pasien-konsultasi') }}">
+                                                            href="{{ route('dashboard.patient.evacuation.action') }}">
                                                             <i class="bi bi-ev-front" style="padding-right: 10px"></i>
                                                             Jemput
                                                         </button>
@@ -60,7 +60,8 @@
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#JemputConfirmation{{ $loop->iteration }}"
                                                             type="button"
-                                                            href="{{ route('dashboard-pasien-konsultasi') }}" disabled>
+                                                            href="{{ route('dashboard.patient.evacuation.action') }}"
+                                                            disabled>
                                                             <i class="bi bi-ev-front" style="padding-right: 10px"></i>
                                                             Jemput
                                                         </button>
@@ -105,7 +106,7 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 Apakah Anda yakin ingin melakukan penjemputan darurat
-                                                                {{ $data->pasien->user->name }} ?
+                                                                {{ $data->patient->user->name }} ?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-secondary" data-bs-dismiss="modal"
@@ -131,7 +132,7 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 Apakah Anda yakin ingin menyelesaikan penjemputan
-                                                                {{ $data->pasien->user->name }} ?
+                                                                {{ $data->patient->user->name }} ?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-secondary" data-bs-dismiss="modal"

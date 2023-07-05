@@ -29,31 +29,31 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Paramedic extends Model
 {
-    protected $_table = 'paramedics';
+    protected $table = 'paramedics';
 
-    protected $_casts = [
+    protected $casts = [ 
         'user_id' => 'int',
     ];
 
-    protected $_fillable = [
+    protected $fillable = [ 
         'user_id',
         'username',
         'paramedic_code',
         'phone_number',
     ];
 
-    public function user()
+    public function user ()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo ( User::class);
     }
 
-    public function evacuations()
+    public function evacuations ()
     {
-        return $this->hasMany(Evacuation::class);
+        return $this->hasMany ( Evacuation::class);
     }
 
-    public function users()
+    public function users ()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany ( User::class);
     }
 }

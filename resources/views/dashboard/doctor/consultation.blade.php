@@ -1,6 +1,6 @@
 @section('title', 'Dashboard Konsultasi')
 
-@extends('dashboard.dokter.dashboard-dokter-template')
+@extends('dashboard.doctor._dashboard-doctor-template')
 
 @section('style')
     <style>
@@ -83,7 +83,7 @@
                                 <h5 class="card-title">Konsultasi Dokter</h5>
                             </div>
                             <div class="col-6">
-                                <form method="POST" action="{{ route('dashboard.pasien.konsultasi.action') }}">
+                                <form method="POST" action="{{ route('dashboard.doctor.consultation.action') }}">
                                     <input class="form-control" name="buatKonsultasi" type="text"
                                         value="{{ $user->id }}" hidden required>
                                     @csrf
@@ -99,12 +99,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataKonsultasi as $data)
+                                @foreach ($dataConsultation as $data)
                                     <tr>
-                                        <td>{{ $data->pasien->user->name }}</td>
-                                        <td>{{ $data->keluhan }}</td>
+                                        <td>{{ $data->patient->user->name }}</td>
+                                        <td>{{ $data->complaint }}</td>
                                         <td>
-                                            <form method="POST" action="{{ route('dashboard.dokter.konsultasi.action') }}">
+                                            <form method="POST"
+                                                action="{{ route('dashboard.doctor.consultation.action') }}">
                                                 @csrf
                                                 <input class="form-control" name="konsultasiID" type="text"
                                                     value="{{ $data->id }}" hidden required>
@@ -132,7 +133,7 @@
                                                                         for="recipient-name">Kepada:</label>
                                                                     <input class="form-control" id="recipient-name"
                                                                         type="text"
-                                                                        value="{{ $data->pasien->user->name }}" disabled>
+                                                                        value="{{ $data->patient->user->name }}" disabled>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="col-form-label"

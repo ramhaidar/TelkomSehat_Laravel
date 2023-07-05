@@ -34,7 +34,7 @@
     </div>
     <!-- ======= End Breadcrumb ======= -->
 
-    <hr class="border-2 border-bottom border-dark">
+    <hr class="border-2 border-top border-dark">
 
     <!-- ======= Dashboard ======= -->
     <section class="section dashboard">

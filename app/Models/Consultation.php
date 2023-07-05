@@ -28,14 +28,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Consultation extends Model
 {
-    protected $_table = 'consultation';
+    protected $table = 'consultations';
 
-    protected $_casts = [
+    protected $casts = [ 
         'patient_id' => 'int',
         'doctor_id'  => 'int',
     ];
 
-    protected $_fillable = [
+    protected $fillable = [ 
         'patient_id',
         'doctor_id',
         'complaint',
@@ -43,13 +43,13 @@ class Consultation extends Model
         'answer',
     ];
 
-    public function doctor()
+    public function doctor ()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo ( Doctor::class);
     }
 
-    public function patient()
+    public function patient ()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo ( Patient::class);
     }
 }

@@ -52,15 +52,17 @@
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown" href="">
                         <img class="rounded-circle" src="assets_NADM/img/profile-img.jpg" alt="Profile">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $dokter->username }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $doctor->username }}</span>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->name }}</h6>
-                            <span>{{ $dokter->kodedokter }}</span>
+                            <span>{{ $doctor->doctor_code }}</span>
                             <br>
-                            <span>{{ $dokter->spesialis }}</span>
+                            {{-- <span>{{ '@' . $doctor->username }}</span> --}}
+                            {{-- <br> --}}
+                            <span>{{ $doctor->spesialis }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -84,9 +86,9 @@
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
                 @if ($title == 'Dashboard Dokter')
-                    <a class="nav-link " href="{{ route('dashboard-dokter') }}">
+                    <a class="nav-link " href="{{ route('dashboard-doctor') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-doctor') }}">
                 @endif
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -95,9 +97,9 @@
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Reservasi')
-                    <a class="nav-link" href="{{ route('dashboard-dokter-reservasi') }}">
+                    <a class="nav-link" href="{{ route('dashboard-doctor-reservation') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter-reservasi') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-doctor-reservation') }}">
                 @endif
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Reservasi</span>
@@ -106,9 +108,9 @@
 
             <li class="nav-item">
                 @if ($title == 'Dashboard Konsultasi')
-                    <a class="nav-link" href="{{ route('dashboard-dokter-konsultasi') }}">
+                    <a class="nav-link" href="{{ route('dashboard-doctor-consultation') }}">
                     @else
-                        <a class="nav-link collapsed" href="{{ route('dashboard-dokter-konsultasi') }}">
+                        <a class="nav-link collapsed" href="{{ route('dashboard-doctor-consultation') }}">
                 @endif
                 <i class="bi bi-chat-square-text"></i>
                 <span>Konsultasi</span>

@@ -39,25 +39,25 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @package App\Models
  */
 class User extends Authenticatable
-    {
+{
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $_table = 'users';
+    protected $table = 'users';
 
-    protected $_casts = [ 
+    protected $casts = [ 
         'email_verified_at' => 'datetime',
         'patient_id'        => 'int',
         'doctor_id'         => 'int',
         'paramedic_id'      => 'int',
     ];
 
-    protected $_hidden = [ 
+    protected $hidden = [ 
         'password',
         'remember_token',
         'mobile_app_token',
     ];
 
-    protected $_fillable = [ 
+    protected $fillable = [ 
         'name',
         'email',
         'email_verified_at',
@@ -70,32 +70,32 @@ class User extends Authenticatable
     ];
 
     public function doctor ()
-        {
+    {
         return $this->belongsTo ( Doctor::class);
-        }
+    }
 
     public function patient ()
-        {
+    {
         return $this->belongsTo ( Patient::class);
-        }
+    }
 
     public function paramedic ()
-        {
+    {
         return $this->belongsTo ( Paramedic::class);
-        }
+    }
 
     public function doctors ()
-        {
+    {
         return $this->hasMany ( Doctor::class);
-        }
+    }
 
     public function paramedics ()
-        {
+    {
         return $this->hasMany ( Paramedic::class);
-        }
+    }
 
     public function patients ()
-        {
+    {
         return $this->hasMany ( Patient::class);
-        }
     }
+}

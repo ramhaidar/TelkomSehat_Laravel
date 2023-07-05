@@ -28,15 +28,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Evacuation extends Model
 {
-    protected $_table = 'evacuations';
+    protected $table = 'evacuations';
 
-    protected $_casts = [
+    protected $casts = [ 
         'patient_id'   => 'int',
         'paramedic_id' => 'int',
         'is_done'      => 'bool',
     ];
 
-    protected $_fillable = [
+    protected $fillable = [ 
         'patient_id',
         'paramedic_id',
         'latitude',
@@ -44,13 +44,13 @@ class Evacuation extends Model
         'is_done',
     ];
 
-    public function patient()
+    public function patient ()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo ( Patient::class);
     }
 
-    public function paramedic()
+    public function paramedic ()
     {
-        return $this->belongsTo(Paramedic::class);
+        return $this->belongsTo ( Paramedic::class);
     }
 }

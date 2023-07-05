@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Doctor;
-use App\Models\Paramedic;
-use App\Models\Patient;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\Paramedic;
 use Illuminate\Http\Request;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\Console\Output\StreamOutput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class UserController extends Controller
 {
@@ -50,8 +56,19 @@ class UserController extends Controller
 
             if ( $user && Hash::check ( $request->password, $user->password ) )
             {
-                $role           = optional ( $user->patient )->id ? 'Patient' : ( optional ( $user->doctor )->id ? 'Doctor' : 'Paramedic' );
-                $generatedToken = hash ( 'sha512', $user->{$role}->username . ' — ' . $user->password . ' — ' . Carbon::now ()->format ( 'd-m-Y' ) );
+                $role = optional ( $user->patient )->id ? 'Pasien' : ( optional ( $user->doctor )->id ? 'Dokter' : 'Paramedis' );
+                if ( $role == "Pasien" )
+                {
+                    $generatedToken = hash ( 'sha512', $user->patient->username . ' — ' . $user->password . ' — ' . Carbon::now ()->format ( 'd-m-Y' ) );
+                }
+                else if ( $role == "Dokter" )
+                {
+                    $generatedToken = hash ( 'sha512', $user->doctor->username . ' — ' . $user->password . ' — ' . Carbon::now ()->format ( 'd-m-Y' ) );
+                }
+                else if ( $role == "Paramedis" )
+                {
+                    $generatedToken = hash ( 'sha512', $user->paramedic->username . ' — ' . $user->password . ' — ' . Carbon::now ()->format ( 'd-m-Y' ) );
+                }
                 $user->update ( [ 'mobile_app_token' => $generatedToken ] );
                 $token = $user->createToken ( 'authToken' )->accessToken;
 
@@ -110,8 +127,13 @@ class UserController extends Controller
         }
     }
 
+
     public function login ( Request $request )
     {
+
+        ( new ConsoleOutput () )->writeln ( "Login Page Accessed" );
+
+
         if ( Auth::user () )
         {
             if ( Auth::user ()->patient_id )
@@ -126,7 +148,7 @@ class UserController extends Controller
             {
                 return redirect ()->route ( 'dashboard-paramedic' );
             }
-            return redirect ()->route ( 'beranda' );
+            return redirect ()->route ( 'home' );
         }
         return view ( 'login' );
     }
@@ -193,7 +215,7 @@ class UserController extends Controller
         Auth::logout ();
         $request->session ()->invalidate ();
         $request->session ()->regenerateToken ();
-        return redirect ( route ( 'beranda' ) );
+        return redirect ( route ( 'home' ) );
     }
 
     public function mobile_app_token_check ( Request $request )
@@ -209,18 +231,45 @@ class UserController extends Controller
             'role'              => 'required',
         ] );
 
-        $model = ucfirst ( $request->role );
-        $ID    = $model::where ( 'username', $request->username )->value ( 'userid' );
-        $User  = User::find ( $ID );
+        if ( $request->role == "Pasien" )
+        {
+            $ID = Patient::where ( 'username', $request->username )->value ( 'user_id' );
+
+        }
+        else if ( $request->role == "Dokter" )
+        {
+            $ID = Doctor::where ( 'username', $request->username )->value ( 'user_id' );
+
+        }
+        else if ( $request->role == "Paramedis" )
+        {
+            $ID = Paramedic::where ( 'username', $request->username )->value ( 'user_id' );
+
+        }
+        $User = User::find ( $ID );
 
         if ( ! $User )
         {
             return response ()->json ( [ 'tokenCheck' => false ], 401 );
         }
 
-        $databaseToken  = $User->mobile_app_token;
-        $checkToken     = hash ( 'sha512', $request->username . " — " . $User->password . " — " . Carbon::now ()->format ( 'd-m-Y' ) );
-        $generatedToken = hash ( 'sha512', $User->{$request->role}->username . " — " . $User->password . " — " . Carbon::now ()->format ( 'd-m-Y' ) );
+        $databaseToken = $User->mobile_app_token;
+        $checkToken    = hash ( 'sha512', $request->username . " — " . $User->password . " — " . Carbon::now ()->format ( 'd-m-Y' ) );
+
+        // $generatedToken = hash ( 'sha512', $User->{$request->role}->username . " — " . $User->password . " — " . Carbon::now ()->format ( 'd-m-Y' ) );
+
+        if ( $request->role == "Pasien" )
+        {
+            $generatedToken = hash ( 'sha512', $User->patient->username . ' — ' . $User->password . ' — ' . Carbon::now ()->format ( 'd-m-Y' ) );
+        }
+        else if ( $request->role == "Dokter" )
+        {
+            $generatedToken = hash ( 'sha512', $User->doctor->username . ' — ' . $User->password . ' — ' . Carbon::now ()->format ( 'd-m-Y' ) );
+        }
+        else if ( $request->role == "Paramedis" )
+        {
+            $generatedToken = hash ( 'sha512', $User->paramedic->username . ' — ' . $User->password . ' — ' . Carbon::now ()->format ( 'd-m-Y' ) );
+        }
 
         if ( $databaseToken === $checkToken && $checkToken === $generatedToken )
         {

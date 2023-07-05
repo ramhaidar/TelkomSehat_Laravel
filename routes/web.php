@@ -124,12 +124,12 @@ Route::post ( '/login', [
 
 // --- Registrasi -- //
 
-Route::get ( '/', [ 
+Route::get ( '/registration_patient', [ 
     UserController::class,
     'registration_patient'
 ] )->name ( 'registration-patient' );
 
-Route::post ( '/', [ 
+Route::post ( '/registration_patient_action', [ 
     UserController::class,
     'registration_patient_action'
 ] )->name ( 'registration.patient.action' );
@@ -137,11 +137,11 @@ Route::post ( '/', [
 // --- Beranda -- //
 
 Route::get ( '/', function ()
-    {
+{
     $user = Auth::user ();
     $data = $user ? [ 'users' => $user ] : [];
     return view ( 'index', $data );
-    } )->name ( 'home' );
+} )->name ( 'home' );
 
 // -- Logout -- //
 
@@ -149,17 +149,17 @@ Route::get ( '/logout', [ UserController::class, 'logout_action' ] )->name ( 'lo
 
 // -- Ajax Test -- //
 Route::get ( '/data-evacuation', function ()
-    {
+{
     $data = Penjemputan::all ();
     return response ()->json ( [ 'data' => $data ] );
-    } );
+} );
 
 Route::get ( '/data/{id}', function ($id)
-    {
+{
     $data = Penjemputan::find ( $id );
     if ( ! $data )
-        {
+    {
         return md5 ( 'Kosong' );
-        }
+    }
     return md5 ( $data );
-    } );
+} );

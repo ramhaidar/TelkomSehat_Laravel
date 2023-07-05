@@ -30,40 +30,40 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Patient extends Model
 {
-    protected $_table = 'patients';
+    protected $table = 'patients';
 
-    protected $_casts = [
+    protected $casts = [ 
         'user_id' => 'int',
     ];
 
-    protected $_fillable = [
+    protected $fillable = [ 
         'username',
         'phone_number',
         'user_id',
     ];
 
-    public function user()
+    public function user ()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo ( User::class);
     }
 
-    public function consultations()
+    public function consultations ()
     {
-        return $this->hasMany(Consultation::class);
+        return $this->hasMany ( Consultation::class);
     }
 
-    public function evacuations()
+    public function evacuations ()
     {
-        return $this->hasMany(Evacuation::class);
+        return $this->hasMany ( Evacuation::class);
     }
 
-    public function reservations()
+    public function reservations ()
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasMany ( Reservation::class);
     }
 
-    public function users()
+    public function users ()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany ( User::class);
     }
 }

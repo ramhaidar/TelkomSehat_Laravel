@@ -18,7 +18,7 @@
     </style>
 @endsection
 
-@if (isset($buatKonsultasi))
+@if (isset($buatConsultation))
     @section('contentx')
         <!-- ======= Breadcrumb Konsultasi Pasien ======= -->
         <div class="pagetitle">
@@ -26,7 +26,12 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Konsultasi</li>
+                    <li class="breadcrumb-item">Konsultasi</li>
+                    <li class="breadcrumb-item active">
+                        <a href="{{ route('dashboard-patient-consultation') }}">
+                            Buat Konsultasi
+                        </a>
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -89,11 +94,11 @@
                             </div>
                             <div class="col-6">
                                 <form method="POST" action="{{ route('dashboard.patient.consultation.action') }}">
-                                    <input class="form-control" name="buatKonsultasi" type="text"
+                                    <input class="form-control" name="buatConsultation" type="text"
                                         value="{{ $user->id }}" hidden required>
                                     <button class="btn btn-primary mb-3 mt-3 float-end shadow rounded"
                                         href="{{ route('dashboard-patient-consultation') }}"><i
-                                            class="bi bi-chat-square-text"></i> Konsultasi</button>
+                                            class="bi bi-chat-square-text me-2"></i>Buat Konsultasi</button>
                                     @csrf
                                 </form>
                             </div>
@@ -151,7 +156,7 @@
                                                         <div class="modal-body">
                                                             @if (isset($data->doctor))
                                                                 <h6><b>Dokter: </b>{{ $data->doctor->user->name }}
-                                                                    <strong>[{{ $data->doctor->doctor_Code }}]</strong>
+                                                                    <strong>[{{ $data->doctor->doctor_code }}]</strong>
                                                                 </h6>
                                                             @else
                                                                 <h6><b>Dokter: </b> -</h6>
