@@ -23,7 +23,7 @@ class AwalanSeeder extends Seeder
         // —————————————————————————————————————————————————————————— //
 
         $patient_id = Patient::create ( [ 
-            // 'nim' => '1301204017',
+            'nim'          => '1301204017',
             'username'     => 'robithnaufal',
             'phone_number' => '6281246229522',
         ] )->id;
@@ -40,7 +40,7 @@ class AwalanSeeder extends Seeder
         // —————————————————————————————————————————————————————————— //
 
         $patient_id = Patient::create ( [ 
-            // 'nim' => '1301204459',
+            'nim'          => '1301204459',
             'username'     => 'haidarx',
             'phone_number' => '6281238777306',
         ] )->id;
@@ -57,7 +57,7 @@ class AwalanSeeder extends Seeder
         // —————————————————————————————————————————————————————————— //
 
         $patient_id = Patient::create ( [ 
-            // 'nim' => '1301204112',
+            'nim'          => '1301204112',
             'username'     => 'dimasrfq',
             'phone_number' => '6285155106991',
         ] )->id;
@@ -74,7 +74,7 @@ class AwalanSeeder extends Seeder
         // —————————————————————————————————————————————————————————— //
 
         $patient_id = Patient::create ( [ 
-            // 'nim' => '1301204231',
+            'nim'          => '1301204231',
             'username'     => 'ahmadfasya',
             'phone_number' => '6285755347595',
         ] )->id;
@@ -91,7 +91,7 @@ class AwalanSeeder extends Seeder
         // —————————————————————————————————————————————————————————— //
 
         $patient_id = Patient::create ( [ 
-            // 'nim' => '1301204416',
+            'nim'          => '1301204416',
             'username'     => 'hiksal',
             'phone_number' => '628112104949',
         ] )->id;
