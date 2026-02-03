@@ -28,7 +28,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "exclude-from-classmap": [
+            "app/Models_BAK",
+            "app/Models_X"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
